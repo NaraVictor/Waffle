@@ -1,0 +1,72 @@
+<link href="../../static/css/login.css" rel="stylesheet">
+<link href="../../static/css/bootstrap.min.css" rel="stylesheet">
+<link href="../../static/css/fontawesome.min.css" rel="stylesheet">
+
+
+<div class="row" id="logincontainer">
+
+    <div class="col-md-7">
+        <img src="../../static/img/subj.png" class="img-responsive" id="subject" />
+    </div>
+
+    <div class="col-md-3">
+        <div class="row text-center shadow mt-5 rounded">
+            <div class="card">
+                <div class="card-body" id="board">
+
+                    <div class="login-img">
+                        <img src="../../static/img/logo.png">
+                    </div>
+
+                    <div class="login-title">
+                        <h4>Signin</h4>
+                    </div>
+
+                    <div class="login-form mt-4">
+
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <input id="email" name="Full Name" placeholder="Email Address" class="form-control"
+                                        type="text">
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <input type="pass" class="form-control" id="pass" placeholder="Password">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <a href="{% url 'board' %}" class="btn btn-block" id="submitbtn">Signin</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="d-flex justify-content-center">
+                            Don't have an account? <a href="#" class="ml-2">Sign Up</a>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="#">Forgot your password?</a>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-0 pb-0">
+                        <div class="d-flex justify-content-center">
+                            <p>
+                                signin with
+                                <i class="fa fa-google"></i>
+                                <i class="fa fa-facebook"></i>
+                                <i class="fa fa-twitter"></i>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="col-md-2">
+</div>
+</div>

@@ -1,0 +1,57 @@
+{% load static %}
+
+
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light nav text-light p-0">
+    <div class="container">
+
+        <img src="{% static '/img/logo.png' %}" class="d-inline-block align-top" width="45" height="40"
+            alt="Waffle Logo" />
+
+        <a class="navbar-brand text-light" href="{% url 'board' %}">
+            waffle
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#wafnav" aria-controls="wafnav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="wafnav">
+
+            <ul class="nav navbar-nav">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control form-control-sm" placeholder="search" name="q">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default btn-sm" type="submit"><i class="fa fa-search"
+                                    style="color: white;"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </ul>
+
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'board' %}">Board</a>
+                </li>
+
+                <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'library' %}">Library</a>
+                </li>
+
+                <li class="nav-item avatar">
+                    <a class="nav-link p-0" href="#">
+                        <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-5.jpg"
+                            class="rounded-circle z-depth-0 mt-1" alt="avatar image" height="30">
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
