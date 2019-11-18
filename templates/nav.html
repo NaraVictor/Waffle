@@ -1,0 +1,89 @@
+{% load static %}
+
+
+
+<!--Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-light nav text-light p-0" id="mainnav">
+    <div class="container">
+
+        <a href="{% url 'landing' %}">
+            <img src="{% static '/img/logo.png' %}" class="d-inline-block align-top" width="45" height="40"
+                alt="Waffle Logo" />
+
+            <span class="navbar-brand text-light">
+                waffle
+            </span>
+        </a>
+
+        <ul class="nav navbar-nav">
+            <form class="navbar-form" role="search">
+                <input type="text" class="mt-1 srchbox form-control form-control-sm" placeholder="search" name="q">
+            </form>
+        </ul>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#wafnav" aria-controls="wafnav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="wafnav">
+
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                <li class="nav-item mr-3">
+                    <a class="text-light nav-link" href="{% url 'about:index' %}">About</a>
+                </li>
+
+                <li class="nav-item mr-3">
+                    <a class="text-light nav-link" href="{% url 'library:index' %}">Library</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item mr-3">
+                    <a class="text-light nav-link" href="{% url 'desk:index' %}">Desk</a>
+                </li>
+
+                <li class="nav-item mr-3">
+                    <a class="text-light nav-link" href="{% url 'scratchpad' %}">Scratchpad</a>
+                </li>
+
+                <li class="nav-item avatar">
+                    <img src="{% static '../static/img/Victor.jpg' %}" class="rounded-circle z-depth-0 mt-1"
+                        alt="avatar image" height="30">
+                </li>
+
+                <li class="nav-item text-dark">
+                    <span class="pr-1 nav-link">{{ user.username }}</span>
+                </li>
+
+                <div class="dropdown show">
+                    <a class="nav-link dropdown-toggle pl-0 pr-0" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Subscriptions</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <a class="dropdown-item" href="#">Communities</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                    </div>
+                </div>
+
+                {% else %}
+
+                <li class="nav-item mr-1">
+                    <a class="authbtn btn btn-light nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="authbtn btn btn-light nav-link" href="#">Signup</a>
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+
+        </div>
+    </div>
+</nav>

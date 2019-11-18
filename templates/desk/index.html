@@ -1,0 +1,55 @@
+{% extends '../base.html' %}
+
+{% block title %}
+- desk
+{% endblock %}
+
+
+{% block content %}
+
+<!-- Kira -->
+<div>
+    {% include '../kirabot/kira.html' %}
+    <span class="kiratext small">Hi, am Kira. Ask me anything!</span>
+    <article class="kira">
+    </article>
+</div>
+
+
+<div class="row">
+    <!-- trending topics -->
+    <section class="col-md-2 col-12">
+        {% include 'desk/partials/trends.html' %}
+    </section>
+
+    <!-- feeds & question -->
+    <section class="col-md-6 col-12">
+        <p>
+            <span style="color: rgb(245, 151, 88);" class="fa fa-question fa-3x"></span>
+            Got a question to ask the world?
+            <button type="button" class="btn waf-washed btn-sm" data-toggle="modal" data-target="#wafpost">waf a
+                question </button>
+        </p>
+
+        {% include 'desk/partials/waf.html' %}
+
+        <!-- <div id="banner"></div> -->
+        <hr>
+        {% include 'desk/partials/cards.html' %}
+
+    </section>
+
+    <!-- communities & explicit ads -->
+    <section class="col-md-4 col-12">
+        {% include 'desk/partials/communities.html' %}
+        <p class="text-secondary">Find more communities <a href="#">here</a></p>
+
+        <hr>
+
+        <p class="text-secondary">Sponsored</p>
+        {% include 'desk/partials/sponsoredcomms.html' %}
+    </section>
+
+</div>
+
+{% endblock content %}
