@@ -37,10 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home',
+
+    # -------------------
+    'desk',
     'library',
-    'login',
+    # 'signin',
     'about',
+    'chatterbot.ext.django_chatterbot',
+    'kirabot',
 ]
 
 MIDDLEWARE = [
@@ -78,6 +82,14 @@ WSGI_APPLICATION = 'waffle.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'waffledb',
+    #     'USER': 'postgres',
+    #     'HOST': 'localhost',
+    #     'PASSWORD': 'admin',
+    # }
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
@@ -125,8 +137,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
+# Login/logout redirect url
 
-#Login/logout redirect url
-
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'login'
+LOGIN_REDIRECT_URL = 'desk:index'
+LOGOUT_REDIRECT_URL = 'landing'

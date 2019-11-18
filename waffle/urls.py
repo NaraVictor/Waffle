@@ -15,11 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic.base import TemplateView
+
 
 urlpatterns = [
+    path('', TemplateView.as_view(
+        template_name='landing/index.html'), name='landing'),
+    path('scratchpad', TemplateView.as_view(
+        template_name='scratchpad.html'), name='scratchpad'),
     path('admin/', admin.site.urls),
-    path('board/', include('home.urls')),
+    path('accounts/', include('django.contrib.auth.urls'), name='login'),
+    # path('accounts/', include('django.contrib.auth.urls'), name='signup'),
+    path('desk/', include('desk.urls')),
     path('library/', include('library.urls')),
     path('about/', include('about.urls')),
-    path('', include('login.urls')),
+    path('kira/', include('kirabot.urls')),
 ]

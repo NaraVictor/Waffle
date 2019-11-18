@@ -13,7 +13,7 @@ nav {
 }
 
 #logincontainer {
-  background: url("../img/bg.png") no-repeat center center fixed;
+  background: url("../img/bg.png") no-repeat center fixed;
   background-size: cover;
   min-height: 100%;
   max-width: 100%;

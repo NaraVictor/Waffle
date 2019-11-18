@@ -1,0 +1,32 @@
+{% load static %}
+
+
+
+<div class="col-5">
+    <a href="{% url 'library:video' 103248 %}" class="videocard" >
+        <div class="card shadow-sm mb-3 cardsize">
+            <img src="{% static '/img/img2.jpg' %}" class="card-img-top card-img" alt="...">
+            <div class="card-body pt-2 pl-2">
+                <h5 class="card-title">Tamed Dagaari</h5>
+                <p class="card-text text-secondary">simtech inc <span class="small pl-4">35mins</span></p>
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<div class="media col-6">
+    <img class="mr-1" src="{% static '/img/bk2.jpg' %}" width="160" height="220" alt="Generic placeholder image">
+    <div class="media-body">
+        <h5 class="mt-0">E - Maths</h5>
+        <span class="small"><span class="text-sm text-primary">Author:</span> Aki-Ola</span>
+        <span class="small"><span class="text-primary">ISBN:</span> 145-201...</span>
+        <span class="small"><span class="text-primary">Pages:</span> 305</span> <br>
+        <span class="small"><span class="text-primary">Format:</span> PDF | EPUB</span>
+        <br>
+        <br>
+        <a href="{% url 'library:book' 87430 %}" class="mt-2 btn btn-sm btn-primary">
+            <span class="fa fa-book-open"></span> Preview
+        </a>
+    </div>
+</div>
