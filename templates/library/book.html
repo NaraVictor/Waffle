@@ -1,0 +1,83 @@
+{% extends '../base.html' %}
+
+{% load static %}
+
+{% block content %}
+{% include '../submenu.html' %}
+
+<div class="row">
+    <!-- Book details -->
+    <div class="col-md-2">
+        <h5 class="text-success">Now Reading..</h5>
+        <img class="mr-2" src="{% static '/img/bk2.jpg' %}" width="150" height="200" alt="Generic placeholder image"
+            class="img-thumbnail" />
+        <table class="table table-responsive">
+            <tr>
+                <td>
+                    Download
+                </td>
+                <td align="right">
+                    <i class="text-success fa fa-download"></i>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Read out
+                </td>
+                <td align="right">
+                    <i class="text-success fa fa-volume-up"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- book read -->
+    <div class="col-md-7">
+        <iframe id="pdfreader" src="{% static '/books/one.pdf' %}">
+        </iframe>
+    </div>
+
+    <!-- recommendations -->
+    <div class="col-md-3">
+        <h5 class="text-center">
+            <span class="badge badge-success p-2">
+                Recommended for you
+            </span>
+        </h5>
+
+        <div class="media mb-2 pb-2">
+            <img class="mr-2" src="{% static '/img/bk3.jpg' %}" width="130" height="170"
+                alt="Generic placeholder image">
+            <div class="media-body">
+                <h5 class="mt-0">E - Maths</h5>
+                <span class="small"><span class="text-sm text-primary">Author:</span> Aki-Ola</span>
+                <span class="small"><span class="text-primary">ISBN:</span> 145-201-G58</span>
+                <span class="small"><span class="text-primary">Pages:</span> 305</span> <br>
+                <span class="small"><span class="text-primary">Format:</span> PDF | EPUB</span>
+                <a href="{% url 'library:book' 87430 %}" class="mt-2 btn btn-sm btn-primary">
+                    <span class="fa fa-book-open"></span> Read
+                </a>
+            </div>
+        </div>
+
+        <div class="media mb-2 pb-2">
+            <img class="mr-2" src="{% static '/img/bk1.jpg' %}" width="130" height="170"
+                alt="Generic placeholder image">
+            <div class="media-body">
+                <h5 class="mt-0">E - Maths</h5>
+                <span class="small"><span class="text-sm text-primary">Author:</span> Aki-Ola</span>
+                <span class="small"><span class="text-primary">ISBN:</span> 145-201-G58</span>
+                <span class="small"><span class="text-primary">Pages:</span> 305</span> <br>
+                <span class="small"><span class="text-primary">Format:</span> PDF | EPUB</span>
+                <a href="{% url 'library:book' 87430 %}" class="mt-2 btn btn-sm btn-primary">
+                    <span class="fa fa-book-open"></span> Read
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock content %}
