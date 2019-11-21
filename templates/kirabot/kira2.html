@@ -7,14 +7,12 @@
 
 {% block content %}
 
-
-
 <div class="card kirabot">
 
-	<div class="card-header msg_head">
+	<div class="card-header msg_head p-1">
 		<div class="d-flex bd-highlight">
 			<div class="img_cont">
-				<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg" class="rounded-circle user_img">
+				<img src="{% static '/img/kira2.png' %}" class="rounded-circle user_img">
 			</div>
 			<div class="user_info">
 				<span>Kira</span>
@@ -22,56 +20,29 @@
 		</div>
 
 	</div>
-	<div class="card-body msg_card_body kira-log js-chat-log kira-log js-chat-log">
 
-		<!-- msg list -->
-		<!-- <ul class="kira-log js-chat-logkira-log js-chat-log"> -->
+	<!-- msg list -->
+	<ul class="card-body msg_card_body js-chat-log">
 
-		<div class="d-flex justify-content-start mb-4">
+		<div class="d-flex mb-4 justify-content-end">
+			<div class="msg_container_send">
+				Hello
+				<span class="msg_time_send">9:32pm</span></div>
 			<div class="img_cont_msg">
-				<img src="https://static.turbosquid.com/Preview/001292/481/WV/_D.jpg"
-					class="rounded-circle user_img_msg">
-			</div>
-			<div class="msg_cotainer">
-				Hi, how are you samim?
-				<span class="msg_time">8:40 AM, Today</span>
-			</div>
+				<img src="{% static '/img/Victor.jpg' %}" class="rounded-circle user_img_msg"></div>
 		</div>
 
-		<div class="d-flex justify-content-end mb-4">
-			<div class="msg_cotainer_send">
-				Hi Khalid i am good tnx how about you?
-				<span class="msg_time_send">8:55 AM, Today</span>
-			</div>
-			<div class="img_cont_msg">
-				<img src="" class="rounded-circle user_img_msg">
-			</div>
-		</div>
+	</ul>
 
-		<!-- </ul> -->
-
-	</div>
 	<div class="card-footer">
 		<div class="input-group">
-			<!-- <div class="input-group-append">
-							<span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
-						</div> -->
-			<textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
+			<textarea name="js-text" type="text" class="form-control js-text"
+				placeholder="Type your message..."></textarea>
 			<div class="input-group-append">
-				<button class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
+				<button class="js-say input-group-text send_btn"><i class="fas fa-location-arrow"></i></button>
 			</div>
 		</div>
 	</div>
 </div>
-
-<script>
-	$( document ).ready( function ()
-	{
-		$( '#action_menu_btn' ).click( function ()
-		{
-			$( '.action_menu' ).toggle();
-		} );
-	} );
-</script>
 
 {% endblock content %}

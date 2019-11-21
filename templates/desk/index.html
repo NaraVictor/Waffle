@@ -9,16 +9,16 @@
 
 <!-- Kira -->
 <div>
-    {% include '../kirabot/kira.html' %}
+    {% include '../kirabot/kira2.html' %}
     <span class="kiratext small">Hi, am Kira. Ask me anything!</span>
     <article class="kira">
     </article>
 </div>
 
 
-<div class="row">
+<div class="row pt-2">
     <!-- trending topics -->
-    <section class="col-md-2 col-12">
+    <section class="col-md-3 col-12">
         {% include 'desk/partials/trends.html' %}
     </section>
 
@@ -30,24 +30,37 @@
             <button type="button" class="btn waf-washed btn-sm" data-toggle="modal" data-target="#wafpost">waf a
                 question </button>
         </p>
+        <div id="errors"></div>
 
         {% include 'desk/partials/waf.html' %}
 
         <!-- <div id="banner"></div> -->
         <hr>
-        {% include 'desk/partials/cards.html' %}
+
+        <div id="cards">
+            {% include 'desk/partials/cards.html' %}
+        </div>
 
     </section>
 
     <!-- communities & explicit ads -->
-    <section class="col-md-4 col-12">
-        {% include 'desk/partials/communities.html' %}
+    <section class="col-md-3 col-12">
+
+        <h5 class="text-secondary">Your Communities</h5>
+        <div class="bg-white communities shadow-sm">
+            {% include 'desk/partials/communities.html' %}
+        </div>
         <p class="text-secondary">Find more communities <a href="#">here</a></p>
 
         <hr>
 
-        <p class="text-secondary">Sponsored</p>
-        {% include 'desk/partials/sponsoredcomms.html' %}
+        <h5 class="text-secondary">Recommended & Ads</h5>
+        <div class="bg-white communities shadow-sm">
+            {% include 'desk/partials/sponsoredcomms.html' %}
+        </div>
+
+        <hr>
+        <p class="small">&copy; 2019 Waffle. All rights reserved</p>
     </section>
 
 </div>

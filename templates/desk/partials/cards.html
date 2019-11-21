@@ -1,220 +1,24 @@
-<div class="media m-0 feed bg-white deskcard">
+{% for card in cards %}
+
+<div class="media m-0 feed bg-white deskcard mb-1">
     <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
     <div class="media-body">
         <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
+            <div class="pb-0 pt-2">
+                <span class="username">{{card.user.first_name}}</span>
+                <span class="text-secondary text-info">@{{card.user.username}}</span>
+            </div>
+            <div class="text-secondary small pb-2">
+                {{card.card_date}}
+            </div>
+            <p class="text-justify pb-0 pr-2 card-text">{{card.text}}</p>
             <footer class="text-secondary pt-0 mt-0 pb-3">
                 <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
+                <span class="pr-3"><i class="fa fa-retweet text-info"></i> 25 </span>
+                <span class="pr-2"><i class="fa fa-heart text-danger"></i> 525 </span>
             </footer>
         </div>
     </div>
 </div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
 
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
-<div class="media m-0 feed bg-white deskcard">
-    <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
-    <div class="media-body">
-        <div class="pl-3 pr-2">
-            <div class="pb-0 pt-2 username">username</div>
-            <div class="small text-secondary pb-2">@handle</div>
-            <p class="text-justify pb-0">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam magni
-                consequuntur aspernatur
-                obcaecati animi vel porro cupiditate provident sit nobis earum possimus temporibus tempore dolore,
-                molestias dolores velit et.</p>
-
-            <footer class="text-secondary pt-0 mt-0 pb-3">
-                <hr>
-                <span class="pr-2"><i class="fa fa-reply-all"></i> 25 answers</span>
-                <span class="pr-2"><i class="fa fa-thumbs-up"></i> 525 ups</span>
-                <span><i class="fa fa-thumbs-down"></i> 20 downs</span>
-            </footer>
-        </div>
-    </div>
-</div>
+{% endfor %}

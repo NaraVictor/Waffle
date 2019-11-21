@@ -8,9 +8,9 @@ UNIVERSAL
     --bgcolor: rgb(255, 252, 250);
 }
 
-/* body{
-    background-color: var(--bgcolor);
-} */
+body{
+    background-color: #eeeeee;
+}
 
 #mainnav {
     background-color: var(--navbg);
@@ -42,6 +42,10 @@ UNIVERSAL
   text-decoration: none;
 }
 
+.card-text{
+color: #706e6e;
+font-size: 25px;
+}
 
 .card-img {
     width: 11.9rem;
@@ -108,7 +112,8 @@ DESK PAGE
 }
 
 .username{
-  font-size: 20px;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 #banner{
@@ -126,7 +131,7 @@ DESK PAGE
 
 
 .deskcard{
-  border-radius: 0px;
+  border-radius: 5px;
 }
 
 #kira{
@@ -188,6 +193,14 @@ DESK PAGE
     animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
   }
 
+.communities{
+border-radius: 5px;
+}
+
+.comm:hover{
+  background-color: rgb(250, 234, 224);
+  cursor: pointer;
+}
 
 /* ---------------------------------------- 
  DESK HOME 
