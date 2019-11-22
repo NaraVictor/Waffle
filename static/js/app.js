@@ -84,7 +84,7 @@ function waf ()
             var dte = months[ current_datetime.getMonth() ] + ". " + current_datetime.getDate() + ", " + + current_datetime.getFullYear()
 
 
-            $( '#cards' ).prepend(
+            $( '#deskcards' ).prepend(
                 '<div class="media m-0 feed bg-white deskcard mb-1">' +
                 '<i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>' +
                 '<div class="media-body">' +

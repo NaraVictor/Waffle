@@ -39,7 +39,8 @@ class ChatterBotApiView(View):
                    )
 
     # trainer = ChatterBotCorpusTrainer(kira)
-    # trainer.train('./customcorpus.yml','chatterbot.corpus.english', 'chatterbot.corpus.french')
+    # trainer.train('./customcorpus.yml',
+    #               'chatterbot.corpus.english', 'chatterbot.corpus.french')
 
     def post(self, request, *args, **kwargs):
         """

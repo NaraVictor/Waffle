@@ -19,7 +19,18 @@
 <div class="row pt-2">
     <!-- trending topics -->
     <section class="col-md-3 col-12">
-        {% include 'desk/partials/trends.html' %}
+        <div>
+            <h5 class="text-secondary">Trending topics</h5>
+            <div id="trends" class="bg-white shadow-sm">
+                {% include 'desk/partials/trends.html' %}
+            </div>
+        </div>
+
+        <hr>
+        <div>
+            <h5 class="text-secondary">Upcoming events</h5>
+
+        </div>
     </section>
 
     <!-- feeds & question -->
@@ -44,7 +55,7 @@
     </section>
 
     <!-- communities & explicit ads -->
-    <section class="col-md-3 col-12">
+    <section class="col-md-3 col-12 wings">
 
         <h5 class="text-secondary">Your Communities</h5>
         <div class="bg-white communities shadow-sm">

@@ -50,7 +50,7 @@
   }
 }
 
-.card{
+.kiracard{
 /* height: 500px; */
 border-radius: 15px !important;
 background-color: #6d6a6a !important;
@@ -227,18 +227,22 @@ margin-bottom: 15px !important;
 }
 
 
-
-/* 
-.online_icon{
-position: absolute;
-height: 15px;
-width:15px;
-background-color: #4cd137;
-border-radius: 50%;
-bottom: 0.2em;
-right: 0.4em;
-border:1.5px solid white;
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
 }
-.offline{
-background-color: #c23616 !important;
-} */
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}

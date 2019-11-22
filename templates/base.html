@@ -8,6 +8,7 @@
     <link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static '/css/all.min.css' %}" rel="stylesheet">
     <link href="{% static '/css/styles.css' %}" rel="stylesheet">
+    <link href="{% static '/css/kira.css' %}" rel="stylesheet">
 
     <!-- unique page specific css here -->
     {% block css %}
@@ -21,9 +22,11 @@
     <meta name="authors" content="Nara Victor & Zoyaar Winifred">
     <meta name="description" content="social learning platform to share knowledge">
     <link href="{% static '/img/logo.png' %}" type="image/jpg" rel="shortcut icon">
+    <script src="{% static '/js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/js.cookie.js' %}"></script>
 
     <title>
-      waffle
+      Waffle
       {% block title %}
       {% endblock %}
     </title>
@@ -47,10 +50,7 @@
 
 
     <!-- core scripts -->
-    <script src="{% static '/js/jquery.min.js' %}"></script>
     <script src="{% static '/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/js.cookie.js' %}"></script>
-    <!-- <script src="{% static 'js/kira.js' %}"></script> -->
     <script src="{% static 'js/app.js' %}"></script>
 
     <!-- extra scripts -->

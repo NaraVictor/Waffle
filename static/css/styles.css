@@ -43,8 +43,8 @@ body{
 }
 
 .card-text{
-color: #706e6e;
-font-size: 25px;
+/* color: #706e6e; */
+font-size: 20px;
 }
 
 .card-img {
@@ -193,15 +193,24 @@ DESK PAGE
     animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
   }
 
-.communities{
-border-radius: 5px;
+.communities, #trends{
+  border-radius: 5px;
 }
 
-.comm:hover{
+.comm:hover, .trend:hover{
   background-color: rgb(250, 234, 224);
   cursor: pointer;
+  text-decoration: none;
 }
 
+.trend, .trend:hover {
+  display: block;
+  color: black;
+}
+
+.wings{
+
+}
 /* ---------------------------------------- 
  DESK HOME 
 ------------------------------------------ */

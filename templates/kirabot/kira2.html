@@ -1,13 +1,9 @@
 {% load static %}
 
-{% block css %}
-<link href="{% static '/css/jquery.mCustomScrollbar.min.css' %}" rel="stylesheet">
-<link href="{% static '/css/kira.css' %}" rel="stylesheet">
-{% endblock css %}
 
 {% block content %}
 
-<div class="card kirabot">
+<div class="kiracard card kirabot">
 
 	<div class="card-header msg_head p-1">
 		<div class="d-flex bd-highlight">
@@ -24,12 +20,13 @@
 	<!-- msg list -->
 	<ul class="card-body msg_card_body js-chat-log">
 
-		<div class="d-flex mb-4 justify-content-end">
-			<div class="msg_container_send">
-				Hello
-				<span class="msg_time_send">9:32pm</span></div>
+		<div class="d-flex mb-4 justify-content-start">
 			<div class="img_cont_msg">
-				<img src="{% static '/img/Victor.jpg' %}" class="rounded-circle user_img_msg"></div>
+				<img src="{% static '/img/kira2.png' %}" class="rounded-circle user_img_msg">
+			</div>
+			<div class="msg_container">
+				Hello {{ user.first_name }}
+				<span class="msg_time"> now </span></div>
 		</div>
 
 	</ul>
@@ -44,5 +41,114 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+
+	var $chatlog = $( '.js-chat-log' );
+	var $input = $( '.js-text' );
+	var $sayButton = $( '.js-say' );
+
+	var chatterbotUrl = '{% url "kirabot:kirabotapi" %}';
+	var csrftoken = Cookies.get( 'csrftoken' );
+
+	function csrfSafeMethod( method )
+	{
+		// these HTTP methods do not require CSRF protection
+		return ( /^(GET|HEAD|OPTIONS|TRACE)$/.test( method ) );
+	}
+
+	$.ajaxSetup( {
+		beforeSend: function ( xhr, settings )
+		{
+			if ( !csrfSafeMethod( settings.type ) && !this.crossDomain )
+			{
+				xhr.setRequestHeader( "X-CSRFToken", csrftoken );
+			}
+		}
+	} );
+
+	var $chatlog = $( '.js-chat-log' );
+	var $input = $( '.js-text' );
+	var $sayButton = $( '.js-say' );
+
+	function kiramsg( msg )
+	{
+		return $( '<div class="d-flex mb-4 justify-content-start">' +
+			'<div class="img_cont_msg" >' +
+			"<img src='{% static '/img/kira2.png' %}' class='rounded-circle user_img_msg' ></div >" +
+			'<div class= "msg_container" > '
+			+ msg +
+			'<span class="msg_time">' + 'time' + ' </span></div ></div >'
+		);
+	}
+
+	function usermsg( msg )
+	{
+		return $( '<div class="d-flex mb-4 justify-content-end">' +
+			'<div class="msg_container_send">'
+			+ msg +
+			'<span class="msg_time_send">' + 'time' + '</span></div ><div class="img_cont_msg" >' +
+			"<img src= '{% static '/img/Victor.jpg' %}' class='rounded-circle user_img_msg'></div></div>"
+		);
+	}
+
+
+	function createRow( text )
+	{
+		$chatlog.append( text );
+	}
+
+	function submitInput()
+	{
+		var inputData = {
+			'text': $input.val()
+		}
+
+		// Display the user's input on the web page
+		createRow( usermsg( inputData.text ) );
+
+		var $submit = $.ajax( {
+			type: 'POST',
+			url: chatterbotUrl,
+			data: JSON.stringify( inputData ),
+			contentType: 'application/json'
+		} );
+
+		$submit.done( function ( statement )
+		{
+
+			createRow( kiramsg( statement.text ) );
+
+			// Clear the input field
+			$input.val( '' );
+
+			// Scroll to the bottom of the chat interface
+			$chatlog[ 0 ].scrollTop = $chatlog[ 0 ].scrollHeight;
+		} );
+
+		$submit.fail( function ()
+		{
+			createRow( 'sorry, something happened and I could not reach my source :)' );
+		} );
+	}
+
+	$sayButton.click( function ()
+	{
+		submitInput();
+	} );
+
+	$input.keydown( function ( event )
+	{
+		// Submit the input when the enter button is pressed
+		if ( event.keyCode == 13 )
+		{
+			submitInput();
+		}
+	} );
+
+
+</script>
+
 
 {% endblock content %}
