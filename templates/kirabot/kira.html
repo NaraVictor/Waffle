@@ -23,6 +23,7 @@
 <script>
   var chatterbotUrl = '{% url "kirabot:kirabotapi" %}';
   var csrftoken = Cookies.get( 'csrftoken' );
+  var cur_time = new Date().toLocaleTimeString( navigator.language, { hour: '2-digit', minute: '2-digit' } );
 
   function csrfSafeMethod( method )
   {

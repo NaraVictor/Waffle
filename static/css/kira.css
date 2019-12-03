@@ -25,7 +25,7 @@
 }
 
 .js-chat-log {
-    height:550px;
+    height: 550px;
     overflow-y:scroll;
 }
 
@@ -228,21 +228,22 @@ margin-bottom: 15px !important;
 
 
 /* width */
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 5px;
-}
+} */
 
 /* Track */
-::-webkit-scrollbar-track {
+/* ::-webkit-scrollbar-track {
   background: #f1f1f1; 
-}
+} */
  
 /* Handle */
-::-webkit-scrollbar-thumb {
+/* ::-webkit-scrollbar-thumb {
   background: #888; 
-}
+} */
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
   background: #555; 
-}
+} */
+

@@ -29,23 +29,6 @@ $( document ).ready( function ()
         }
     } );
 
-    //dynamic font size setting
-    // $( '.card-text' ).each( function ()
-    // {
-    //     if ( $.trim( this ).length <= 20 )
-    //     {
-    //         $( this ).css( {
-    //             fontSize: 30
-    //         } );
-    //     }
-    //     else if ( $.trim( this ).length > 20 )
-    //     {
-    //         $( this ).css( {
-    //             fontSize: 20
-    //         } );
-
-    //     }
-    // } );
 
 } );
 
@@ -54,6 +37,15 @@ $( document ).ready( function ()
 //waf ajax call
 function waf ()
 {
+
+    if ( $( '#text' ).val() == "" )
+    {
+        return $( '#waf-error' ).html( 'You need to waf something!' );
+    }
+
+
+
+
     const months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec" ];
     // using an ajax request
     $.ajax( {
@@ -68,6 +60,7 @@ function waf ()
         {
             $( '#wafpost' ).modal( 'toggle' ).slideUp( 400 );
             $( '#waffing' ).modal( 'toggle' ).slideUp( 400 );
+            $( '#waf-error' ).html( '' );
 
         },
         success: function ( data )
