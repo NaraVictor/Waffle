@@ -7,40 +7,28 @@
 
 {% block content %}
 
-<!-- Kira -->
-<div>
-    {% include '../kirabot/kira2.html' %}
-    <span class="kiratext small">Hi, am Kira. Ask me anything!</span>
-    <article class="kira">
-    </article>
-</div>
-
 
 <div class="row pt-2">
     <!-- trending topics -->
     <section class="col-md-3 col-12">
-        <div>
-            <h5 class="text-secondary">Trending topics</h5>
-            <div id="trends" class="bg-white shadow-sm">
-                {% include 'desk/partials/trends.html' %}
-            </div>
-        </div>
 
-        <hr>
-        <div>
-            <h5 class="text-secondary">Upcoming events</h5>
-
-        </div>
     </section>
 
     <!-- feeds & question -->
     <section class="col-md-6 col-12">
-        <p>
+        <div data-toggle="modal" data-target="#wafpost" class="text-secondary  bg-white p-4 rounded">
+            <span>educate the world, ask her a question or promote a talent</span>
+            <button class="btn btn-primary  ml-2">Go on</button>
+        </div>
+        <!-- <textarea data-toggle="modal" data-target="#wafpost"
+            placeholder="educate the world, ask her a question or promote a talent" class="form-control shadow-sm">
+        </textarea> -->
+        <!-- <p>
             <span style="color: rgb(245, 151, 88);" class="fa fa-question fa-3x"></span>
             Got a question to ask the world?
             <button type="button" class="btn waf-washed btn-sm" data-toggle="modal" data-target="#wafpost">waf a
                 question </button>
-        </p>
+        </p> -->
         <div id="errors"></div>
 
         {% include 'desk/partials/waf.html' %}
@@ -57,7 +45,7 @@
     <!-- communities & explicit ads -->
     <section class="col-md-3 col-12 wings">
 
-        <h5 class="text-secondary">Your Communities</h5>
+        <!-- <h5 class="text-secondary">Your Communities</h5>
         <div class="bg-white communities shadow-sm">
             {% include 'desk/partials/communities.html' %}
         </div>
@@ -68,10 +56,10 @@
         <h5 class="text-secondary">Recommended & Ads</h5>
         <div class="bg-white communities shadow-sm">
             {% include 'desk/partials/sponsoredcomms.html' %}
-        </div>
+        </div> -->
 
-        <hr>
-        <p class="small">&copy; 2019 Waffle. All rights reserved</p>
+        <!-- <hr>
+        <p class="small">&copy; 2019 Waffle. All rights reserved</p> -->
     </section>
 
 </div>

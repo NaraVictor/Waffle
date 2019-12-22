@@ -1,6 +1,6 @@
 {% for card in cards %}
 
-<div class="media m-0 feed bg-white deskcard mb-1">
+<div class="media m-0 bg-white shadow-sm deskcard mb-2">
     <i style="color: yellowgreen;" class="p-2 fas fa-user-alt fa-2x"></i>
     <div class="media-body">
         <div class="pl-3 pr-2">
@@ -9,7 +9,7 @@
                 <span class="text-secondary text-info">@{{card.user.username}}</span>
             </div>
             <div class="text-secondary small pb-2">
-                {{card.card_date}}
+                {{card.card_date|timesince}} go
             </div>
             <p class="text-justify pb-0 pr-2 card-text">{{card.text}}</p>
             <footer class="text-secondary pt-0 mt-0 pb-3">

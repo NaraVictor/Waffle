@@ -1,25 +1,29 @@
 {% load static %}
 
+{% url 'library:index' as lib_url %}
+{% url 'landing' as landing_url %}
+{% url 'about:index' as about_url %}
+{% url 'desk:index' as desk_url %}
+
 
 
 <!--Navbar -->
-<nav class="navbar navbar-expand-lg fixed-top navbar-light nav text-light p-0" id="mainnav">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light nav text-light p-1" id="mainnav">
     <div class="container">
 
-        <a href="{% url 'landing' %}">
-            <img src="{% static '/img/logo.png' %}" class="d-inline-block align-top" width="45" height="40"
+        <a href="{{ landing_url }}">
+            <img src="{% static '/img/waffle-new-logo.png' %}" class="d-inline-block align-top" width="40" height="40"
                 alt="Waffle Logo" />
-
-            <span class="navbar-brand text-light">
+            <span class="navbar-brand text-primary">
                 waffle
             </span>
         </a>
 
-        <ul class="nav navbar-nav">
-            <form class="navbar-form" role="search">
-                <input type="text" class="mt-1 srchbox form-control form-control-sm" placeholder="search" name="q">
-            </form>
-        </ul>
+
+        <form class="navbar-form p-0" role="search">
+            <input type="text" class="shadow-sm mt-1 srchbox form-control" placeholder="search" name="q">
+        </form>
+
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#wafnav" aria-controls="wafnav"
             aria-expanded="false" aria-label="Toggle navigation">
@@ -30,28 +34,31 @@
 
             <ul class="navbar-nav ml-auto nav-flex-icons">
                 <li class="nav-item mr-3">
-                    <a class="text-light nav-link" href="{% url 'about:index' %}">About</a>
+                    <a class="nav-link {% if request.path == about_url %}text-primary{% endif %}"
+                        href="{{ about_url }}">about</a>
                 </li>
-
+                <!-- 
                 <li class="nav-item mr-3">
-                    <a class="text-light nav-link" href="{% url 'library:index' %}">Library</a>
-                </li>
+                    <a class="nav-link {% if request.path == lib_url %}text-primary{% endif %}"
+                        href="{{ lib_url }}">library</a>
+                </li> -->
 
                 {% if user.is_authenticated %}
                 <li class="nav-item mr-3">
-                    <a class="text-light nav-link" href="{% url 'desk:index' %}">Desk</a>
+                    <a class="nav-link {% if request.path == desk_url %}text-primary{% endif %}"
+                        href="{{ desk_url }}">desk</a>
                 </li>
 
-                <li class="nav-item mr-3">
-                    <a class="text-light nav-link" href="{% url 'scratchpad' %}">Scratchpad</a>
-                </li>
+                <!-- <li class="nav-item mr-3">
+                    <a class="nav-link" href="{% url 'scratchpad' %}">Scratchpad</a>
+                </li> -->
 
                 <li class="nav-item avatar">
                     <img src="{% static '../static/img/Victor.jpg' %}" class="rounded-circle z-depth-0 mt-1"
                         alt="avatar image" height="30">
                 </li>
 
-                <li class="nav-item text-dark">
+                <li class="nav-item">
                     <span class="pr-1 nav-link">{{ user.last_name }}</span>
                 </li>
 
@@ -61,11 +68,11 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Profile</a>
+                        <!-- <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Subscriptions</a>
                         <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Communities</a>
-                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Communities</a> -->
+                        <!-- <div class="dropdown-divider"></div> -->
                         <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                     </div>
                 </div>

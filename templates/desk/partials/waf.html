@@ -3,8 +3,8 @@
 <div class="modal fade" id="wafpost" tabindex="-1" role="dialog" aria-labelledby="wafpostLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header waf-washed">
-                <h5 class="modal-title" id="exampleModalLabel">Waf a question</h5>
+            <div class="modal-header">
+                <h6 class="modal-title text-secondary" id="exampleModalLabel">change the world!</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,14 +14,14 @@
                     {% csrf_token %}
                     <div class="form-group">
                         <!-- <label for="message-text" class="col-form-label">Message:</label> -->
-                        <textarea class="form-control" id="text" name="text"></textarea>
+                        <textarea rows="5" class="form-control" id="text" name="text"></textarea>
                     </div>
 
                     <span id="waf-error" class="text-danger"></span>
 
                     <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn waf-washed" id="waf">
-                            <i class="fa fa-paper-plane"></i>Waf
+                        <button type="submit" class="btn btn-primary" id="waf">
+                            <i class="fa fa-paper-plane"></i> Waf
                         </button>
                     </div>
                 </form>
