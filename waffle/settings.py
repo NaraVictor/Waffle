@@ -38,13 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # -------------------
+    # our apps -------------------
     'desk',
-    'library',
-    # 'signin',
+    'accounts',
     'about',
-    'chatterbot.ext.django_chatterbot',
-    'kirabot',
+    'library',
+
+    # 'chatterbot.ext.django_chatterbot',
+    # 'kirabot',
 ]
 
 MIDDLEWARE = [

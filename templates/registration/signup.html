@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-3 col-sm-0">
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="bg-white text-center shadow mt-5 rounded">
+            <div>
+                <div class="card-body">
+
+
+                    <div class="waf-text-primary">
+                        <h4>sign up</h4>
+                    </div>
+
+                    <div class="mt-md-5">
+
+                        <form method="POST" action="{% url 'signup' %}">
+                            {% csrf_token %}
+
+                            <ul class="errorlist text-danger">
+                            </ul>
+
+                            <div class="form-row px-3">
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" type="text" placeholder="first name" name="first_name"
+                                        required autofocus>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" type="text" placeholder="last name" name="last_name"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-12">
+                                <input id="email" name="email" placeholder="email" class="form-control" type="email"
+                                    required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input id="username" name="username" placeholder="username" class="form-control"
+                                    type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="password" name="password1" class="form-control" id="pass"
+                                    placeholder="password" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input type="password" name="password2" class="form-control"
+                                    id="confirm_password" placeholder="confirm password" required>
+                            </div>
+                            <div class="form-row px-3">
+                                <div class="form-group col-md-6">
+                                    <input class="form-control" type="text" placeholder="birthdate" name="birthdate"
+                                        required>
+                                    <span class="small text-left">birthdate</span>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <select name="gender" class="form-control select-dropdown" required>
+                                        <option disabled="disabled" selected="selected">gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="px-4 btn waf-btn-prim">
+                                signup
+                            </button>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-0">
+    </div>
+
+</div>
+
+
+
+<script>
+
+
+
+</script>
+
+
+
+
+{% endblock content %}

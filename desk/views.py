@@ -4,9 +4,12 @@ from .models import Card, CardLike, CardReply
 from django.http import Http404, HttpResponse, JsonResponse
 import json
 from django.forms.models import model_to_dict
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 
+@login_required
 def index(request):
     cards = Card.objects.order_by(*['-card_date', '-card_time']).all()
     likes = CardLike.objects.all()
@@ -20,6 +23,7 @@ def index(request):
                    })
 
 
+@login_required
 def waf(request):
     if request.method == 'POST' and request.is_ajax():
         # if request.method == 'post' and request.is_valid():

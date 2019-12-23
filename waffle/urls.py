@@ -21,14 +21,18 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path('', TemplateView.as_view(
         template_name='landing/index.html'), name='landing'),
-    path('scratchpad', TemplateView.as_view(
-        template_name='scratchpad.html'), name='scratchpad'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'), name='login'),
-    # path('accounts/', include('django.contrib.auth.urls'), name='signup'),
+    path('accounts/', include('accounts.urls')),
     path('desk/', include('desk.urls')),
-    path('library/', include('library.urls')),
     path('about/', include('about.urls')),
-    path('account/', include('account.urls')),
+    path('library/', include('library.urls')),
+
+
+    # urls to be enabled in updates
+    # -----------------------------------------------------
+    # path('accounts/', include('django.contrib.auth.urls'), name='signup'),
+    # path('scratchpad', TemplateView.as_view(template_name = 'scratchpad.html'), name='scratchpad'),
+    # path('account/', include('account.urls')),
     # path('kira/', include('kirabot.urls')),
 ]

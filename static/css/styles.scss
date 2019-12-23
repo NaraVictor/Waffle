@@ -1,5 +1,6 @@
 @import 'sass/colors';
 @import 'sass/components';
+@import 'sass/login';
 
 /* -----------------------------------------------
 UNIVERSAL
@@ -35,10 +36,12 @@ body {
     width: auto;
 }
 
+
 .cardsize {
     width: 12rem;
     height: 14rem;
 }
+
 
 .videocard:hover {
     text-decoration: none;
@@ -52,10 +55,10 @@ body {
 
 .authbtn {
     border-radius: 0px;
-    background-color: white;
     border: 0px;
 
 }
+
 
 /* -----------------------------------------------
 END UNIVERSAL
@@ -67,7 +70,6 @@ END UNIVERSAL
     height: 650px;
     /* background-color: blue; */
 }
-
 
 
 /* -------------------------------------------------
@@ -200,7 +202,6 @@ DESK PAGE
     display: block;
     color: black;
 }
-
 
 /* ---------------------------------------- 
  DESK HOME 

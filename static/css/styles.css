@@ -29,6 +29,11 @@
   color: white;
 }
 
+#login-img {
+  max-width: 300px;
+  max-height: 270px;
+}
+
 /* -----------------------------------------------
 UNIVERSAL
 ---------------------------------------------------*/
@@ -74,7 +79,6 @@ body {
 
 .authbtn {
   border-radius: 0px;
-  background-color: white;
   border: 0px;
 }
 

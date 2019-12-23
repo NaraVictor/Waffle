@@ -1,12 +1,13 @@
 {% load static %}
 
-{% url 'library:index' as lib_url %}
+<!-- {% url 'library:index' as lib_url %} -->
 {% url 'landing' as landing_url %}
 {% url 'about:index' as about_url %}
 {% url 'desk:index' as desk_url %}
 {% url 'logout' as logout_url %}
-{% url 'account' as account_url %}
-
+{% url 'login' as login_url %}
+{% url 'profile' as profile_url %}
+{% url 'signup' as signup_url %}
 
 
 <!--Navbar -->
@@ -39,11 +40,6 @@
                     <a class="nav-link {% if request.path == about_url %}text-primary{% endif %}"
                         href="{{ about_url }}">about</a>
                 </li>
-                <!-- 
-                <li class="nav-item mr-3">
-                    <a class="nav-link {% if request.path == lib_url %}text-primary{% endif %}"
-                        href="{{ lib_url }}">library</a>
-                </li> -->
 
                 {% if user.is_authenticated %}
                 <li class="nav-item mr-3">
@@ -51,9 +47,6 @@
                         href="{{ desk_url }}">desk</a>
                 </li>
 
-                <!-- <li class="nav-item mr-3">
-                    <a class="nav-link" href="{% url 'scratchpad' %}">Scratchpad</a>
-                </li> -->
 
                 <li class="nav-item avatar">
                     <img src="{% static '../static/img/Victor.jpg' %}" class="rounded-circle z-depth-0 mt-1"
@@ -70,22 +63,22 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{{ account_url }}">Account</a>
+                        <a class="dropdown-item" href="{{ profile_url }}">account</a>
                         <!--<a class="dropdown-item" href="#">Subscriptions</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Communities</a> -->
                         <!-- <div class="dropdown-divider"></div> -->
-                        <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
+                        <a class="dropdown-item" href="{{ logout_url }}">logout</a>
                     </div>
                 </div>
 
                 {% else %}
 
                 <li class="nav-item mr-1">
-                    <a class="authbtn btn btn-light nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="authbtn nav-link" href="{{ login_url }}">login</a>
                 </li>
                 <li class="nav-item mr-3">
-                    <a class="authbtn btn btn-light nav-link" href="#">Signup</a>
+                    <a class="authbtn nav-link" href="{{ signup_url }}">signup</a>
                 </li>
 
                 {% endif %}
