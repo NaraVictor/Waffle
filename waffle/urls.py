@@ -29,5 +29,6 @@ urlpatterns = [
     path('desk/', include('desk.urls')),
     path('library/', include('library.urls')),
     path('about/', include('about.urls')),
-    path('kira/', include('kirabot.urls')),
+    path('account/', include('account.urls')),
+    # path('kira/', include('kirabot.urls')),
 ]

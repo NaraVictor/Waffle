@@ -4,6 +4,8 @@
 {% url 'landing' as landing_url %}
 {% url 'about:index' as about_url %}
 {% url 'desk:index' as desk_url %}
+{% url 'logout' as logout_url %}
+{% url 'account' as account_url %}
 
 
 
@@ -68,12 +70,12 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <!-- <a class="dropdown-item" href="#">Profile</a>
-                        <a class="dropdown-item" href="#">Subscriptions</a>
+                        <a class="dropdown-item" href="{{ account_url }}">Account</a>
+                        <!--<a class="dropdown-item" href="#">Subscriptions</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <a class="dropdown-item" href="#">Communities</a> -->
                         <!-- <div class="dropdown-divider"></div> -->
-                        <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        <a class="dropdown-item" href="{{ logout_url }}">Logout</a>
                     </div>
                 </div>
 
