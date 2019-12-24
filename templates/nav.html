@@ -6,7 +6,6 @@
 {% url 'desk:index' as desk_url %}
 {% url 'logout' as logout_url %}
 {% url 'login' as login_url %}
-{% url 'profile' as profile_url %}
 {% url 'signup' as signup_url %}
 
 
@@ -21,11 +20,6 @@
                 waffle
             </span>
         </a>
-
-
-        <!-- <form class="navbar-form p-0" role="search">
-            <input type="text" class="shadow-sm mt-1 srchbox form-control" placeholder="search" name="q">
-        </form> -->
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#wafnav" aria-controls="wafnav"
@@ -47,14 +41,13 @@
                         href="{{ desk_url }}">desk</a>
                 </li>
 
-
                 <li class="nav-item avatar">
                     <img src="{% static '../static/img/Victor.jpg' %}" class="rounded-circle z-depth-0 mt-1"
                         alt="avatar image" height="30">
                 </li>
 
                 <li class="nav-item">
-                    <span class="pr-1 nav-link">{{ user.last_name }}</span>
+                    <span class="pr-1 nav-link">{{ user.first_name }}</span>
                 </li>
 
                 <div class="dropdown show">
@@ -63,10 +56,8 @@
                     </a>
 
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="{{ profile_url }}">account</a>
-                        <!--<a class="dropdown-item" href="#">Subscriptions</a>
-                        <a class="dropdown-item" href="#">Settings</a>
-                        <a class="dropdown-item" href="#">Communities</a> -->
+                        <a class="dropdown-item" href="{% url 'profile' user.username %}">profile</a>
+
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ logout_url }}">logout</a>
                     </div>

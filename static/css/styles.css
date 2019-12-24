@@ -34,6 +34,40 @@
   max-height: 270px;
 }
 
+.cardsize {
+  width: 12rem;
+  height: 14rem;
+}
+
+.videocard:hover {
+  text-decoration: none;
+}
+
+.card-img {
+  width: 11.9rem;
+  height: 9rem;
+}
+
+.deskcard {
+  border-radius: 0px;
+  border: 0.05px solid #eceaea;
+  border-bottom: 0px;
+}
+
+.deskcard:hover {
+  background-color: #f8f8f8;
+  cursor: pointer;
+}
+
+.card-text {
+  font-size: 17px;
+  color: #333;
+}
+
+.card-text:hover {
+  color: black;
+}
+
 /* -----------------------------------------------
 UNIVERSAL
 ---------------------------------------------------*/
@@ -61,20 +95,6 @@ body {
   border-radius: 28px;
   max-width: 300px;
   width: auto;
-}
-
-.cardsize {
-  width: 12rem;
-  height: 14rem;
-}
-
-.videocard:hover {
-  text-decoration: none;
-}
-
-.card-img {
-  width: 11.9rem;
-  height: 9rem;
 }
 
 .authbtn {
@@ -126,11 +146,6 @@ DESK PAGE
   width: 100%;
   padding-bottom: 0px;
   background-size: cover;
-}
-
-.deskcard {
-  border-radius: 5px;
-  border: 0px;
 }
 
 /* 

@@ -5,11 +5,19 @@ from django.db import models
 
 class Profile(models.Model):
     user = models.ForeignKey('auth.user', models.CASCADE)
-    bio = models.CharField(max_length=300)
-    birthdate = models.DateField()
-    gender = models.CharField(max_length=10)
-    phone_number = models.CharField(max_length=15)
+    bio = models.CharField(max_length=300, blank=True)
+    birthdate = models.DateField(blank=True)
+    gender = models.CharField(max_length=10, blank=True)
+    phone_number = models.CharField(max_length=15, blank=True)
     # profile_pic = models.ImageField(upload_to='media/')
 
     def __str__(self):
-        return self.user.username
+        return self.bio
+
+
+# class simple(models.Model):
+#     name = models.CharField(max_length=200)
+#     image = models.ImageField(upload_to='media')
+
+#     def __str__(self):
+#         return self.name

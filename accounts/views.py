@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.models import User, auth
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 import json
+from .models import *
 from . import utils
+from django.core.files.storage import FileSystemStorage
 # Create your views here.
 
 
@@ -58,5 +60,37 @@ def signup(request):
 
 
 @login_required
-def profile(request):
+def profile(request, user):
     return render(request, 'accounts/profile.html')
+    #               {
+    #                   'data': profile
+    #               })
+    # if request.method == 'POST':
+    #     user = Profile(request.POST)
+    #     # user.save()
+    # else:
+    #     u = Profile.objects.select_related('user').count()
+    #     print(u)
+    #     return HttpResponse('done')
+    # return render(request, 'accounts/profile.html',
+    #               {
+    #                   'data': profile
+    #               })
+
+
+# def simple(request):
+#     if request.method == 'GET':
+#         sims = models.simple.objects.filter(name == 'christmas')
+#         return render(request, 'accounts/profile.html', {'simple': sims})
+#     else:
+#         sim = models.simple(
+#             name=request.POST['name'],
+#             image=request.FILES['image']
+#         )
+#         sim.save()
+
+#         sims = models.simple.objects.all()
+#         return render(request, 'accounts/profile.html', {'simple': sims})
+
+
+# MultiValueDictKeyError google this

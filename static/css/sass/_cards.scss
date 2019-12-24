@@ -1,0 +1,54 @@
+// video cards
+@import 'colors';
+
+.cardsize {
+    width: 12rem;
+    height: 14rem;
+}
+
+
+.videocard:hover {
+    text-decoration: none;
+}
+
+
+.card-img {
+    width: 11.9rem;
+    height: 9rem;
+}
+
+
+
+// desk cards
+
+.deskcard {
+    border-radius: 0px;
+    border: 0.05px solid rgb(236, 234, 234);
+    border-bottom: 0px;
+
+    &:hover {
+        background-color: #f8f8f8;
+        cursor: pointer;
+    }
+}
+
+
+.card-text {
+    font-size: 17px;
+    color: #333;
+
+    &:hover {
+        color: black;
+
+    }
+}
+
+.card-user-pic {
+    border: 1px solid $mainColor;
+}
+
+.card-menu {
+    &:hover {
+        color: $mainColor;
+    }
+}
