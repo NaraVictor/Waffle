@@ -5,11 +5,11 @@
     <div class="media-body">
         <div class="pl-3 pr-2">
             <div class="pb-0 pt-2">
-                <span class="username">{{card.user.last_name}}</span>
+                <span class="username">{{card.user.first_name}}</span>
                 <span class="text-secondary text-info">@{{card.user.username}}</span>
             </div>
             <div class="text-secondary small pb-2">
-                {{card.card_date|timesince}} go
+                {{ card.card_date }}
             </div>
             <p class="text-justify pb-0 pr-2 card-text">{{card.text}}</p>
             <footer class="text-secondary pt-0 mt-0 pb-3">

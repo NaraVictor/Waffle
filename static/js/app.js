@@ -1,30 +1,25 @@
-$( document ).ready( function ()
-{
+$( document ).ready( function () {
     // hides kira when page loads
     $( '.kirabot' ).hide();
     $( '#waffing' ).hide();
 
-    $( ".kira" ).click( function ()
-    {
+    $( ".kira" ).click( function () {
         $( '.kirabot' ).toggle( 'slide' );
         $( '.kiratext' ).toggle( 'fade' );
     } );
 
 
     //submitting a question/post
-    $( "#waf-form" ).on( 'submit', function ( event )
-    {
+    $( "#waf-form" ).on( 'submit', function ( event ) {
         // var serializedData = $( this ).serialize();
         event.preventDefault();
         waf();
     } );
 
 
-    $( '#waf' ).keydown( function ( event )
-    {
+    $( '#waf' ).keydown( function ( event ) {
         // Submit the input when the enter button is pressed
-        if ( event.keyCode == 13 )
-        {
+        if ( event.keyCode == 13 ) {
             waf();
         }
     } );
@@ -35,12 +30,10 @@ $( document ).ready( function ()
 
 
 //waf ajax call
-function waf ()
-{
+function waf() {
 
-    if ( $( '#text' ).val() == "" )
-    {
-        return $( '#waf-error' ).html( 'You need to waf something!' );
+    if ( $( '#text' ).val() == "" ) {
+        return $( '#waf-error' ).html( "You didn't type anything!" );
     }
 
 
@@ -56,25 +49,22 @@ function waf ()
             csrfmiddlewaretoken: $( 'input[name=csrfmiddlewaretoken]' ).val()
         },
         dataType: 'json',
-        beforeSend: function ()
-        {
+        beforeSend: function () {
             $( '#wafpost' ).modal( 'toggle' ).slideUp( 400 );
             $( '#waffing' ).modal( 'toggle' ).slideUp( 400 );
             $( '#waf-error' ).html( '' );
 
         },
-        success: function ( data )
-        {
+        success: function ( data ) {
             $( '#text' ).val( '' ); // remove the value from the input
 
-            setTimeout( function ()
-            {
+            setTimeout( function () {
                 $( '#waffing' ).modal( 'hide' ).slideUp( 400 );
             }, 1500 );
 
 
             var current_datetime = new Date( data.data.card_date );
-            var dte = months[ current_datetime.getMonth() ] + ". " + current_datetime.getDate() + ", " + + current_datetime.getFullYear()
+            var dte = months[ current_datetime.getMonth() ] + ". " + current_datetime.getDate() + ", " + +current_datetime.getFullYear()
 
 
             $( '#deskcards' ).prepend(
@@ -94,14 +84,10 @@ function waf ()
 
         },
 
-        error: function ( xhr, errmsg, err )
-        {
+        error: function ( xhr, errmsg, err ) {
             $( '#errors' ).html( "<div class='alert-box alert radius bg-danger text-white' data-alert>Oops! waf not submitted <a href='#' class='close'>&times;</a></div>" ); // add the error to the dom
         },
 
     } );
 
 }
-
-
-
