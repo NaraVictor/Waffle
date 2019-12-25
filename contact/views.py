@@ -8,24 +8,22 @@ from django.http import JsonResponse
 
 
 def contact(request):
-    # try:
-    if request.method == 'POST':
-        # print(request.POST)
-        form = ContactForm(request.POST)
-        if form.is_valid():
-            con = Contact(request.POST)
-            print('got here')
-            con.save()
-            return JsonResponse({'msg': 'Data received successfully'}, status=200)
-        else:
-            return JsonResponse({'msg': 'Data is not valid'}, status=400)
+    try:
+        if request.method == 'POST':
+            form = ContactForm(request.POST)
+            if form.is_valid():
+                con = Contact()
+                con.email = request.POST['email']
+                con.name = request.POST['name']
+                con.message = request.POST['message']
+                con.phone = request.POST['phone']
+                con.save()
+                return JsonResponse({'msg': 'Data received successfully'}, status=200)
+            else:
+                return JsonResponse({'msg': 'Data is not valid'}, status=400)
 
-    else:
-        form = ContactForm()
-        return render(request, 'contact/contact.html',
-                      {
-                          'form': form,
-                      })
-    # except Exception as e:
-    # # return JsonResponse({'msg': 'Oops, something really bad happened!'}, status=400)
-    # return JsonResponse({'msg': str(e)}, status=400)
+        else:
+            return render(request, 'contact/contact.html')
+    except Exception as e:
+        return JsonResponse({'msg': 'Oops, something really bad happened!'}, status=400)
+        # return JsonResponse({'msg': str(e)}, status=400)
