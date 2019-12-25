@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'accounts',
     'about',
     'library',
-
+    'contact',
     # 'chatterbot.ext.django_chatterbot',
     # 'kirabot',
 ]

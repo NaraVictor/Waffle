@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+
+
+{% block javascript %}
+<script>
+    // $( "#sendbtn" ).click( function ( e ) {
+    //     e.preventDefault();
+    //     submitInput();
+    // } );
+
+
+    function submitInput() {
+        $.ajax( {
+            url: "{% url 'contact' %}",
+            data: {
+                email: $( 'input[name="email"]' ).val(),
+                name: $( 'input[name="name"]' ).val(),
+                message: $( '#message' ).val(),
+                phone: $( 'input[name="phone"]' ).val(),
+                csrfmiddlewaretoken: $( 'input[name=csrfmiddlewaretoken]' ).val()
+            },
+            method: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $( "#sendbtn" ).text( 'Sending...' );
+                $( ".errorlist" ).text( '' );
+
+            },
+            success: function () {
+                $( "#contact" ).replace(
+                    '<div class="text-center">' +
+                    '<span class = "pb-2 text-success fa fa-check-circle fa-4x">' +
+                    '</span>' +
+                    '<h5>Message successfully sent </h5></div>'
+                );
+            }
+
+        } ).fail( function ( $xhr ) {
+            $( ".errorlist" ).text( $xhr.responseJSON.msg );
+            $( "#sendbtn" ).text( 'send' );
+
+        } );
+    }
+
+</script>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<div class="row mt-5">
+
+
+    <div class="col-md-3"></div>
+    <div class="col-md-6 mt-5">
+        <div class="bg-white shadow-sm rounded py-3" id="contact">
+            <div class="text-center">
+                <p>Hello, wanna get in touch? do so below</p>
+                <h3 class="waf-text-primary">Contact Us</h3>
+            </div>
+
+            <div class="errorlist text-danger text-center py-2">
+
+            </div>
+
+            <form class="py-3 px-4" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input id="username" name="name" placeholder="fullname" class="form-control" type="text" required>
+                    <small class="form-text text-muted">Fullname <span class="text-danger">(required)</span></small>
+                </div>
+                <div class="form-group">
+                    <input id="email" name="email" placeholder="email" class="form-control" type="email">
+                    <small class="form-text text-muted">Email <span class="text-danger">(required)</span></small>
+                </div>
+                <div class="form-group">
+                    <input id="phone" name="phone" placeholder="phone number" class="form-control" type="text">
+                    <small class="form-text text-muted">Phone number</small>
+                </div>
+                <div class="form-group">
+                    <textarea id="message" rows="7" name="message" placeholder="message" class="form-control"
+                        required></textarea>
+                    <small class="form-text text-muted">Message <span class="text-danger">(required)</span></small>
+                </div>
+                <button type="submit" id="sendbtn" class="btn px-3 waf-btn-prim">
+                    Send
+                </button>
+            </form>
+
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+{% endblock content %}
