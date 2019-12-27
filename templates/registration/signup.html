@@ -13,7 +13,22 @@ Signup
 <script>
     $( "#submitbtn" ).click( function ( e ) {
         e.preventDefault();
-        submitInput();
+        var err = false;
+
+        $( "input" ).each( function () {
+            if ( $( this ).val() == "" ) {
+                $name = $( this ).attr( 'placeholder' );
+                $( ".errorlist" ).append( '<li>' + $name + ' is required!' + '</li>' );
+                err = true;
+            }
+        } );
+
+        if ( err ) {
+            $( ".errorlist" ).append( 'correct all errors and try again' );
+        } else {
+            submitInput();
+        }
+
     } );
 
 
@@ -26,7 +41,6 @@ Signup
                 email: $( 'input[name="email"]' ).val(),
                 username: $( 'input[name="username"]' ).val(),
                 password1: $( 'input[name="password1"]' ).val(),
-                password2: $( 'input[name="password2"]' ).val(),
                 csrfmiddlewaretoken: $( 'input[name=csrfmiddlewaretoken]' ).val()
             },
             method: 'post',
@@ -37,7 +51,8 @@ Signup
 
             },
             success: function ( data ) {
-                window.location.href = "{% url 'profile' user.username %}";
+                window.location.href = "{% url 'desk:index' %}";
+                // $( "#signup-form" )[ 0 ].reset();
             }
 
         } ).fail( function ( $xhr ) {
@@ -49,9 +64,6 @@ Signup
 
 </script>
 {% endblock %}
-
-
-
 
 
 {% block content %}
@@ -75,39 +87,44 @@ Signup
 
                     </div>
 
-                    <div class="mt-md-5">
+                    <div class="mt-md-2">
 
-                        <form method="POST" action="{% url 'signup' %}">
+                        <form method="POST" id="signup-form" action="{% url 'signup' %}">
                             {% csrf_token %}
 
                             <div class="form-row px-3">
-                                <div class="form-group col-md-6">
-                                    <input class="form-control" type="text" placeholder="first name" name="first_name"
-                                        required autofocus>
+                                <div class="text-left form-group col-md-6">
+                                    <input class="form-control" maxlength="30" type="text" placeholder="first name"
+                                        name="first_name" required autofocus>
+                                    <small class="form-text text-muted">First Name</small>
+
                                 </div>
-                                <div class="form-group col-md-6">
-                                    <input class="form-control" type="text" placeholder="last name" name="last_name"
-                                        required>
+                                <div class="text-left form-group col-md-6">
+                                    <input class="form-control" maxlength="130" type="text" placeholder="last name"
+                                        name="last_name" required>
+                                    <small class="form-text text-muted">Last Name</small>
+
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-12">
-                                <input id="email" name="email" placeholder="email" class="form-control" type="email"
-                                    required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input id="username" name="username" placeholder="username" class="form-control"
-                                    type="text" required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="password" name="password1" class="form-control" id="pass"
-                                    placeholder="password" required>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <input type="password" name="password2" class="form-control" id="confirm_password"
-                                    placeholder="confirm password" required>
-                            </div>
+                            <div class="text-left form-row col-md-12">
+                                <div class="form-group col-md-6">
+                                    <input type="password" name="password1" class="form-control" maxlength="120"
+                                        id="pass" placeholder="password" required>
+                                    <small class="form-text text-muted">Password</small>
 
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input id="username" name="username" placeholder="username" class="form-control"
+                                        maxlength="140" type="text" required>
+                                    <small class="form-text text-muted">Username</small>
+                                </div>
+                            </div>
+                            <div class="text-left form-group col-md-12">
+                                <input id="email" name="email" placeholder="email" class="form-control" maxlength="250"
+                                    type="email" required>
+                                <small class="form-text text-muted">Email</small>
+                            </div>
 
                             <button type="submit" id="submitbtn" class="px-4 btn waf-btn-prim">
                                 signup
@@ -123,7 +140,6 @@ Signup
 
     <div class="col-md-3 col-sm-0">
     </div>
-
 </div>
 
 {% endblock content %}

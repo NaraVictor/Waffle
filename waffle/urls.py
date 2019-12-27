@@ -29,6 +29,7 @@ urlpatterns = [
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
     path('library/', include('library.urls')),
+    path('weblog/', include('weblog.urls')),
 
 
     # urls to be enabled in updates

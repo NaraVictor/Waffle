@@ -29,20 +29,21 @@ def waf(request):
         # if request.method == 'post' and request.is_valid():
         post_text = request.POST['text']
 
-        Card.objects.create(
+        card = Card.objects.create(
             text=post_text,
             user=request.user
         )
 
-        latest = Card.objects.latest('id').id
-        card_obj = model_to_dict(Card.objects.get(pk=latest))
-        username = request.user.first_name
-        handle = request.user.username
+        # latest = Card.objects.latest('id').id
+        card_obj = model_to_dict(card)
+        first_name = request.user.first_name
+        username = request.user.username
 
         return JsonResponse({'error': False,
                              'data': card_obj,
-                             'username': username,
-                             'handle': handle})
+                             'first_name': first_name,
+                             'username': username},
+                             status=200)
 
     else:
         return JsonResponse({"success": False,

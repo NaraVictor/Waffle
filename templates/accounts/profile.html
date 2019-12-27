@@ -3,6 +3,46 @@
 
 
 
+{% block javascript %}
+<script>
+    $( "#submitbtn" ).click( function ( e ) {
+        e.preventDefault();
+        if ( $( "input[name='birthdate']" ).val() == "" ) {
+            $( ".errorlist" ).text( 'please set birthdate' );
+        } else if ( $( "input[name='username']" ).val() == "" ) {
+            $( ".errorlist" ).text( 'username cannot be empty' );
+        } else {
+            submitInput();
+        }
+    } );
+
+
+    function submitInput() {
+        $.ajax( {
+            url: "{% url 'profile' user.username %}",
+            data: $( "#profile-form" ).serialize(),
+            method: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $( "#submitbtn" ).text( 'saving...' );
+                $( ".errorlist" ).text( '' );
+            },
+            success: function ( data ) {
+                $( ".status" ).text( 'changes saved...' );
+                $( "#submitbtn" ).text( 'save' );
+            }
+        } ).fail( function ( $xhr ) {
+            $( ".errorlist" ).text( $xhr.responseJSON.msg );
+            $( "#submitbtn" ).text( 'save' );
+        } );
+    }
+
+</script>
+{% endblock %}
+
+
+
+
 {% block content %}
 
 <div class="my-5 row">
@@ -13,7 +53,7 @@
 
     <div class="col-md-6">
 
-        <form method="POST" action="{% url 'signup' %}">
+        <form method="POST" action="{% url 'profile' user.username %}" id="profile-form">
             {% csrf_token %}
 
             <div class="px-3 text-center">
@@ -22,56 +62,54 @@
                 <small class="form-text text-muted">click to update</small>
             </div>
 
-            <div class="text-center pt-4">
-                <div class="text-danger error">
-                    <!-- where errors are reported --> hello
+            <div class="text-center pt-2">
+                <div class="text-danger errorlist">
                 </div>
                 <p class="text-info info">{{ msg }}</p>
             </div>
 
             <div class="form-group my-4">
-                <textarea id="bio" rows="3" name="bio" class="p-0 form-control" autofocus>
-            </textarea>
+                <textarea id="bio" rows="3" name="bio" class="p-0 form-control" placeholder="bio"
+                    autofocus>{{ data.bio }}</textarea>
                 <small class="form-text text-muted">Bio</small>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="text" value="{{ user.first_name }}" placeholder="first name"
-                        name="first_name" required>
+                    <input class="form-control" maxlength="30" type="text" value="{{ data.user.first_name }}"
+                        placeholder="first name" name="first_name" required>
                     <small id="first_name" class="form-text text-muted">First name</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="text" placeholder="last name" name="last_name" required>
+                    <input class="form-control" maxlength="240" value="{{ data.user.last_name }}" type="text"
+                        placeholder="last name" name="last_name" required>
                     <small class="form-text text-muted">Last name</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <input class="form-control" type="date" value="" placeholder="birthdate" name="birthdate">
+                    <input class="form-control" type="date" value="{{ data.birthdate|date:'Y-m-d' }}"
+                        placeholder="birthdate" name="birthdate" required>
                     <small class="form-text text-muted">Birthdate</small>
                 </div>
                 <div class="form-group col-md-6">
-                    <select name="gender" class="form-control select-dropdown" required>
-                        <option disabled="disabled" selected="selected">gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <small class="form-text text-muted">Gender</small>
+                    <input type="tel" maxlength="15" name="phone_number" class="form-control"
+                        value="{{ data.phone_number }}" id="phone_number" aria-describedby="phone_number"
+                        placeholder="phone number" required>
+                    <small class="form-text text-muted">Phone number</small>
                 </div>
             </div>
-
             <div class="form-group">
-                <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp"
-                    placeholder="email" required>
+                <input type="email" maxlength="250" name="email" class="form-control" value="{{ data.user.email }}"
+                    id="email" aria-describedby="emailHelp" placeholder="email" required>
                 <small class="form-text text-muted">Email</small>
             </div>
 
             <div class="form-group">
-                <input id="username" name="username" placeholder="username" class="form-control" type="text" required>
+                <input id="username" maxlength="140" name="username" placeholder="username"
+                    value="{{ data.user.username }}" class="form-control" type="text" required>
                 <small class="form-text text-muted">Username</small>
             </div>
-
-            <button type="submit" class="btn btn-primary">save</button>
+            <div class="status text-success"></div>
+            <button type="submit" id="submitbtn" class="btn btn-primary">save</button>
             <a href="#" class="pl-2">change password</a>
         </form>
 

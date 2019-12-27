@@ -4,12 +4,12 @@ from django.db import models
 
 
 class Profile(models.Model):
-    user = models.ForeignKey('auth.user', models.CASCADE)
+    user = models.OneToOneField('auth.user', models.CASCADE)
     bio = models.CharField(max_length=300, blank=True)
-    birthdate = models.DateField(blank=True)
+    birthdate = models.DateField(blank=True, null=True)
     gender = models.CharField(max_length=10, blank=True)
     phone_number = models.CharField(max_length=15, blank=True)
-    # profile_pic = models.ImageField(upload_to='media/')
+    # profile_pic = models.ImageField(upload_to='media/', blank=True)
 
     def __str__(self):
         return self.bio

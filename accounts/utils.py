@@ -2,6 +2,10 @@ from django.http import JsonResponse
 from django.contrib.auth.models import User
 
 
+class profilePic():
+    pass
+
+
 def errMsg(msg):
     return JsonResponse({
         'err': msg

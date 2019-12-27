@@ -3,28 +3,38 @@ from django.contrib.auth.models import User, auth
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.urls import resolve
 import json
 from .models import *
+from django.core.exceptions import ValidationError
+from accounts.models import Profile
+from logs.utils import log_error
 from . import utils
 from django.core.files.storage import FileSystemStorage
+import datetime
 # Create your views here.
 
 
 def signup(request):
-    if request.method == 'GET':
-        return render(request, 'registration/signup.html')
-    else:
+    try:
+        if request.method == 'GET':
+            return render(request, 'registration/signup.html')
+        else:
+            last_name = request.POST['last_name']
+            first_name = request.POST['first_name']
+            email = request.POST['email']
+            username = request.POST['username']
+            password = request.POST['password1']
+            # password2 = request.POST['password2']
+            # birthdate = request.POST['birthdate']
 
-        last_name = request.POST['last_name']
-        first_name = request.POST['first_name']
-        email = request.POST['email']
-        username = request.POST['username']
-        password = request.POST['password1']
-        password2 = request.POST['password2']
+            # if password == password2:
 
-        if password == password2:
+            if str(request.POST['password1']) is None:
+                return ValueError('Password cannot be empty')
+
             if utils.usernameExists(username):
-                return utils.errMsg('This username is already taken. Try another!')
+                return utils.errMsg('username already taken. Try another!')
 
             elif utils.emailExists(email):
                 return utils.errMsg('email taken. Try a different one')
@@ -37,8 +47,10 @@ def signup(request):
                     first_name=first_name,
                     last_name=last_name
                 )
+                Profile.objects.create(
+                    user=user
+                )
 
-                user.save()
                 # authenticate newly created user before login
                 userobj = authenticate(
                     request, username=username, password=password)
@@ -49,33 +61,82 @@ def signup(request):
                 return JsonResponse({
                     'status': "OK"
                 }, status=200)
-        else:
-            return utils.errMsg('Passwords do not match. Try again')
+            # else:
+            #     return utils.errMsg('Passwords do not match. Try again')
 
+    except ValueError as e:
+        log_error(
+            str(type(e)),
+            e, 'accounts - signup',
+            url=resolve(request.path_info).url_name)
+        return utils.errMsg('ensure that all fields are set!')
 
-# def checkUserName(request):
-#     username = request.GET['username']
-#     if utils.usernameExists(username):
-#         return utils.errMsg('This username is already taken. Try another!')
+    except Exception as e:
+        log_error(
+            str(type(e)),
+            e,
+            'accounts - signup',
+            url=resolve(request.path_info).url_name
+        )
+        return utils.errMsg('something bad happened')
 
 
 @login_required
 def profile(request, user):
-    return render(request, 'accounts/profile.html')
-    #               {
-    #                   'data': profile
-    #               })
-    # if request.method == 'POST':
-    #     user = Profile(request.POST)
-    #     # user.save()
-    # else:
-    #     u = Profile.objects.select_related('user').count()
-    #     print(u)
-    #     return HttpResponse('done')
-    # return render(request, 'accounts/profile.html',
-    #               {
-    #                   'data': profile
-    #               })
+    try:
+        if request.method == 'POST':
+            u = get_object_or_404(User, pk=request.user.id)
+            p = get_object_or_404(Profile, user=u)
+
+            # profile
+            p.bio = request.POST.get('bio', None)
+            p.birthdate = request.POST.get('birthdate', None)
+            p.phone_number = request.POST.get('phone_number', None)
+            p.save()
+
+            # user
+            u.first_name = request.POST['first_name']
+            u.last_name = request.POST['last_name']
+            u.email = request.POST['email']
+
+            if str(request.POST['username']) is None:
+                raise ValueError('username cannot be empty')
+            else:
+                u.username = request.POST['username']
+                u.save()
+
+            return JsonResponse({
+                'status': "OK"
+            }, status=200)
+            # return redirect('desk:index')
+        else:
+            profile = Profile.objects.get(user=request.user)
+            return render(request, 'accounts/profile.html', {'data': profile})
+
+    except ValueError as e:
+        log_error(
+            str(type(e)),
+            e,
+            'accounts - profile',
+            user_id=request.user.id,
+            url=resolve(request.path_info).url_name
+        )
+        return JsonResponse({
+            'msg': f"{e}"
+        }, status=400)
+
+    except Exception as e:
+        log_error(
+            str(type(e)),
+            e,
+            'accounts - profile',
+            user_id=request.user.id,
+            url=resolve(request.path_info).url_name
+        )
+        return JsonResponse({
+            'msg': "Something bad happened"
+        }, status=400)
+        # return render(request, 'error.html')
 
 
 # def simple(request):
