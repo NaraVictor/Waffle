@@ -1,7 +1,13 @@
 {% extends '../base.html' %}
-
+{% load static %}
 {% block title %}
 Waffle
+{% endblock %}
+
+
+{% block javascript %}
+<script src="{% static 'js/desk.js' %}">
+</script>
 {% endblock %}
 
 
@@ -9,9 +15,7 @@ Waffle
 
 
 <div class="row pt-2">
-    <!-- trending topics -->
     <section class="col-md-3 col-12">
-
     </section>
 
     <!-- feeds & question -->
@@ -28,13 +32,23 @@ Waffle
         <!-- <div id="banner"></div> -->
         <hr>
 
+        <div id="desk-detail">
+            <div class="lds-ring d-none">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            {% include 'desk/partials/card_detail.html' %}
+        </div>
+
+
         <div id="deskcards" class="pb-3">
             {% include 'desk/partials/cards.html' %}
         </div>
 
     </section>
 
-    <!-- communities & explicit ads -->
     <section class="col-md-3 col-12 wings">
     </section>
 

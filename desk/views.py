@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.core import serializers
-from .models import Card, CardLike, CardReply
+from .models import *
 from django.http import Http404, HttpResponse, JsonResponse
 import json
 from django.forms.models import model_to_dict
@@ -12,14 +12,10 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def index(request):
     cards = Card.objects.order_by(*['-card_date', '-card_time']).all()
-    likes = CardLike.objects.all()
-    reply = CardReply.objects.all()
 
     return render(request,
                   'desk/index.html',
                   {'cards': cards,
-                   'likes': likes,
-                   'replies': reply
                    })
 
 
@@ -43,7 +39,7 @@ def waf(request):
                              'data': card_obj,
                              'first_name': first_name,
                              'username': username},
-                             status=200)
+                            status=200)
 
     else:
         return JsonResponse({"success": False,

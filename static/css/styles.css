@@ -62,15 +62,147 @@
 .card-text {
   font-size: 17px;
   color: #333;
+  overflow-wrap: break-word;
+  overflow-x: auto;
+  max-width: 450px;
 }
 
 .card-text:hover {
   color: black;
 }
 
-/* -----------------------------------------------
-UNIVERSAL
----------------------------------------------------*/
+@media (max-width: 400px) {
+  .card-text {
+    width: 250px;
+  }
+}
+
+@media (max-width: 320px) {
+  .card-text {
+    width: 200px;
+  }
+}
+
+@media (min-width: 400px) {
+  .card-text {
+    width: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-text {
+    width: 270px;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-text {
+    width: 380px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-text {
+    width: 450px;
+  }
+}
+
+.card-user-pic {
+  border: 1px solid #2076F5;
+}
+
+.card-menu:hover {
+  color: #2076F5;
+}
+
+#replybtn, #reply {
+  border-radius: 20px;
+  background-color: #F5F9FC;
+}
+
+#reply {
+  display: block;
+  overflow: hidden;
+  resize: none;
+}
+
+.summary {
+  background-color: #eeeeee;
+}
+
+#desk-card-detail {
+  border: 0.05px solid #eceaea;
+}
+
+#detail-back :hover {
+  cursor: pointer;
+}
+
+#profilepic:hover {
+  cursor: pointer;
+  border: 3px solid #2076F5;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  margin-left: 40%;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #cef;
+  border-radius: 50%;
+  -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #305161 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  -webkit-animation-delay: -0.45s;
+          animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+
+@-webkit-keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 body {
   background-color: #F5F9FC;
 }
@@ -79,22 +211,8 @@ body {
   background-color: #F5F9FC;
 }
 
-#subnav {
-  background-color: #F5F9FC;
-}
-
-.avatar :hover {
+.avatar:hover {
   cursor: pointer;
-}
-
-.srchbox {
-  padding: 0px 5px 1px 5px;
-  opacity: 0.7;
-  height: 30px;
-  border: 0px;
-  border-radius: 28px;
-  max-width: 300px;
-  width: auto;
 }
 
 .authbtn {
@@ -102,18 +220,6 @@ body {
   border: 0px;
 }
 
-/* -----------------------------------------------
-END UNIVERSAL
----------------------------------------------------*/
-#pdfreader {
-  width: 100%;
-  height: 650px;
-  /* background-color: blue; */
-}
-
-/* -------------------------------------------------
-LANDING
----------------------------------------------------- */
 .keypoints {
   /* background-color: var(--washed); */
   padding-top: 5px;
@@ -129,108 +235,8 @@ LANDING
   padding-right: 20px;
 }
 
-/* -------------------------------------------------
-END LANDING
----------------------------------------------------- */
-/* -------------------------------------------
-DESK PAGE
---------------------------------------------*/
 .username {
-  font-size: 16px;
+  font-size: 19px;
   font-weight: bold;
 }
-
-#banner {
-  background: url("../img/banner.jpg") no-repeat;
-  height: 20px;
-  width: 100%;
-  padding-bottom: 0px;
-  background-size: cover;
-}
-
-/* 
-#kira {
-  border: 16px solid #242323;
-  border-top: 16px solid var(--navbg);
-  border-radius: 50%;
-  animation: spin 2s linear infinite;
-  height: 50px;
-  width: 50px;
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  z-index: 100;
-  animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
-.kira {
-  cursor: pointer;
-  bottom: 3%;
-  right: 2%;
-  z-index: 100;
-  position: fixed;
-  transform: translateX(-50%) translateY(-50%);
-  width: 30px;
-  height: 30px;
-}
-
-.kira:before {
-  content: '';
-  position: relative;
-  display: block;
-  width: 300%;
-  height: 300%;
-  box-sizing: border-box;
-  margin-left: -100%;
-  margin-top: -100%;
-  border-radius: 45px;
-  background-color: #18191a;
-  animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
-}
-
-.kira:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: var(--navbg);
-  border-radius: 15px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, .3);
-  animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -.4s infinite;
-} */
-.communities,
-#trends {
-  border-radius: 5px;
-}
-
-.comm:hover,
-.trend:hover {
-  background-color: #faeae0;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.trend,
-.trend:hover {
-  display: block;
-  color: black;
-}
-
-/* ---------------------------------------- 
- DESK HOME 
------------------------------------------- */
 /*# sourceMappingURL=styles.css.map */

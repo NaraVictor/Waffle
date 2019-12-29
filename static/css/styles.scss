@@ -1,7 +1,10 @@
-@import 'sass/colors';
-@import 'sass/components';
-@import 'sass/login';
-@import 'sass/cards';
+@import 'scss/colors';
+@import 'scss/components';
+@import 'scss/login';
+@import 'scss/cards';
+@import 'scss/profile';
+@import 'scss/loader';
+
 
 body {
     background-color: $bgcolor;
@@ -47,5 +50,3 @@ body {
     font-size: 19px;
     font-weight: bold;
 }
-
-

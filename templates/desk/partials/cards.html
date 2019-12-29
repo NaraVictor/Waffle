@@ -1,11 +1,73 @@
 {% load static %}
 
-{% block javascript %}
 
+{% block javascript %}
+<script>
+    function load_detail() {
+        $.ajax( {
+            type: 'GET',
+            url: '/',
+            dataType: 'Html',
+            beforeSend: function () {
+                $( ".lds-ring" ).toggleClass( 'd-none' );
+            },
+            success: function ( data ) {
+                // $( ".lds-ring" ).removeClass( 'd-none' );
+                $( "#desk-detail" ).html( '<h2>Hello world</h2>' );
+
+            },
+            error: function ( xhr, errmsg, err ) {
+                $( ".lds-ring" ).removeClass( 'd-none' );
+
+            },
+        } );
+    }
+
+</script>
 {% endblock %}
 
 
-<div class="modal fade" id="waf-detail" tabindex="-1" role="dialog" aria-labelledby="wafdetailLabel" aria-hidden="true">
+{% for card in cards %}
+
+<div class="media m-0 deskcard py-3">
+
+    <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 rounded-circle z-depth-0 mt-1" alt="avatar image"
+        height="30">
+    <div class="media-body">
+
+        <div class="float-right mr-3 text-primary">
+            <span class="fa fa-ellipsis-h card-menu" data-toggle="modal" data-target="#waf-detail"
+                data-magic="{{ card.id }}">
+            </span>
+        </div>
+
+        <div class="pl-3 pr-2">
+            <div class="py-2">
+                <span class="username">{{card.user.first_name}}</span>
+                <div>
+                    <span class="text-muted">@{{card.user.username}} ~ </span>
+                    <small class="text-muted"> {{ card.card_date|date:'D d, M' }}</small>
+                </div>
+            </div>
+
+            <p class="py-2 card-text">{{card.text}}</p>
+
+            <footer>
+                <hr>
+                <span class="pr-5 text-muted reply"><i class="fa fa-reply"></i> 230 </span>
+                <span class="pr-2 text-muted like"><i class="fa fa-heart"></i> 1k </span>
+            </footer>
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+<p class="text-muted text-center pt-4">Looks like you've reached the end</p>
+
+
+
+<!-- <div class="modal fade" id="waf-detail" tabindex="-1" role="dialog" aria-labelledby="wafdetailLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -62,78 +124,4 @@
             </div>
         </div>
     </div>
-</div>
-
-
-
-
-
-
-{% for card in cards %}
-
-<div class="media m-0 deskcard py-3">
-
-    <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 card-user-pic rounded-circle z-depth-0 mt-1"
-        alt="avatar image" height="30">
-    <div class="media-body">
-
-        <div class="float-right mr-3 text-primary">
-            <span class="fa fa-ellipsis-h card-menu" data-toggle="modal" data-target="#waf-detail"
-                data-magic="{{ card.id }}">
-            </span>
-        </div>
-
-        <div class="pl-3 pr-2">
-            <div class="py-2">
-                <span class="username">{{card.user.first_name}}</span>
-                <div>
-                    <span class="text-muted">@{{card.user.username}} ~ </span>
-                    <small class="text-muted"> {{ card.card_date|date:'D d, M' }}</small>
-                </div>
-            </div>
-
-            <p class="py-2 pr-2 card-text">{{card.text}}</p>
-            <footer>
-                <hr>
-                <span class="pr-5 text-muted reply"><i class="fa fa-reply"></i> 230 </span>
-                <span class="pr-2 text-muted like"><i class="fa fa-heart"></i> 1k </span>
-            </footer>
-        </div>
-    </div>
-</div>
-
-{% endfor %}
-
-<p class="text-muted text-center pt-4">Looks like you've reached the end</p>
-
-
-<script>
-    // $( this ).click( function () {
-    //     // alert( ( "this" ).attr( 'data-magic' ) );
-    // } );
-
-    // $( '#largeModal' ).modal( 'show' );
-
-    // function submitInput() {
-    //     $.ajax( {
-    //         url: "{% url 'signup' %}",
-    //         data: {
-    //             first_name: $( 'input[name="first_name"]' ).val(),
-    //         },
-    //         method: 'post',
-    //         dataType: 'json',
-    //         beforeSend: function () {
-    //             $( "#submitbtn" ).text( 'Processing...' );
-    //             $( ".errorlist" ).text( '' );
-
-    //         },
-    //         success: function ( data ) {}
-
-    //     } ).fail( function ( $xhr ) {
-    //         $( ".errorlist" ).text( $xhr.responseJSON.err );
-    //         $( "#submitbtn" ).text( 'signup' );
-
-    //     } );
-    // }
-
-</script>
+</div> -->

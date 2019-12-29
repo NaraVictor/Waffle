@@ -2,7 +2,6 @@
 {% load static %}
 
 
-
 {% block javascript %}
 <script>
     $( "#submitbtn" ).click( function ( e ) {
@@ -26,21 +25,27 @@
             beforeSend: function () {
                 $( "#submitbtn" ).text( 'saving...' );
                 $( ".errorlist" ).text( '' );
+
             },
             success: function ( data ) {
-                $( ".status" ).text( 'changes saved...' );
+                $( ".status" ).text( 'profile saved...' );
                 $( "#submitbtn" ).text( 'save' );
             }
         } ).fail( function ( $xhr ) {
+            $( ".status" ).text( '' );
             $( ".errorlist" ).text( $xhr.responseJSON.msg );
             $( "#submitbtn" ).text( 'save' );
         } );
     }
 
+
+    $( "#profilepic" ).click( function () {
+        alert( 'Hello World' );
+    } )
+
 </script>
+
 {% endblock %}
-
-
 
 
 {% block content %}

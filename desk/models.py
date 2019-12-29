@@ -1,15 +1,23 @@
 from django.db import models
 import datetime
+from django.contrib.auth.models import User
+
 # Create your models here.
 
 # cards of questions
 
 
 class Card(models.Model):
-    text = models.CharField(max_length=500)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(max_length=500)
+    votes = models.ManyToManyField(
+        User,
+        through='CardVote',
+        through_fields=('card', 'user'),
+        related_name='card_votes',
+    )
     card_date = models.DateField()
     card_time = models.TimeField()
-    user = models.ForeignKey('auth.user', on_delete=models.CASCADE)
 
     def __str__(self):
         return self.text
@@ -23,17 +31,29 @@ class Card(models.Model):
 
 class CardReply(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    reply_date = models.DateField(auto_now=True)
-    reply_time = models.TimeField(auto_now_add=True)
-    text = models.CharField(max_length=1000)
     user = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    text = models.TextField(max_length=2000)
+    reply_date = models.DateField()
+    reply_time = models.TimeField()
 
     def __str__(self):
         return self.text
 
+    def save(self, *args, **kwargs):
+        self.reply_date = datetime.datetime.now().date()
+        self.reply_time = datetime.datetime.now().time()
 
-class CardLike(models.Model):
+        super(CardReply, self).save(*args, **kwargs)
+
+
+class CardVote(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    user = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    vote = models.IntegerField(
+        default=0,
+        help_text='determines whether a vote is up or down: 1 is upvote & 2 is downvote'
+    )
     like_date = models.DateField(auto_now_add=True)
     like_time = models.TimeField(auto_now_add=True)
+
+# reaction #1 = upvote &  2 = downvote
