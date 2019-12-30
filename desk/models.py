@@ -1,7 +1,7 @@
 from django.db import models
 import datetime
 from django.contrib.auth.models import User
-
+from .managers import *
 # Create your models here.
 
 # cards of questions
@@ -28,10 +28,16 @@ class Card(models.Model):
 
         super(Card, self).save(*args, **kwargs)
 
+    # default model manager.. if not done, django will use the first manager as the default
+    # once we are setting additional customer managers
+    objects = models.Manager()
+
+    # custom model managers
+
 
 class CardReply(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    user = models.ForeignKey('auth.user', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     text = models.TextField(max_length=2000)
     reply_date = models.DateField()
     reply_time = models.TimeField()

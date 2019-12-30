@@ -9,7 +9,11 @@ from .models import *
 from django.core.exceptions import ValidationError
 from accounts.models import Profile
 from logs.utils import log_error
-from . import utils
+from waffle.utils import (
+    errMsg,
+    emailExists,
+    usernameExists,
+    )
 from django.core.files.storage import FileSystemStorage
 import datetime
 # Create your views here.
@@ -33,11 +37,11 @@ def signup(request):
             if str(request.POST['password1']) is None:
                 return ValueError('Password cannot be empty')
 
-            if utils.usernameExists(username):
-                return utils.errMsg('username already taken. Try another!')
+            if usernameExists(username):
+                return errMsg('username already taken. Try another!')
 
-            elif utils.emailExists(email):
-                return utils.errMsg('email taken. Try a different one')
+            elif emailExists(email):
+                return errMsg('email taken. Try a different one')
 
             else:
                 user = User.objects.create_user(
@@ -69,7 +73,7 @@ def signup(request):
             str(type(e)),
             e, 'accounts - signup',
             url=resolve(request.path_info).url_name)
-        return utils.errMsg('ensure that all fields are set!')
+        return errMsg('ensure that all fields are set!')
 
     except Exception as e:
         log_error(
@@ -78,7 +82,7 @@ def signup(request):
             'accounts - signup',
             url=resolve(request.path_info).url_name
         )
-        return utils.errMsg('something bad happened')
+        return errMsg('something bad happened')
 
 
 @login_required

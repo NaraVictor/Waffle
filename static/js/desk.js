@@ -104,12 +104,21 @@
 
 
   //   cards
+  $magickey = 0;
+
   $( ".card-menu" ).click( function () {
       detailToggle();
-      load_detail() //inside cards.html file
+
+      $magickey2 = $( this ).attr( 'data-magic' );
+      if ( $magickey2 == $magickey ) {
+          console.log( 'this key is exists already' );
+      } else {
+          $magickey = $magickey2;
+          load_detail( $magickey ); //inside cards.html file
+      }
   } );
 
-  $( "#detail-back" ).click( function () {
+  $( "#detailswap" ).on( 'click', '#detail-back', function () {
       detailToggle();
   } );
 

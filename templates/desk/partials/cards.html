@@ -3,20 +3,22 @@
 
 {% block javascript %}
 <script>
-    function load_detail() {
+    function load_detail( magic ) {
         $.ajax( {
             type: 'GET',
-            url: '/',
-            dataType: 'Html',
+            url: "{% url 'desk:detail' %}",
+            dataType: 'json',
+            data: {
+                'magic': magic,
+            },
             beforeSend: function () {
                 $( ".lds-ring" ).toggleClass( 'd-none' );
             },
-            success: function ( data ) {
-                // $( ".lds-ring" ).removeClass( 'd-none' );
-                $( "#desk-detail" ).html( '<h2>Hello world</h2>' );
-
+            success: function ( d ) {
+                $( "#desk-detail" ).html( d.html );
             },
             error: function ( xhr, errmsg, err ) {
+                console.log( 'error' );
                 $( ".lds-ring" ).removeClass( 'd-none' );
 
             },
@@ -34,12 +36,13 @@
     <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 rounded-circle z-depth-0 mt-1" alt="avatar image"
         height="30">
     <div class="media-body">
-
+        <!-- 
         <div class="float-right mr-3 text-primary">
-            <span class="fa fa-ellipsis-h card-menu" data-toggle="modal" data-target="#waf-detail"
-                data-magic="{{ card.id }}">
+            <span class="fa fa-ellipsis-h card-menu" data-toggle="modal" data-target="#waf-detail">
             </span>
-        </div>
+            <span class="fa fa-ellipsis-h card-menu">
+            </span>
+        </div> -->
 
         <div class="pl-3 pr-2">
             <div class="py-2">
@@ -50,7 +53,9 @@
                 </div>
             </div>
 
-            <p class="py-2 card-text">{{card.text}}</p>
+            <div class="card-menu" data-magic="{{card.id}}">
+                <p class="py-2 card-text">{{card.text}}</p>
+            </div>
 
             <footer>
                 <hr>
