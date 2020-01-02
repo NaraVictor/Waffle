@@ -6,12 +6,12 @@
   } );
 
 
-  $( '#waf' ).keydown( function ( event ) {
-      // Submit the input when the enter button is pressed
-      if ( event.keyCode == 13 ) {
-          waf();
-      }
-  } );
+  // $( '#waf' ).keydown( function ( event ) {
+  //     // Submit the input when the enter button is pressed
+  //     if ( event.keyCode == 13 ) {
+  //         waf();
+  //     }
+  // } );
 
 
 
@@ -76,7 +76,7 @@
   }
 
 
-  // auto counting remaining characters
+  // auto counting waf remaining characters
   $( "#text" ).keyup( function () {
       var l = $( "#text" ).val().length;
       var r = 500 - l;
@@ -95,34 +95,61 @@
       }
   } );
 
-  // reply autoresizing
-  $( '#reply' ).on( 'input', function () {
+
+  // reply textbox autoresizing
+  $( '#desk-detail' ).on( 'input', '#reply', function () {
       this.style.height = 'auto';
       this.style.height = ( this.scrollHeight ) + 'px';
   } );
 
 
-
-  //   cards
+  //   cards - detail view
   $magickey = 0;
+  $scroll = 0;
 
   $( ".card-menu" ).click( function () {
+      $scroll = window.scrollY;
+      $magickey = $( this ).attr( 'data-magic' );
       detailToggle();
-
-      $magickey2 = $( this ).attr( 'data-magic' );
-      if ( $magickey2 == $magickey ) {
-          console.log( 'this key is exists already' );
-      } else {
-          $magickey = $magickey2;
-          load_detail( $magickey ); //inside cards.html file
-      }
+      load_detail( $magickey ); //inside cards.html file
   } );
+
 
   $( "#detailswap" ).on( 'click', '#detail-back', function () {
+      //   the on() allows the event to be tied to dynamic elements through the parent
       detailToggle();
+      window.scrollTo( 0, $scroll );
   } );
+
 
   function detailToggle() {
       $( "#deskcards" ).toggleClass( 'd-none' );
       $( "#desk-card-detail" ).toggleClass( 'd-none' );
+  }
+
+
+  //replying
+  $( "#detailswap" ).on( 'keydown', '#reply', function ( event ) {
+      // Submit the input when the enter button is pressed
+      if ( event.keyCode == 13 ) {
+          reply( $magickey ); //inside card_detail.html file
+      }
+  } );
+
+
+  //voting
+  function vote( v_type, card_id, url ) {
+      $.ajax( {
+          type: 'POST',
+          url: url,
+          dataType: 'json',
+          data: {
+              'card': card_id,
+              'voteType': v_type,
+          },
+          success: function ( a ) {
+              //function inside card_detail.html file
+              vote_painter( card_id, a.vote, a.upvotes, a.downvotes );
+          }
+      } );
   }

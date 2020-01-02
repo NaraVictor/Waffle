@@ -4,6 +4,8 @@
 {% block javascript %}
 <script>
     function load_detail( magic ) {
+        window.scrollTo( 0, 0 );
+
         $.ajax( {
             type: 'GET',
             url: "{% url 'desk:detail' %}",
@@ -13,8 +15,10 @@
             },
             beforeSend: function () {
                 $( ".lds-ring" ).toggleClass( 'd-none' );
+                $( "#desk-detail" ).html( '' );
             },
             success: function ( d ) {
+                $( ".lds-ring" ).toggleClass( 'd-none' );
                 $( "#desk-detail" ).html( d.html );
             },
             error: function ( xhr, errmsg, err ) {
@@ -36,11 +40,9 @@
     <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 rounded-circle z-depth-0 mt-1" alt="avatar image"
         height="30">
     <div class="media-body">
-        <!-- 
-        <div class="float-right mr-3 text-primary">
+
+        <!-- <div class="float-right mr-3 text-primary">
             <span class="fa fa-ellipsis-h card-menu" data-toggle="modal" data-target="#waf-detail">
-            </span>
-            <span class="fa fa-ellipsis-h card-menu">
             </span>
         </div> -->
 
@@ -59,8 +61,19 @@
 
             <footer>
                 <hr>
-                <span class="pr-5 text-muted reply"><i class="fa fa-reply"></i> 230 </span>
-                <span class="pr-2 text-muted like"><i class="fa fa-heart"></i> 1k </span>
+                <span class="pr-5 mr-2 text-muted"><i class="reply-count fa fa-reply"></i>
+                    <span class="pl-1 cards-count" id="{{card.id}}count">{{replycount}}</span>
+                </span>
+                <span class="pr-5 mr-3 text-muted"><i class="upvotes fas fa-arrow-up"></i>
+                    <span class="pl-1 cards-upvote" id="{{card.id}}upvote">
+                        {{upvotes}}
+                    </span>
+                </span>
+                <span class="text-muted"><i class="downvotes fas fa-arrow-down"></i>
+                    <span class="pl-1 cards-downvote" id="{{card.id}}downvote">
+                        {{downvotes}}
+                    </span>
+                </span>
             </footer>
         </div>
     </div>
@@ -70,9 +83,9 @@
 
 <p class="text-muted text-center pt-4">Looks like you've reached the end</p>
 
+<!-- 
 
-
-<!-- <div class="modal fade" id="waf-detail" tabindex="-1" role="dialog" aria-labelledby="wafdetailLabel" aria-hidden="true">
+<div class="modal fade" id="waf-detail" tabindex="-1" role="dialog" aria-labelledby="wafdetailLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

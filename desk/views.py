@@ -7,8 +7,14 @@ from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
 from logs.utils import log_error
 from waffle.utils import errMsg
+from desk.utils import (replyCount,
+                        upvoteCount,
+                        downvoteCount,
+                        vote as cast_vote,
+                        Vote)
 from django.urls import resolve
-from django.template import loader, RequestContext
+from django.template import loader
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -34,7 +40,6 @@ def waf(request):
             user=request.user
         )
 
-        # latest = Card.objects.latest('id').id
         card_obj = model_to_dict(card)
         first_name = request.user.first_name
         username = request.user.username
@@ -56,41 +61,89 @@ def card_detail(request):
     try:
         if request.is_ajax():
             m = request.GET['magic']
+
             if not m:
                 return JsonResponse({'err': 'invalid selection'}, status=400)
 
-            c = Card.objects.prefetch_related('votes').get(
-                pk=m)  # prefetch good for many to many relations
+            # prefetch good for many to many relations : fetches card & related votes
+            c = Card.objects.prefetch_related('votes').get(pk=m)
+
             r = CardReply.objects.filter(card=c.id).select_related('user').values(
                 'text', 'user__username', 'user__first_name', 'reply_date', 'reply_time')
 
-            upvotes = c.cardvote_set.filter(
-                vote__iexact='1').values('vote').count()
-            downvotes = c.cardvote_set.filter(
-                vote__iexact='2').values('vote').count()
-            replycount = r.count()
-
-            # t = loader.get_template('desk/partials/card_detail.html')
+            # render template with dic values and return template as string literals
             html = loader.render_to_string('desk/partials/card_detail.html', {
                 'card': c,
-                'reply': r,
-                'upvotes': upvotes,
-                'downvotes': downvotes,
-                'replycount': replycount,
+                'replies': r,
+                'upvotes': upvoteCount(c),
+                'downvotes': downvoteCount(c),
+                'replycount': r.count(),
             })
-            print(c.user.username)
+            # pass template string literals into json to be parsed backed into html
             return JsonResponse({'html': html}, status=200)
-            # print(f"card title: {c}")
-            # print(f"upvotes: {upvotes}")
-            # print(f"downvotes: {downvotes}")
-            # print(f"number of replies: {replycount}")
-            # print(f"All replies: {[a for a in r]}")
 
     except Exception as e:
-        # log_error(
-        #     str(type(e)),
-        #     e,
-        #     'desk - card_detail',
-        #     url=resolve(request.path_info).url_name)
-        print(e)
-        return errMsg(e)
+        log_error(
+            str(type(e)),
+            e,
+            'desk - card_detail',
+            url=resolve(request.path_info).url_name)
+        return e
+        # return errMsg('Something went wrong')
+
+
+@login_required
+def reply(request):
+    try:
+        if request.method == 'POST' and request.is_ajax():
+            r = CardReply.objects.create(
+                card_id=request.POST['card_id'],
+                user=request.user,
+                text=request.POST["reply"],
+            )
+            m = model_to_dict(r)
+            return JsonResponse(
+                {
+                    'reply': m,
+                    'count': replyCount(r.card),
+                    'status': 'OK',
+                },
+                status=200)
+
+    except Exception as e:
+        log_error(
+            str(type(e)),
+            e,
+            'desk - reply',
+            url=resolve(request.path_info).url_name
+        )
+        return errMsg('Something went wrong')
+
+
+@login_required
+@csrf_exempt
+def vote(request):
+    try:
+        vote = 0
+        upcounts = 0
+        downcounts = 0
+
+        if str(request.POST['voteType']).lower() == 'up':
+            vote = cast_vote('1', request.POST['card'], request.user)
+        elif str(request.POST['voteType']).lower() == 'down':
+            vote = cast_vote('2', request.POST['card'], request.user)
+
+        return JsonResponse(
+            {
+                'vote': vote,
+                'upvotes': upcounts,
+                'downvotes': downcounts
+            }, status=200)
+
+    except Exception as e:
+        log_error(
+            str(type(e)),
+            e,
+            'desk - vote',
+            url=resolve(request.path_info).url_name)
+        return errMsg('Vote not cast')

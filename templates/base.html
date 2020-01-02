@@ -27,8 +27,7 @@
     <meta name="theme-color" content="#F5F9FC" />
 
     <link href="{% static '/img/waffle-new-logo.png' %}" type="image/jpg" rel="shortcut icon">
-    <script src="{% static '/js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/js.cookie.js' %}"></script>
+
 
     <title>
       {% block title %}
@@ -55,7 +54,9 @@
 
 
     <!-- core scripts -->
+    <script src="{% static '/js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- <script src="{% static 'js/js.cookie.js' %}"></script> -->
     <script src="{% static 'js/app.js' %}"></script>
 
     <!-- extra scripts -->

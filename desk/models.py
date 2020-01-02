@@ -59,7 +59,8 @@ class CardVote(models.Model):
         default=0,
         help_text='determines whether a vote is up or down: 1 is upvote & 2 is downvote'
     )
-    like_date = models.DateField(auto_now_add=True)
-    like_time = models.TimeField(auto_now_add=True)
+    vote_date = models.DateField(auto_now_add=True)
+    vote_time = models.TimeField(auto_now_add=True)
+
 
 # reaction #1 = upvote &  2 = downvote

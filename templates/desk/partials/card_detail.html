@@ -1,9 +1,79 @@
 {% load static %}
 
 
+{% block javascript %}
+<script>
+    function reply_painter( r, m ) {
+        $l = $( '<div class = "reply-container">' +
+            '<div class = "reply-head">' +
+            "<img src = '../static/img/Victor.jpg'" +
+            ' class = "card-user-pic rounded-circle z-depth-0 mt-1" alt = "avatar image"  height = "30">' +
+            '<span> <strong>' + 'firstname' + '</strong> ~ @' + 'username' +
+            '</span>' +
+            '<div class="ml-4"> <small>' + r.reply[ 'reply_date' ] +
+            '</small></div> </div><div><p class = "p-2 ml-4 reply-text">' +
+            r.reply[ 'text' ] + '</p> </div> </div>' );
+
+        $( "#replies" ).append( $l );
+        $( "#reply" ).css( 'height', 'auto' ).val( '' );
+        $( "#d-count" ).text( r.count );
+        $( `#${m}count` ).text( r.count ); //update non-detailed parent card that was clicked on
+        $( "#reply-status" ).text( '' );
+    }
+
+    $( ".upvotes" ).click( function () {
+        card = $( this ).closest( 'div.reactions' ).attr( 'data-magic' );
+        vote( 'up', card, "{% url 'desk:vote' %}" );
+    } );
+
+    $( ".downvotes" ).click( function () {
+        card = $( this ).closest( 'div.reactions' ).attr( 'data-magic' );
+        vote( 'down', card, "{% url 'desk:vote' %}" );
+    } );
+
+
+    //refreshes up and downvotes figures
+    function vote_painter( card, vote_type, upvote, downvote ) {
+        $( "#d-upvote" ).text( upvote );
+        $( "#d-downvote" ).text( downvote );
+        $( `#${card}upvote` ).text( upvote );
+        $( `#${card}downvote` ).text( downvote );
+        alert( `card: ${ card } \n vote: ${ vote_type } \n upvotes: ${ upvote } \n downvotes: ${ downvote }` );
+    }
+
+
+
+    function reply( card_id ) {
+        $.ajax( {
+            type: 'POST',
+            url: "{% url 'desk:reply' %}",
+            dataType: 'json',
+            data: {
+                'card_id': card_id, //card id
+                'reply': $( '#reply' ).val(),
+                csrfmiddlewaretoken: $( 'input[name=csrfmiddlewaretoken]' ).val(),
+
+            },
+            beforeSend: function () {
+                $( "#reply-status" ).text( 'replying...' );
+            },
+            success: function ( r ) {
+                reply_painter( r, card_id );
+            },
+            error: function ( xhr, errmsg, err ) {
+                $( "#reply-status" ).text( err );
+
+            },
+        } );
+    }
+
+</script>
+{% endblock %}
+
+
 {% block content %}
 
-<div class="media m-0 py-3" id="desk-card-detail">
+<div class="media m-0 py-3 mb-5" id="desk-card-detail">
 
     <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 card-user-pic rounded-circle z-depth-0 mt-1"
         alt="avatar image" height="30">
@@ -18,52 +88,73 @@
         <div class="pt-1 ml-2">
             <span class="username">{{ card.user.first_name }}</span>
             <div>
-                <span class="text-muted">{{card.user.username}} ~ </span>
+                <span class="text-muted">@{{card.user.username}} ~ </span>
                 <small class="text-muted"> {{card.card_date}}</small>
                 <p id="diagmsg"></p>
             </div>
         </div>
 
-        <div class="pl-3 pr-2">
-            <!-- <div class="py-2">
-                <span class="username">{{card.user.first_name}}</span>
-                <div>
-                    <span class="text-muted">@{{card.user.username}} ~ </span>
-                    <small class="text-muted"> {{ card.card_date|date:'D d, M' }}</small>
-                </div>
-            </div> -->
-
+        <div class="px-2">
             <p class="py-2 card-text">
                 {{card.text}}
             </p>
             <footer>
                 <hr>
-                <span class="pr-5 text-muted"><i class="fa fa-reply"></i> 230 </span>
-                <span class="pr-2 text-muted"><i class="fa fa-heart"></i> 1k </span>
+                <div class="reactions" data-magic="{{card.id}}">
+                    <span class="pr-2 text-muted"><i class="reply-count fa fa-reply"></i>
+                        <span id="d-count">{{replycount}} </span><small> replies</small>
+                    </span>
+                    <span class="pr-2 text-muted"><i class="upvotes fas fa-arrow-up"></i>
+                        <span id="d-upvote">
+                            {{upvotes}}
+                        </span><small> upvotes</small>
+                    </span>
+                    <span class="text-muted"><i class="downvotes fas fa-arrow-down"></i>
+                        <span id="d-downvote">
+                            {{downvotes}}
+                        </span><small> downvotes</small>
+                    </span>
+                </div>
                 <hr>
 
-                <p>replies down here</p>
                 <div id="replies">
-
+                    {% for r in replies %}
+                    <div class="reply-container">
+                        <div class="reply-head">
+                            <img src="{% static '../static/img/Victor.jpg' %}"
+                                class="card-user-pic rounded-circle z-depth-0 mt-1" alt="avatar image" height="30">
+                            <span><strong>{{r.user__first_name}}</strong> ~ @{{r.user__username}}</span>
+                            <div class="ml-4">
+                                <small>{{r.reply_date|date:'D d, M'}}</small>
+                            </div>
+                        </div>
+                        <div class="reply-text-container">
+                            <p class="p-2 ml-4 reply-text">{{r.text}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
                 </div>
 
-                <div class="input-group mb-1" id="userreply">
+                <div id="reply-status"></div>
+
+                <div class="input-group" id="userreply">
                     <img src="{% static '../static/img/Victor.jpg' %}" id="reply-user-pic"
                         class="mr-2 card-user-pic rounded-circle z-depth-0 mt-1" alt="avatar image" height="30">
 
-                    <textarea type="text" maxlength="2000" name="reply" class="form-control"
-                        placeholder="{{ user.first_name }}, add a reply..." aria-label="reply" aria-describedby="reply"
-                        rows="1" id="reply"></textarea>
-
-                    <!-- <div class="input-group-append">
-                        <button href="#" class="input-group-text" id="replybtn">
-                            <span class="fa fa-arrow-right"></span>
-                        </button>
-                    </div> -->
+                    <form id="reply-form" class="p-0 m-0">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-12">
+                                <textarea type="text" maxlength="2000" name="reply" class="form-control"
+                                    placeholder="add a reply..." aria-label="reply" aria-describedby="reply" rows="1"
+                                    id="reply"></textarea>
+                            </div>
+                        </div>
+                    </form>
                 </div>
 
             </footer>
         </div>
     </div>
-
-    {% endblock content %}
+</div>
+{% endblock content %}

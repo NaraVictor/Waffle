@@ -6,17 +6,14 @@
     height: 14rem;
 }
 
-
 .videocard:hover {
     text-decoration: none;
 }
-
 
 .card-img {
     width: 11.9rem;
     height: 9rem;
 }
-
 
 
 // desk cards
@@ -28,17 +25,20 @@
 
     &:hover {
         background-color: #f8f8f8;
-        cursor: pointer;
+        // cursor: pointer;
     }
 }
 
+%shared-overflow {
+    overflow-wrap: break-word;
+    overflow-x: auto;
+    max-width: 450px;
+}
 
 .card-text {
     font-size: 17px;
     color: #333;
-    overflow-wrap: break-word;
-    overflow-x: auto;
-    max-width: 450px;
+    @extend %shared-overflow;
 
     &:hover {
         color: black;
@@ -46,48 +46,77 @@
 }
 
 
+.reply-text {
+    background-color: rgb(233, 232, 232);
+    color: black;
+    display: inline-block;
+    padding: 2px;
+    border-radius: 5px;
+    @extend %shared-overflow;
+
+}
+
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 400px) {
-    .card-text {
-        width: 250px;
+
+    .card-text,
+    .reply-text {
+        max-width: 250px !important;
     }
 }
 
 
 @media (max-width: 320px) {
-    .card-text {
-        width: 200px;
+
+    .card-text,
+    .reply-text {
+        max-width: 200px !important;
     }
 }
 
 // Small devices (landscape phones, 576px and up)
 @media (min-width: 400px) {
-    .card-text {
-        width: 300px;
+
+    .card-text,
+    .reply-text {
+        max-width: 300px !important;
     }
 }
 
+@media (min-width: 440px) {
+
+    .reply-text {
+        max-width: 350px !important;
+    }
+}
+
+
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
-    .card-text {
-        width: 270px;
+
+    .card-text,
+    .reply-text {
+        max-width: 270px !important;
     }
 }
 
 // Large devices (desktops, 992px and up)
 @media (min-width: 992px) {
-    .card-text {
-        width: 380px;
+
+    .card-text,
+    .reply-text {
+        max-width: 380px !important;
     }
 }
 
 // Extra large devices (large desktops, 1200px and up)
 @media (min-width: 1200px) {
-    .card-text {
-        width: 450px;
+
+    .card-text,
+    .reply-text {
+        max-width: 450px !important;
     }
 }
-
 
 
 .card-user-pic {
@@ -98,8 +127,10 @@
 .card-menu {
     &:hover {
         color: $mainColor;
+        cursor: pointer;
     }
 }
+
 
 %reply-roundness {
     border-radius: 20px;
@@ -117,6 +148,9 @@
     resize: none;
 }
 
+#reply-form {
+    width: 85%;
+}
 
 .summary {
     background-color: #eeeeee;
@@ -131,5 +165,36 @@
 
     & :hover {
         cursor: pointer;
+    }
+}
+
+%reaction-roundness {
+    border-radius: 100%;
+    color: white;
+    padding: 6px;
+    cursor: pointer;
+}
+
+.reply-count {
+
+    &:hover {
+        background-color: $replyColor;
+        @extend %reaction-roundness;
+
+    }
+}
+
+.upvotes {
+    &:hover {
+        background-color: $upvoteColor;
+        @extend %reaction-roundness;
+
+    }
+}
+
+.downvotes {
+    &:hover {
+        background-color: $downvoteColor;
+        @extend %reaction-roundness;
     }
 }
