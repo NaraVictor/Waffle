@@ -168,33 +168,61 @@
     }
 }
 
-%reaction-roundness {
+// %reaction-roundness {
+//     border-radius: 100%;
+//     color: white;
+//     padding: 6px;
+//     cursor: pointer;
+// }
+
+
+@mixin reaction($type) {
     border-radius: 100%;
     color: white;
     padding: 6px;
     cursor: pointer;
+
+    @if $type==upvote {
+        background-color: $upvoteColor;
+    }
+
+    @else if $type==downvote {
+        background-color: $downvoteColor;
+    }
+
+    @else if $type==reply {
+        background-color: $replyColor;
+    }
 }
 
+
+//reactions hover
 .reply-count {
 
     &:hover {
-        background-color: $replyColor;
-        @extend %reaction-roundness;
-
+        @include reaction(reply);
     }
 }
 
 .upvotes {
     &:hover {
-        background-color: $upvoteColor;
-        @extend %reaction-roundness;
+        @include reaction(upvote);
 
     }
 }
 
 .downvotes {
     &:hover {
-        background-color: $downvoteColor;
-        @extend %reaction-roundness;
+        @include reaction(downvote);
     }
+}
+
+
+//vote cast
+.upvote-cast {
+    color: $upvoteColor;
+}
+
+.downvote-cast {
+    color: $downvoteColor;
 }

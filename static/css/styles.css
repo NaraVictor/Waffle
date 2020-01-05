@@ -165,23 +165,36 @@
   cursor: pointer;
 }
 
-.reply-count:hover, .upvotes:hover, .downvotes:hover {
+.reply-count:hover {
   border-radius: 100%;
   color: white;
   padding: 6px;
   cursor: pointer;
-}
-
-.reply-count:hover {
   background-color: #bcb7ff;
 }
 
 .upvotes:hover {
+  border-radius: 100%;
+  color: white;
+  padding: 6px;
+  cursor: pointer;
   background-color: rgba(146, 190, 120, 0.897);
 }
 
 .downvotes:hover {
+  border-radius: 100%;
+  color: white;
+  padding: 6px;
+  cursor: pointer;
   background-color: #fcc0c0;
+}
+
+.upvote-cast {
+  color: rgba(146, 190, 120, 0.897);
+}
+
+.downvote-cast {
+  color: #fcc0c0;
 }
 
 #profilepic:hover {

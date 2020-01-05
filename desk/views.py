@@ -15,14 +15,24 @@ from desk.utils import (replyCount,
 from django.urls import resolve
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count, Q
 
 
 # Create your views here.
 
 @login_required
 def index(request):
-    cards = Card.objects.order_by(*['-card_date', '-card_time']).all()
+    cards = Card.objects.order_by(
+        *['-card_date', '-card_time']).select_related('user').all()
 
+    # upvote = Count('cardvote__vote', filter=Q(cardvote__vote='1'))
+    # downvote = Count('cardvote__vote', filter=Q(cardvote__vote='2'))
+    # c = Card.objects.annotate(replies=Count('cardreply')).annotate(
+    #     upvotes=upvote).annotate(downvotes=downvote).values('replies','upvotes','downvotes')
+    # print(c)
+    # print('yeah')
+
+    # return HttpResponse('successfully loaded')
     return render(request,
                   'desk/index.html',
                   {'cards': cards,
@@ -75,8 +85,8 @@ def card_detail(request):
             html = loader.render_to_string('desk/partials/card_detail.html', {
                 'card': c,
                 'replies': r,
-                'upvotes': upvoteCount(c),
-                'downvotes': downvoteCount(c),
+                'upvotes': upvoteCount(c, False),
+                'downvotes': downvoteCount(c, False),
                 'replycount': r.count(),
             })
             # pass template string literals into json to be parsed backed into html
@@ -124,20 +134,20 @@ def reply(request):
 @csrf_exempt
 def vote(request):
     try:
+        card_id = request.POST['card']
         vote = 0
-        upcounts = 0
-        downcounts = 0
+        print('vote view called inside django')
 
         if str(request.POST['voteType']).lower() == 'up':
-            vote = cast_vote('1', request.POST['card'], request.user)
+            vote = cast_vote('1', card_id, request.user)
         elif str(request.POST['voteType']).lower() == 'down':
-            vote = cast_vote('2', request.POST['card'], request.user)
+            vote = cast_vote('2', card_id, request.user)
 
         return JsonResponse(
             {
                 'vote': vote,
-                'upvotes': upcounts,
-                'downvotes': downcounts
+                'upvotes': upvoteCount(card_id, True),
+                'downvotes': downvoteCount(card_id, True)
             }, status=200)
 
     except Exception as e:
@@ -146,4 +156,5 @@ def vote(request):
             e,
             'desk - vote',
             url=resolve(request.path_info).url_name)
+        return e
         return errMsg('Vote not cast')

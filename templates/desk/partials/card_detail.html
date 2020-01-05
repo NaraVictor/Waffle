@@ -10,7 +10,7 @@
             ' class = "card-user-pic rounded-circle z-depth-0 mt-1" alt = "avatar image"  height = "30">' +
             '<span> <strong>' + 'firstname' + '</strong> ~ @' + 'username' +
             '</span>' +
-            '<div class="ml-4"> <small>' + r.reply[ 'reply_date' ] +
+            '<div class="ml-4"> <small> Now' +
             '</small></div> </div><div><p class = "p-2 ml-4 reply-text">' +
             r.reply[ 'text' ] + '</p> </div> </div>' );
 
@@ -21,26 +21,17 @@
         $( "#reply-status" ).text( '' );
     }
 
+    //detailed view upvote click
     $( ".upvotes" ).click( function () {
         card = $( this ).closest( 'div.reactions' ).attr( 'data-magic' );
-        vote( 'up', card, "{% url 'desk:vote' %}" );
+        vote( 'up', card, "{% url 'desk:vote' %}", true );
     } );
 
+    //detailed view downvote click
     $( ".downvotes" ).click( function () {
         card = $( this ).closest( 'div.reactions' ).attr( 'data-magic' );
-        vote( 'down', card, "{% url 'desk:vote' %}" );
+        vote( 'down', card, "{% url 'desk:vote' %}", true );
     } );
-
-
-    //refreshes up and downvotes figures
-    function vote_painter( card, vote_type, upvote, downvote ) {
-        $( "#d-upvote" ).text( upvote );
-        $( "#d-downvote" ).text( downvote );
-        $( `#${card}upvote` ).text( upvote );
-        $( `#${card}downvote` ).text( downvote );
-        alert( `card: ${ card } \n vote: ${ vote_type } \n upvotes: ${ upvote } \n downvotes: ${ downvote }` );
-    }
-
 
 
     function reply( card_id ) {
@@ -52,7 +43,6 @@
                 'card_id': card_id, //card id
                 'reply': $( '#reply' ).val(),
                 csrfmiddlewaretoken: $( 'input[name=csrfmiddlewaretoken]' ).val(),
-
             },
             beforeSend: function () {
                 $( "#reply-status" ).text( 'replying...' );
@@ -62,7 +52,6 @@
             },
             error: function ( xhr, errmsg, err ) {
                 $( "#reply-status" ).text( err );
-
             },
         } );
     }
@@ -74,6 +63,7 @@
 {% block content %}
 
 <div class="media m-0 py-3 mb-5" id="desk-card-detail">
+    <input type="hidden" id="d-vote" value="{{vote}}">
 
     <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 card-user-pic rounded-circle z-depth-0 mt-1"
         alt="avatar image" height="30">
@@ -104,16 +94,19 @@
                     <span class="pr-2 text-muted"><i class="reply-count fa fa-reply"></i>
                         <span id="d-count">{{replycount}} </span><small> replies</small>
                     </span>
-                    <span class="pr-2 text-muted"><i class="upvotes fas fa-arrow-up"></i>
+                    <!-- <span class="pr-2 text-muted">
+                        <i class="upvotes fas fa-arrow-up"></i>
                         <span id="d-upvote">
                             {{upvotes}}
                         </span><small> upvotes</small>
                     </span>
-                    <span class="text-muted"><i class="downvotes fas fa-arrow-down"></i>
+                    <span class="text-muted">
+                        <i class="downvotes fas fa-arrow-down"></i>
                         <span id="d-downvote">
                             {{downvotes}}
-                        </span><small> downvotes</small>
-                    </span>
+                        </span>
+                        <small> downvotes</small>
+                    </span> -->
                 </div>
                 <hr>
 
