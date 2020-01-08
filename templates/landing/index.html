@@ -22,14 +22,16 @@
         </h2>
 
         <p class="text-secondary">create your dream learning community, <br>environment and
-          experience</p>
+          experience.
+          <a href="{% url 'about:index' %}">Learn more</a>
+        </p>
       </div>
 
 
       <!-- <a href="{% url 'library:index' %}" class="btn waf-btn-prim">explore library</a> -->
 
       {% if user.is_authenticated %}
-      <a href="{% url 'desk:index' %}" class="btn btn-success">desk</a>
+      <a href="{% url 'desks:index' %}" class="btn btn-success">desk</a>
 
       {% else %}
       <a href="{% url 'login' %}" class="btn btn-success">signin</a>

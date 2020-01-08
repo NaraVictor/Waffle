@@ -24,12 +24,11 @@ urlpatterns = [
         template_name='landing/index.html'), name='landing'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'), name='login'),
-    path('account/', include('account.urls')),
-    path('desk/', include('desk.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('desk/', include('desks.urls')),
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),
     path('library/', include('library.urls')),
-    path('weblog/', include('weblog.urls')),
 
 
     # urls to be enabled in updates

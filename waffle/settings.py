@@ -37,16 +37,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'users.apps.UsersConfig',  # custom addition
 
     # our apps -------------------
-    'desk',
-    'account',
+    # 'users.apps.UsersConfig',  # custom addition
+    'desks',
+    'accounts',
     'about',
     'library',
     'contact',
-    'weblog',
-    'log',
+    'logs',
     # 'chatterbot.ext.django_chatterbot',
     # 'kirabot',
 ]
@@ -144,7 +143,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 # Login/logout redirect url
 
-LOGIN_REDIRECT_URL = 'desk:index'
+LOGIN_REDIRECT_URL = 'desks:index'
 LOGOUT_REDIRECT_URL = 'landing'
 
 
@@ -152,4 +151,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/pics')
 
 # should be the last configuration
-AUTH_USER_MODEL = 'account.CustomUser'
+# AUTH_USER_MODEL = 'accounts.CustomUser'
