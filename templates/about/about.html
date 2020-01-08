@@ -1,4 +1,5 @@
 {% extends '../base.html' %}
+{% load static %}
 
 {% block title %}
 About
@@ -6,24 +7,161 @@ About
 
 
 {% block content %}
-<div class="row">
-    <div class="col-md-3"></div>
-    <div class="col-12 col-md-6 mt-5">
-        <div class="shadow rounded p-3 bg-light text-justify">
-            <h3 class="text-center pb-2">About Waffle</h3>
-            <hr>
-            <p class="pt-2">
-                Waffle is a social learning platform which seeks to provide a stage for students especially, WAEC
-                candidates, to learn and teach anyone around the world. Verified authors can create, upload and sell
-                curated video materials,
-                provide books or form learning communities on a particular topic where virtual classes can take
-                place. There is a social networking platform built into waffle backed by a virtual personal
-                assistant. There is more to explore and the future looks exciting
-            </p>
-        </div>
-    </div>
-    <div class="col-md-3"></div>
-</div>
+<!-- intro -->
+<!-- <section class="row about-row">
+    <article class="col-12">
+        <p class="mt-5 about-text">
+            Waffle is a social learning platform which seeks to provide a stage for students especially,
+            WAEC
+            candidates, to learn and teach anyone around the world. Verified authors can create, upload and
+            sell
+            curated video materials,
+            provide books or form learning communities on a particular topic where virtual classes can take
+            place. There is a social networking platform built into waffle backed by a virtual personal
+            assistant. There is more to explore and the future looks exciting
+        </p>
+    </article>
+</section> -->
+
+<!-- Goal of Waffle -->
+<section class="row py-5 about-row">
+    <article class="col-md-5">
+        <img src="{% static '/img/about/idea.png' %}" alt="Goal" height="350" width="350">
+    </article>
+    <article class="col-md-7 about-text text-justify">
+        Understanding that man is dynamic and society thrive on diversity, the goal of Waffle, a social learning
+        platform, is to amplify the
+        richness of:
+        <br>
+        <ul>
+            <li>The industrial education model (current system)</li>
+            <li>The agricultural education model</li>
+            <li>African culture (the fabric of our societies).</li>
+        </ul>
+
+        Waffle provides the following core tools to this effect:
+        <ul>
+            <li>Social learning platform</li>
+            <li>Library of videos and books</li>
+            <li>Learning Communities</li>
+            <li>Fellows</li>
+        </ul>
+
+    </article>
+</section>
+
+<hr>
+
+<!-- Social Learning platform -->
+<section class="row about-row">
+    <article class="col-md-5 order-md-12 py-3">
+        <h1 class="text-center py-1">Social Learning</h1>
+        <img src="{% static '/img/about/social.png' %}" alt="waffle communities" class="img-responsive">
+    </article>
+    <article class="col-md-7 about-text text-justify order-md-1 mt-md-5 pt-md-5">
+        <p>
+            The social learning platform is first of many tools to be implemented and enables any user to ask and/or
+            answer a question, provide a short educational content or promote an incredible talent worthy of support
+            and/or
+            attention.
+        </p>
+    </article>
+
+</section>
+
+
+<!-- Library -->
+<section class="row about-row py-5">
+    <article class="col-md-5">
+        <h1 class="text-center py-1">Library</h1>
+        <img src="{% static '/img/about/library.png' %}" alt="waffle video and books library" class="img-responsive">
+    </article>
+    <article class="col-md-7 about-text text-justify">
+        The video and books library will enable authors, publishers and other content creators to prepare and upload
+        verified
+        books and curated video contents for different disciplines and fields of work. However, we place special
+        interest on
+        (not in any special order):
+
+        <ul>
+            <li>WAEC, Nursing and Teacher training contents</li>
+            <li>African culture</li>
+            <li>Youth and gender educational contents</li>
+            <li>Innovations</li>
+            <li>Talents</li>
+            <li>Multi-disciplinary educational contents</li>
+        </ul>
+        These contents could be premium or freemium based on uploader’s discretion.
+
+    </article>
+
+</section>
+
+<!-- Communities -->
+<section class="row about-row">
+    <article class="col-md-5 order-md-12 py-3">
+        <h1 class="text-center py-1">Communities</h1>
+        <img src="{% static '/img/about/community.png' %}" alt="waffle communities" class="img-responsive">
+    </article>
+    <article class="col-md-7 about-text text-justify pt-md-5 order-md-1">
+        Learning communities are similar to Facebook pages in concept but optimized for teaching and learning. Users can
+        follow or create a community and these communities could hold live sessions, create and post content local to
+        the community for instance, there could be a community about the culture and history of Lawra (a town in upper
+        west of Ghana) and much more.
+    </article>
+</section>
+
+<!-- Fellows -->
+<section class="row py-5 about-row">
+    <article class="col-md-5">
+        <h1 class="text-center py-1">Fellows</h1>
+        <img src="{% static '/img/about/fellows.png' %}" alt="waffle fellows" class="img-responsive">
+    </article>
+
+    <article class="col-md-7 about-text text-justify">
+        Fellows are growth partners of waffle. These could be individuals and/or bodies dedicated to giving back or
+        supporting whatever interests them on the platform, Students who benefited from waffle and would like to act as
+        guide for other students following similar paths, individuals or organizations interested in genuinely
+        supporting others through the platform (for instance a promoted talent, brilliant but needy students etc),
+        institutions/groups/bodies interested in localizing the ideology of waffle through workshops, meetups,
+        conferences and such like initiatives. There is more on this side of the story coming up soon.
+    </article>
+</section>
+
+<hr>
+
+<section class="row pb-5 about-row">
+    <article class="col-12 about-text text-center">
+        <p>
+            There are exciting adventures with waffle yet to be unraveled.
+        </p>
+        <p>
+            To know when a particular feature is coming, download this infographic <a href="#">here</a>
+        </p>
+
+        <p>
+            To get in touch with us about waffle, use our <a href="{% url 'contact' %}">contact form</a>
+        </p>
+
+        <p>
+            To get personal with the creators of waffle send a direct mail to <a
+                href="mailto:naravictor4@gmail.com">naravictor4@gmail.com</a> 😊
+        </p>
+
+        <p>
+            To join the creators WhatsApp platform as a content creator or author click on this
+            <a href="https://chat.whatsapp.com/BwpGIvSwUOj2wBCRB86L8d" target="_blank">link</a><br>
+            <strong>*** Free professional video recording for first 15 creators</strong>
+        </p>
+
+        <p>
+            To see what is happening now on waffle, <a href="{% url 'login' %}" class="btn waf-btn-prim">sign in</a> or
+            <a href="{% url 'signup' %}" class="btn btn-success">signup</a>
+
+        </p>
+    </article>
+
+</section>
 
 
 {% endblock content %}
