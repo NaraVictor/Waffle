@@ -7,13 +7,13 @@ from django.urls import resolve
 import json
 from .models import *
 from django.core.exceptions import ValidationError
-from accounts.models import Profile
-from logs.utils import log_error
+from .models import Profile
+from log.utils import log_error
 from waffle.utils import (
     errMsg,
     emailExists,
     usernameExists,
-    )
+)
 from django.core.files.storage import FileSystemStorage
 import datetime
 # Create your views here.
@@ -71,7 +71,7 @@ def signup(request):
     except ValueError as e:
         log_error(
             str(type(e)),
-            e, 'accounts - signup',
+            e, 'account - signup',
             url=resolve(request.path_info).url_name)
         return errMsg('ensure that all fields are set!')
 
@@ -79,7 +79,7 @@ def signup(request):
         log_error(
             str(type(e)),
             e,
-            'accounts - signup',
+            'account - signup',
             url=resolve(request.path_info).url_name
         )
         return errMsg('something bad happened')
@@ -115,13 +115,13 @@ def profile(request, user):
             # return redirect('desk:index')
         else:
             profile = Profile.objects.get(user=request.user)
-            return render(request, 'accounts/profile.html', {'data': profile})
+            return render(request, 'account/profile.html', {'data': profile})
 
     except ValueError as e:
         log_error(
             str(type(e)),
             e,
-            'accounts - profile',
+            'account - profile',
             user_id=request.user.id,
             url=resolve(request.path_info).url_name
         )
@@ -133,29 +133,12 @@ def profile(request, user):
         log_error(
             str(type(e)),
             e,
-            'accounts - profile',
+            'account - profile',
             user_id=request.user.id,
             url=resolve(request.path_info).url_name
         )
-        return JsonResponse({
-            'msg': "Something bad happened"
-        }, status=400)
+        return e
+        # return JsonResponse({
+        #     'msg': "Something bad happened"
+        # }, status=400)
         # return render(request, 'error.html')
-
-
-# def simple(request):
-#     if request.method == 'GET':
-#         sims = models.simple.objects.filter(name == 'christmas')
-#         return render(request, 'accounts/profile.html', {'simple': sims})
-#     else:
-#         sim = models.simple(
-#             name=request.POST['name'],
-#             image=request.FILES['image']
-#         )
-#         sim.save()
-
-#         sims = models.simple.objects.all()
-#         return render(request, 'accounts/profile.html', {'simple': sims})
-
-
-# MultiValueDictKeyError google this

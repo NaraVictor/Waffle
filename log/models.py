@@ -11,3 +11,6 @@ class ErrorLogger(models.Model):
     app = models.CharField(max_length=300, blank=True)
     url = models.URLField(blank=True)
     user_id = models.CharField(max_length=250, blank=True)
+
+    # class Meta:
+    #     db_table = 'error_logs'

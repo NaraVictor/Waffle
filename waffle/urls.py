@@ -24,7 +24,7 @@ urlpatterns = [
         template_name='landing/index.html'), name='landing'),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls'), name='login'),
-    path('accounts/', include('accounts.urls')),
+    path('account/', include('account.urls')),
     path('desk/', include('desk.urls')),
     path('about/', include('about.urls')),
     path('contact/', include('contact.urls')),

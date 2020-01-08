@@ -5,7 +5,7 @@ from django.http import Http404, HttpResponse, JsonResponse
 import json
 from django.forms.models import model_to_dict
 from django.contrib.auth.decorators import login_required
-from logs.utils import log_error
+from log.utils import log_error
 from waffle.utils import errMsg
 from desk.utils import (replyCount,
                         upvoteCount,
@@ -134,27 +134,29 @@ def reply(request):
 @csrf_exempt
 def vote(request):
     try:
-        card_id = request.POST['card']
-        vote = 0
-        print('vote view called inside django')
+        print('yeah go inside vote --- but its empty :( So what do u want here?')
+        # card_id = request.POST['card']
+        # vote = 0
+        # print('vote view called inside django')
 
-        if str(request.POST['voteType']).lower() == 'up':
-            vote = cast_vote('1', card_id, request.user)
-        elif str(request.POST['voteType']).lower() == 'down':
-            vote = cast_vote('2', card_id, request.user)
+        # if str(request.POST['voteType']).lower() == 'up':
+        #     vote = cast_vote('1', card_id, request.user)
+        # elif str(request.POST['voteType']).lower() == 'down':
+        #     vote = cast_vote('2', card_id, request.user)
 
-        return JsonResponse(
-            {
-                'vote': vote,
-                'upvotes': upvoteCount(card_id, True),
-                'downvotes': downvoteCount(card_id, True)
-            }, status=200)
+        # return JsonResponse(
+        #     {
+        #         'vote': vote,
+        #         'upvotes': upvoteCount(card_id, True),
+        #         'downvotes': downvoteCount(card_id, True)
+        #     }, status=200)
 
     except Exception as e:
-        log_error(
-            str(type(e)),
-            e,
-            'desk - vote',
-            url=resolve(request.path_info).url_name)
-        return e
-        return errMsg('Vote not cast')
+        print('yeah, you got an error')
+        # log_error(
+        #     str(type(e)),
+        #     e,
+        #     'desk - vote',
+        #     url=resolve(request.path_info).url_name)
+        # return e
+        # return errMsg('Vote not cast')

@@ -31,7 +31,6 @@ class Card(models.Model):
     # default model manager.. if not done, django will use the first manager as the default
     # once we are setting additional customer managers
     objects = models.Manager()
-
     # custom model managers
 
 
@@ -52,6 +51,7 @@ class CardReply(models.Model):
         super(CardReply, self).save(*args, **kwargs)
 
 
+
 class CardVote(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -61,6 +61,7 @@ class CardVote(models.Model):
     )
     vote_date = models.DateField(auto_now_add=True)
     vote_time = models.TimeField(auto_now_add=True)
+
 
 
 # reaction #1 = upvote &  2 = downvote
