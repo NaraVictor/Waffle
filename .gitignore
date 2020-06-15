@@ -108,3 +108,5 @@ waffle/keys/
 waffle/settings1.py
 waffle/settings-Production.py
 uploads/video
+staticfiles/
+waffle/settings.py
