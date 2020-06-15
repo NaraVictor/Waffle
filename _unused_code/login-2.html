@@ -1,0 +1,107 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-2 col-sm-0">
+    </div>
+
+    <div class="col-md-8 col-sm-12">
+        <div class="bg-white text-center shadow mt-5 rounded">
+            <div>
+                <div class="card-body">
+
+                    <div class="row">
+                        <div class="col-md-7 col-sm-12 py-0 my-0">
+                            <img src="{% static 'img/login-img.png' %}" alt="login image" id="login-img"
+                                class="img-responsive">
+                        </div>
+
+
+                        <div class="col-md-5 col-sm-12">
+                            <div class="waf-text-primary">
+                                <h4>Log in</h4>
+                            </div>
+
+                            <div class="mt-md-5">
+
+                                <form method="POST" action="{% url 'login' %}">
+                                    {% csrf_token %}
+
+                                    <ul class="errorlist">
+                                    </ul>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-12">
+                                            <input id="username" name="username" placeholder="username"
+                                                class="form-control" type="text" required autofocus>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <input type="password" name="password" class="form-control" id="pass"
+                                                placeholder="Password" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <button type="submit" class="btn btn-block waf-btn-prim">
+                                            login
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="d-flex justify-content-center">
+                                    <a href="{% url 'account_signup' %}" class="ml-2 pr-3">Sign Up</a> |
+                                    <a href="#" class="pl-3">Forgot password</a>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group mb-0 pb-0">
+                                <div class="d-flex justify-content-center">
+                                    <p>
+                                        Or signin with
+                                        <i class="fab fa-facebook"></i>
+                                        <i class="fab fa-google"></i>
+                                        <i class="fab fa-microsoft"></i>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-2 col-sm-0">
+    </div>
+
+</div>
+
+{% endblock content %}
+
+
+<!-- 
+                  <div class="form-row">
+                    <div class="form-group col-md-12">
+                      <input type="email" name="login" class="form-control" placeholder="E-mail address"
+                        autofocus="autofocus" required id="id_login">
+                    </div>
+                    <div class="form-group col-md-12">
+                      <input type="password" name="password" class="form-control" placeholder="Password" required
+                        id="id_password">
+                    </div>
+                    <div class="form-group col-md-12  pb-0 mb-0">
+                      <label for="id_remember">Remember Me:</label> <input type="checkbox" name="remember"
+                        id="id_remember" class="checkbox">
+                    </div>
+                  </div> -->

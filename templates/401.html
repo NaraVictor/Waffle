@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row pt-5">
+    <div class="col-12 text-center">
+        <h1 class="text-primary py-2" style="font-size: 4rem;">Unauthorized</h1>
+        <h2>401 error</h2>
+        <p>You ain't authorized to do that!</p>
+        <a href="{% url 'login' %}" class="btn btn-success">spice me up! <i class="fa fa-arrow-left"></i>
+        </a>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,322 @@
+{% extends '../_base.html' %}
+{% load static %}
+
+{% block title %}
+Upload Video
+{% endblock %}
+
+{% block css %}
+
+<style>
+    video,
+    canvas {
+        max-width: 100%;
+    }
+
+</style>
+
+{% endblock css %}
+
+{% block javascript %}
+<script src="{% static 'js/rsvp.js' %}"></script>
+<script src="{% static 'js/frame-grab.js' %}"></script>
+
+<script>
+    //functions
+    function msg( color, msg ) {
+        $( "#upload_status" ).attr( 'class', '' );
+        $( "#upload_status" ).addClass( 'p-2' );
+        $( "#upload_status" ).addClass( color );
+        $( "#upload_status" ).text( msg );
+    }
+
+    function getExtension( str ) {
+        /**
+         * checks a given filename for supported file extensions
+         * @param (str : string) string containing full filename with extensions
+         * @returns found extension or false
+         * */
+
+        let lst = [ '.mp4', '.mkv', 'webm' ];
+        let substr = str.substring( str.length - 4 );
+
+        for ( let i of lst ) {
+            //could also use str.endsWith() method
+            if ( substr.toLowerCase().includes( lst[ i ] ) ) {
+                return lst[ i ];
+            }
+        }
+
+        alert( 'file type not supported. Supported file types' +
+            ' are: \n -> .mp4 \n -> .mkv \n -> .webm' );
+        return false;
+    }
+
+
+    function paintFileDetail( filename, size ) {
+        let nm = filename + ` | ${size} Mb`;
+
+        if ( filename.length > 44 ) {
+            nm = filename.substring( 0, 30 ) + `... | ${size} Mb`;
+        }
+
+        $( "#vid_detail" ).text( nm ).removeClass( 'd-none' );
+    }
+
+    function grabFrame( file ) {
+        $( "#frameGrabs" ).html( '' );
+        $( "#videoContainer" ).html( '' );
+        $( "#grab_btn" ).removeClass( "d-none" );
+
+        FrameGrab.blob_to_video( file ).then(
+            function videoRendered( videoEl ) {
+                var frameGrabInstance = new FrameGrab( {
+                    video: videoEl
+                } );
+
+                videoEl.setAttribute( "controls", "" );
+                document.getElementById( "videoContainer" ).appendChild( videoEl );
+
+                $( "#frame_group" ).removeClass( "d-none" );
+
+                document.getElementById( "grabCurrentFrame" ).onclick = function () {
+                    frameGrabInstance.grab_now( "canvas" ).then(
+                        function grabbed( itemEntry ) {
+                            document.getElementById( "frameGrabs" ).appendChild( itemEntry
+                                .container );
+
+                            $( "#grab_btn" ).toggleClass( "d-none" );
+                        },
+
+
+                        function failedToGrab( reason ) {
+                            alert( reason );
+                        }
+                    );
+
+                };
+            },
+
+            function videoFailedToRender( reason ) {
+                // TODO handle failure to convert the file to a video element
+                alert( reason );
+            }
+        );
+
+    }
+
+
+    function drawImage() {
+        let img = document.getElementById( "thumbnail" );
+        let canvas = document.getElementsByTagName( 'canvas' );
+
+        img.setAttribute( "src", canvas.toDataURL( 'image/png' ) );
+
+        // canvas.toBlob( function ( blob ) {
+        //     let url = URL.createObjectURL( blob );
+
+        //     img.onload = function () {
+        //         // no longer need to read the blob so it's revoked
+        //         URL.revokeObjectURL( url );
+        //     };
+
+        //     img.src = url;
+        // } );
+    }
+
+    // replace with grabFrame
+    // function generateThumbnail() {
+    //     let video = document.getElementById( "video_preview" ),
+    //         canvas = document.getElementById( "video_canvas" ),
+    //         img = document.getElementById( "video_thumbnail" );
+    //     let c_ctx = canvas.getContext( '2d' );
+
+    //     // Video metadata is loaded
+    //     video.addEventListener( 'loadedmetadata', function () {
+    //         // Set canvas dimensions same as video dimensions
+    //         canvas.width = video.videoWidth;
+    //         canvas.height = video.videoHeight;
+
+    //         this.currentTime = 17;
+    //     } );
+
+    //     img.removeAttribute( "hidden" );
+    //     c_ctx.drawImage( video, 0, 0, video.videoWidth, video.videoHeight );
+    //     img.setAttribute( "src", canvas.toDataURL() );
+    //     $( "#auto_text" ).removeClass( "d-none" );
+    // }
+
+    // ajax video upload function
+    function uploadVideo() {
+        // Make the ajax call
+        $.ajax( {
+            url: "{% url 'library:upload_video' %}",
+            type: 'POST',
+            beforeSend: function () {
+                msg( "bg-warning", "Please wait. Video uploading..." );
+            },
+            success: function ( r ) {
+                msg( "bg-success", "video upload successful!" );
+                $( '#video_form' )[ 0 ].reset();
+            },
+            data: new FormData( $( '#video_form' )[ 0 ] ),
+            cache: false,
+            contentType: false,
+            processData: false,
+        } ).fail( function ( msg ) {
+            msg( "bg-danger", 'Error. All fields are required' );
+        } );
+    }
+
+
+    // video upload click
+    $( "#select_btn" ).click( () => {
+        $( "#videofile" ).click();
+    } );
+
+
+    // video upload trigger
+    let video = document.getElementById( 'videofile' );
+    video.addEventListener( 'change', function () {
+
+        let file = this.files[ 0 ];
+        let size = Math.round( file.size / 1000000 );
+
+        if ( size > 302 ) {
+            alert( `file size (${ size} MB) is above the maximum allowed (302 MB)` );
+            return false;
+        }
+
+        // fill in title field with file title if its empty
+        if ( !$( "#title" ).val() ) {
+            let ext = getExtension( file.name );
+            if ( ext ) {
+                document.getElementById( "title" ).value = file.name.replace( ext, "" );
+            }
+        }
+
+        paintFileDetail( file.name, size );
+        grabFrame( file );
+        drawImage();
+
+    } );
+
+
+    // video validation
+    $( "#vid_submit_btn" ).click( function () {
+
+        if ( $( "#title" ).val() == "" ) {
+            msg( "bg-danger", "Video title is required!" );
+        } else if ( $( "#desc" ).val() == "" ) {
+            msg( "bg-danger", "Video description is required" );
+        } else if ( $( "#videofile" ).val() == "" ) {
+            msg( "bg-danger", "You must select a video file" );
+        } else {
+            uploadVideo();
+        }
+
+    } );
+
+</script>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="row mt-4 pt-md-4">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 col-sm-12">
+        <div class="bg-white rounded shadow-sm text-center pb-1">
+            <h4 class="pt-3">Video upload</h4>
+
+            <div class="row">
+                <div class="col-md-7">
+                    <form action="" id="video_form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token%}
+
+                        <div class="text-left form-group col-12">
+                            <small class="form-text text-muted">Title</small>
+                            <input name="title" placeholder="enter video title" class="form-control" maxlength="100"
+                                required id="title">
+                        </div>
+                        <div class="text-left form-group col-12">
+                            <small class="form-text text-muted">Description</small>
+                            <textarea name="description" rows="5" placeholder="description" class="form-control"
+                                maxlength="500" id="desc" required></textarea>
+                        </div>
+
+                        <!-- hidden essential inputs -->
+                        <input type="file" name="video" id="videofile" hidden class=""
+                            accept="video/mp4, video/mkv, video/webm">
+
+                        <img src="#" name="thumbnail" id="thumbnail" />
+
+                        <!-- <div class="form-group mb-1">
+                            <label for="auto-generate" class="form-label">Auto generate video thumbnail</label>
+                            <input type="checkbox" checked name="auto-generate" id="auto-generate">
+                        </div> -->
+
+                    </form>
+
+                    <!-- video upload -->
+                    <button class="btn waf-btn-prim" id="select_btn">
+                        <span class="fas fa-video"></span>
+                        Select Video file
+                    </button>
+
+                    <p id="vid_detail" class="p-2 mt-2 d-none">
+                    </p>
+
+                </div>
+                <div class="col-md-5">
+
+                    <section id="frame_group" class="d-none">
+                        <div id="videoContainer">
+                        </div>
+                        <hr>
+                        <span id="grab_btn" class="d-none">
+                            <p class="small text-primary m-2">play or seek (forward/rewind) to a desireable point in the
+                                video n click 'Get Frame' to generate a thumbnail (used as your video img in the
+                                library)</p>
+                            <button id="grabCurrentFrame" class="mb-1 btn btn-sm btn-outline-secondary">
+                                <span class="fas fa-copy"></span> Get frame</button>
+                        </span>
+                        <div id="frameGrabs"></div>
+                    </section>
+
+                    <!-- <canvas id="video_canvas" hidden></canvas>
+                    <img src="" alt="auto generated video thumbnail" id="video_thumbnail" style="max-width: 100%;"
+                        hidden> -->
+                    <!-- <span class="d-block text-success"><em class="d-none" id="auto_text">Auto generated
+                            thumbnail</em></span> -->
+
+                    <p class="small text-left p-3">
+                        Upload a short lesson or educative video to the library.
+                        For maximum impact, you are encouraged to keep video duration down to a max
+                        of 4 mins (not a restriction).
+                    </p>
+
+                    <div class="mb-2">
+                        <a href="{% url 'library:index' %}" class="mr-2 btn btn-outline-secondary">Go
+                            back
+                            <span class="fas fa-arrow-left">
+                            </span>
+                        </a>
+                        <button class="btn btn-primary" type="submit" id="vid_submit_btn">
+                            Upload
+                        </button>
+                    </div>
+
+                    <div class="my-2 text-white">
+                        <p class="" id="upload_status"></p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+
+    {% endblock %}

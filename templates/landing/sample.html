@@ -3,7 +3,7 @@
 
 
 <div class="col-5">
-    <a href="{% url 'library:video' 103248 %}" class="videocard" >
+    <a href="{% url 'library:watch' 103248 %}" class="videocard">
         <div class="card shadow-sm mb-3 cardsize">
             <img src="{% static '/img/img2.jpg' %}" class="card-img-top card-img" alt="...">
             <div class="card-body pt-2 pl-2">
@@ -25,7 +25,7 @@
         <span class="small"><span class="text-primary">Format:</span> PDF | EPUB</span>
         <br>
         <br>
-        <a href="{% url 'library:book' 87430 %}" class="mt-2 btn btn-sm btn-primary">
+        <a href="{% url 'library:read' 87430 %}" class="mt-2 btn btn-sm btn-primary">
             <span class="fa fa-book-open"></span> Preview
         </a>
     </div>

@@ -1,0 +1,21 @@
+@import 'commons/components';
+
+
+#videoplayer {
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width:420px) {
+    & #videoplayer {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.related_video {
+
+    &:hover {
+        text-decoration: none;
+    }
+}

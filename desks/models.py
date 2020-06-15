@@ -3,7 +3,8 @@ import datetime
 
 # django
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
+
 
 # local django
 from .managers import *
@@ -12,12 +13,12 @@ from .managers import *
 
 # cards of questions
 
-
 class Card(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     text = models.TextField(max_length=500)
     votes = models.ManyToManyField(
-        User,
+        settings.AUTH_USER_MODEL,
         through='CardVote',
         through_fields=('card', 'user'),
         related_name='card_votes',
@@ -42,7 +43,8 @@ class Card(models.Model):
 
 class CardReply(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     text = models.TextField(max_length=2000)
     reply_date = models.DateField()
     reply_time = models.TimeField()
@@ -59,7 +61,8 @@ class CardReply(models.Model):
 
 class CardVote(models.Model):
     card = models.ForeignKey(Card, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     vote = models.IntegerField(
         default=0,
         help_text='determines whether a vote is up or down: 1 is upvote & 2 is downvote'

@@ -1,0 +1,12 @@
+#login-img {
+    max-width: 300px;
+    max-height: 270px;
+}
+
+
+@media (max-width: 414px) {
+    #login-img {
+        max-width: 200px;
+        max-height: 180px;
+    }
+}

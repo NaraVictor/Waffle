@@ -61,7 +61,7 @@ def vote(vote_type, card_id, user):
 
     function returns type of vote applied
     """
-    print('vote algorithmn called inside django')
+    # print('vote algorithmn called inside django')
 
     obj, created = CardVote.objects.get_or_create(
         card_id=card_id,

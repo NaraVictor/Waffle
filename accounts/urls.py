@@ -1,10 +1,11 @@
 from django.urls import path
-from . import views
+from . views import profile, upload_profile_pic
 
 
 urlpatterns = [
-    path('signup/', views.signup, name='signup'),
-    path('profile/<user>/', views.profile, name='profile'),
+    # path('signup/', signup, name='signup'),
+    path('profile/<user>/', profile, name='profile'),
+    path('uploadprofilepic/', upload_profile_pic, name='upload_profile_pic'),
 
     # path('simple/', views.simple, name='simple'),
     # wants to automatically check availability of username as focus is lost from input

@@ -1,8 +1,33 @@
 {% load static %}
 
 <article class="col-12">
-    <video controls poster="{% static '/img/team.jpg' %}" width="750" height="450">
-        <source src="{% static '/vids/presentation.mp4' %}" type="video/mp4" />
+    <video controls autoplay preload="metadata" id="videoplayer" data-vidkey="{{ vid.pk }}">
+        <source src="{{vid.video.url}}" type="video/mp4" />
+        Sorry, your browser doesn't support embedded videos.
     </video>
-    <p id="videotitle">Current video title</p>
+
+    <div id="video_detail">
+        <p class="m-0 text-white videotitle">{{vid.title}}</p>
+        <span>
+            {% if vid.view_count != 1 %}
+            {{vid.view_count}} views
+            {% else %}
+            {{vid.view_count}} view
+            {% endif %}
+        </span> &VerticalLine;
+        <span class="small"> {{vid.publish_date}}</span>
+
+        <span class="d-flex">
+            Flag (Report Video)
+        </span>
+        <hr class="bg-secondary">
+
+        <img src="{{ vid.user.profile_pic.url }}" class="ml-2 rounded-circle z-depth-0 mt-1" alt="profile pic"
+            height="30">
+        <span class="justify-content-center align-self-center">{{vid.user.first_name}} {{vid.user.last_name}}</span>
+
+        <p class="ml-md-4 pl-md-3 mt-2 ml-2 text-white">{{vid.description}}</p>
+        <hr class="bg-secondary">
+    </div>
+
 </article>

@@ -1,0 +1,76 @@
+{% extends '../_base.html' %}
+{% load static %}
+
+{% block title %}
+{{vid.title}}
+{% endblock %}
+
+
+
+{% block javascript %}
+<script src="{% static 'js/app/watch.js' %}">
+</script>
+<script>
+    let video = document.getElementById( 'videoplayer' );
+
+    video.addEventListener( 'loadedmetadata', fetchRelatedVideo( this ) );
+    video.addEventListener( 'play', countView( video.getAttribute( "data-vidkey" ),
+        "{% url 'library:view_count' %}" ) );
+
+</script>
+{% endblock %}
+
+
+
+{% block fluid %}
+
+<div class="row pt-3 bg-dark text-white-50">
+    <div class="container">
+        <div class="row">
+            <section class="col-md-8 pb-2 px-0">
+                <!-- video player -->
+                <h3 class="text-white">Load dark navbar</h3>
+                {% include 'library/partials/videoplayer.html' %}
+            </section>
+
+            <section class="col-md-4">
+                <form action="" hidden>
+                    {% csrf_token %}
+                </form>
+                <!-- other videos -->
+                <p>Other Videos</p>
+                <hr class="bg-secondary">
+                {% for i in related %}
+                <a href="{% url 'library:watch' i.id %}" class="related_video" title="{{i.title}}">
+                    <div class="row no-gutters mb-2" style="max-width: 540px;">
+                        <div class="col-4 p-0 m-0">
+                            <img src="{% static '/img/img2.jpg' %}" class="card-img" alt="{{i.title}} image">
+                        </div>
+                        <div class="col-8 pl-1">
+                            <div class="py-0">
+                                <p class="videotitle mb-0 text-white">{{i.title}}</p>
+                                <div class="text-white-50">
+                                    <span class="d-block pb-0 mb-0">{{i.user.username}}</span>
+                                    <small class="pt-0 mt-0">
+                                        {% if i.view_count != 1 %}
+                                        {{i.view_count}} views
+                                        {% else %}
+                                        {{i.view_count}} view
+                                        {% endif %}
+                                    </small>
+                                    <small class="text-muted">{{i.publish_date}}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                {% endfor %}
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock fluid %}

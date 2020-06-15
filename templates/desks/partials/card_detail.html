@@ -3,12 +3,12 @@
 
 {% block javascript %}
 <script>
-    function reply_painter( r, m ) {
+    function paintReply( r, card_id ) {
         $l = $( '<div class = "reply-container">' +
             '<div class = "reply-head">' +
-            "<img src = '../static/img/Victor.jpg'" +
-            ' class = "card-user-pic rounded-circle z-depth-0 mt-1" alt = "avatar image"  height = "30">' +
-            '<span> <strong>' + 'firstname' + '</strong> ~ @' + 'username' +
+            "<img src='../static/img/profile_pics/default.jpg'" +
+            ' class = "card-user-pic rounded-circle z-depth-0 mt-1" alt = "profile pic"  height = "30">' +
+            '<span> <strong>' + r.first_name + '</strong> ~ @' + r.username +
             '</span>' +
             '<div class="ml-4"> <small> Now' +
             '</small></div> </div><div><p class = "p-2 ml-4 reply-text">' +
@@ -17,7 +17,7 @@
         $( "#replies" ).append( $l );
         $( "#reply" ).css( 'height', 'auto' ).val( '' );
         $( "#d-count" ).text( r.count );
-        // $( `#${m}count` ).text( r.count ); //update non-detailed parent card that was clicked on
+        $( `#${card_id}count` ).text( r.count ); //update non-detailed parent card that was clicked on
         $( "#reply-status" ).text( '' );
     }
 
@@ -48,7 +48,7 @@
                 $( "#reply-status" ).text( 'replying...' );
             },
             success: function ( r ) {
-                reply_painter( r, card_id );
+                paintReply( r, card_id );
             },
             error: function ( xhr, errmsg, err ) {
                 $( "#reply-status" ).text( err );
@@ -65,8 +65,8 @@
 <div class="media m-0 py-3 mb-5" id="desk-card-detail">
     <input type="hidden" id="d-vote" value="{{vote}}">
 
-    <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 card-user-pic rounded-circle z-depth-0 mt-1"
-        alt="avatar image" height="30">
+    <img src="{{ card.user.profile_pic.url }}" class="ml-2 card-user-pic rounded-circle z-depth-0 mt-1"
+        alt="profile image" height="30">
 
     <div class="media-body">
 
@@ -76,7 +76,7 @@
         </div>
 
         <div class="pt-1 ml-2">
-            <span class="username">{{ card.user.first_name }}</span>
+            <span class="username">{{ card.user.fullname }}</span>
             <div>
                 <span class="text-muted">@{{card.user.username}} ~ </span>
                 <small class="text-muted"> {{card.card_date}}</small>
@@ -91,7 +91,7 @@
             <footer>
                 <hr>
                 <div class="reactions" data-magic="{{card.id}}">
-                    <span class="pr-2 text-muted"><i class="reply-count fa fa-reply"></i>
+                    <span class="pr-2 text-muted"><i class="reply-count far fa-comment-alt"></i>
                         <span id="d-count">{{replycount}} </span><small> replies</small>
                     </span>
                     <!-- <span class="pr-2 text-muted">
@@ -114,9 +114,10 @@
                     {% for r in replies %}
                     <div class="reply-container">
                         <div class="reply-head">
-                            <img src="{% static '../static/img/Victor.jpg' %}"
-                                class="card-user-pic rounded-circle z-depth-0 mt-1" alt="avatar image" height="30">
-                            <span><strong>{{r.user__first_name}}</strong> ~ @{{r.user__username}}</span>
+                            <img src="{{ r.user__profile_pic.url }}" class="card-user-pic rounded-circle z-depth-0 mt-1"
+                                alt="profile image" height="30">
+                            <span class="username">{{r.user__first_name}} {{r.user__last_name}} ~
+                            </span><span>@{{r.user__username}}</span>
                             <div class="ml-4">
                                 <small>{{r.reply_date|date:'D d, M'}}</small>
                             </div>
@@ -131,8 +132,8 @@
                 <div id="reply-status"></div>
 
                 <div class="input-group" id="userreply">
-                    <img src="{% static '../static/img/Victor.jpg' %}" id="reply-user-pic"
-                        class="mr-2 card-user-pic rounded-circle z-depth-0 mt-1" alt="avatar image" height="30">
+                    <img src="{{ user.profile_pic.url }}" id="reply-user-pic"
+                        class="mr-2 card-user-pic rounded-circle z-depth-0 mt-1" alt="profile image" height="30">
 
                     <form id="reply-form" class="p-0 m-0">
                         {% csrf_token %}

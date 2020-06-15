@@ -1,4 +1,4 @@
-{% extends '../base.html' %}
+{% extends '_base.html' %}
 {% load static %}
 
 {% block title %}
@@ -7,28 +7,12 @@ About
 
 
 {% block content %}
-<!-- intro -->
-<!-- <section class="row about-row">
-    <article class="col-12">
-        <p class="mt-5 about-text">
-            Waffle is a social learning platform which seeks to provide a stage for students especially,
-            WAEC
-            candidates, to learn and teach anyone around the world. Verified authors can create, upload and
-            sell
-            curated video materials,
-            provide books or form learning communities on a particular topic where virtual classes can take
-            place. There is a social networking platform built into waffle backed by a virtual personal
-            assistant. There is more to explore and the future looks exciting
-        </p>
-    </article>
-</section> -->
-
 <!-- Goal of Waffle -->
 <section class="row py-5 about-row">
-    <article class="col-md-5">
+    <!-- <article class="col-md-5">
         <img src="{% static '/img/about/idea.png' %}" alt="Goal" height="350" width="350">
-    </article>
-    <article class="col-md-7 about-text text-justify">
+    </article> -->
+    <article class="col-12 about-text text-justify">
         Understanding that man is dynamic and society thrive on diversity, the goal of Waffle, a social learning
         platform, is to amplify the
         richness of:
@@ -57,6 +41,7 @@ About
     <article class="col-md-5 order-md-12 py-3">
         <h1 class="text-center py-1">Social Learning</h1>
         <img src="{% static '/img/about/social.png' %}" alt="waffle communities" class="img-responsive">
+        <!-- {% static '/img/about/library.png' %} -->
     </article>
     <article class="col-md-7 about-text text-justify order-md-1 mt-md-5 pt-md-5">
         <p>
@@ -84,12 +69,12 @@ About
         (not in any special order):
 
         <ul>
-            <li>WAEC, Nursing and Teacher training contents</li>
+            <li>WAEC and Tertiary Education (University, Technical University, Nursing and Teacher training) contents
+            </li>
             <li>African culture</li>
             <li>Youth and gender educational contents</li>
-            <li>Innovations</li>
-            <li>Talents</li>
-            <li>Multi-disciplinary educational contents</li>
+            <li>Innovations and Skills training</li>
+            <li>Multi-disciplinary and professional educational contents</li>
         </ul>
         These contents could be premium or freemium based on uploader’s discretion.
 
@@ -120,7 +105,7 @@ About
 
     <article class="col-md-7 about-text text-justify">
         Fellows are growth partners of waffle. These could be individuals and/or bodies dedicated to giving back or
-        supporting whatever interests them on the platform, Students who benefited from waffle and would like to act as
+        supporting whatever interests them on the platform; Students who benefited from waffle and would like to act as
         guide for other students following similar paths, individuals or organizations interested in genuinely
         supporting others through the platform (for instance a promoted talent, brilliant but needy students etc),
         institutions/groups/bodies interested in localizing the ideology of waffle through workshops, meetups,
@@ -145,7 +130,7 @@ About
 
         <p>
             To get personal with the creators of waffle send a direct mail to <a
-                href="mailto:naravictor4@gmail.com">naravictor4@gmail.com</a> 😊
+                href="mailto:nara@wafflegh.com">nara@wafflegh.com</a> 😊
         </p>
 
         <p>
@@ -154,11 +139,14 @@ About
             <strong>*** Free professional video recording for first 15 creators</strong>
         </p>
 
+        {% if not user.is_authenticated %}
         <p>
-            To see what is happening now on waffle, <a href="{% url 'login' %}" class="btn waf-btn-prim">sign in</a> or
-            <a href="{% url 'signup' %}" class="btn btn-success">signup</a>
+            To see what is happening now on waffle, <a href="{% url 'account_login' %}" class="btn waf-btn-prim">sign
+                in</a> or
+            <a href="{% url 'account_signup' %}" class="btn btn-success">signup</a>
 
         </p>
+        {% endif %}
     </article>
 
 </section>

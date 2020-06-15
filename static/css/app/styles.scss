@@ -1,0 +1,68 @@
+@import 'scss/commons/colors';
+@import 'scss/commons/components';
+@import 'scss/login';
+@import 'scss/profile';
+@import 'scss/loader';
+@import 'scss/about';
+@import 'scss/accounts';
+@import 'scss/watch';
+@import 'scss/desk';
+@import 'scss/library';
+@import 'scss/videoUpload';
+
+body {
+    background-color: $bgcolor;
+}
+
+#mainnav {
+    background-color: $bgcolor;
+}
+
+.avatar {
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+
+.authbtn {
+    border-radius: 0px;
+    border: 0px;
+
+}
+
+
+.keypoints {
+    /* background-color: var(--washed); */
+    padding-top: 5px;
+    border-radius: 5px;
+    border: 0px;
+    /* color:white; */
+}
+
+#dreamworld {
+    max-width: 80%;
+    max-height: 90%;
+    position: fixed;
+    padding-right: 20px;
+}
+
+
+.username {
+    @include commonTitle;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+.dropdown-menu {
+    min-width: 15px !important;
+    border: none;
+}
+
+
+/* and this styles the dropdwon trigger link, when open */
+// .navbar .dropdown.show a {
+//     background-color: #BADA55;
+// }

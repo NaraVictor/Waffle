@@ -1,129 +1,144 @@
 # standard
-import json
-import datetime
-
-# django
-from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
-from django.contrib.auth.models import User, auth
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.urls import resolve
-from django.core.exceptions import ValidationError
-from django.core.files.storage import FileSystemStorage
-
-# local django
-from .models import Profile
-from .models import Profile
-from logs.utils import log_error
 from waffle.utils import (
     errMsg,
     emailExists,
     usernameExists,
 )
+import json
+import datetime
 
+# django
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
+# from django.contrib.auth.models import User, auth
+from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.urls import resolve
+from django.core.exceptions import ValidationError
+from django.core.files.storage import FileSystemStorage
+from django.views.decorators.http import require_http_methods, require_POST
+
+# local django
+from logs.utils import log_error
+from .models import wUser
+from .forms import ProfilePicForm
 # Create your views here.
+user = get_user_model()
 
 
-def signup(request):
-    try:
-        if request.method == 'GET':
-            return render(request, 'registration/signup.html')
-        else:
-            last_name = request.POST['last_name']
-            first_name = request.POST['first_name']
-            email = request.POST['email']
-            username = request.POST['username']
-            password = request.POST['password1']
-            # password2 = request.POST['password2']
-            # birthdate = request.POST['birthdate']
+# @require_http_methods(['GET', 'POST'])
+# def signup(request):
+#     try:
+#         if request.method == 'GET':
+#             return render(request, 'account/signup.html')
+#         else:
+#             last_name = request.POST['last_name']
+#             first_name = request.POST['first_name']
+#             email = request.POST['email']
+#             username = request.POST['username']
+#             password = request.POST['password1']
 
-            # if password == password2:
+#             # checking required fields
+#             if str(request.POST['password1']) is None:
+#                 return errMsg('Password cannot be empty')
 
-            if str(request.POST['password1']) is None:
-                return ValueError('Password cannot be empty')
+#             if str(request.POST['username']) is None:
+#                 return errMsg('username cannot be empty')
 
-            if usernameExists(username):
-                return errMsg('username already taken. Try another!')
+#             if str(request.POST['email']) is None:
+#                 return errMsg('email cannot be empty')
 
-            elif emailExists(email):
-                return errMsg('email taken. Try a different one')
+#             if str(request.POST['first_name']) is None:
+#                 return errMsg('first name cannot be empty')
 
-            else:
-                user = User.objects.create_user(
-                    username=username,
-                    email=email,
-                    password=password,
-                    first_name=first_name,
-                    last_name=last_name
-                )
-                Profile.objects.create(
-                    user=user
-                )
+#             if str(request.POST['last_name']) is None:
+#                 return errMsg('last name cannot be empty')
 
-                # authenticate newly created user before login
-                userobj = authenticate(
-                    request, username=username, password=password)
-                login(request, userobj)
+#             # checking duplications
+#             if usernameExists(username):
+#                 return errMsg('username already taken. Try another!')
 
-                # redirect user to complete accounts setup
-                # return redirect('profile')
-                return JsonResponse({
-                    'status': "OK"
-                }, status=200)
-            # else:
-            #     return utils.errMsg('Passwords do not match. Try again')
+#             elif emailExists(email):
+#                 return errMsg('email taken. Try a different one')
 
-    except ValueError as e:
-        log_error(
-            str(type(e)),
-            e, 'accounts - signup',
-            url=resolve(request.path_info).url_name)
-        return errMsg('ensure that all fields are set!')
-        # return e
+#             else:
+#                 user.objects.create_user(
+#                     username=username,
+#                     email=email,
+#                     password=password,
+#                     first_name=first_name,
+#                     last_name=last_name
+#                 )
+#                 # authenticate newly created user before login
+#                 userobj = authenticate(
+#                     request,
+#                     username=username,
+#                     password=password
+#                 )
+#                 login(request, userobj)
 
-    except Exception as e:
-        log_error(
-            str(type(e)),
-            e,
-            'accounts - signup',
-            url=resolve(request.path_info).url_name
-        )
-        return errMsg('something bad happened')
-        # return e
+#                 # redirect user to complete accounts setup
+#                 # return redirect('profile')
+#                 return JsonResponse({
+#                     'status': "OK"
+#                 }, status=200)
+#             # else:
+#             #     return utils.errMsg('Passwords do not match. Try again')
+
+#     except ValueError as e:
+#         log_error(
+#             str(type(e)),
+#             e, 'accounts - signup',
+#             url=resolve(request.path_info).url_name)
+#         return errMsg('ensure that all fields are set!')
+#         # return e
+
+#     except Exception as e:
+#         log_error(
+#             str(type(e)),
+#             e,
+#             'accounts - signup',
+#             url=resolve(request.path_info).url_name
+#         )
+#         return errMsg('something bad happened')
+# return e
 
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def profile(request, user):
     try:
         if request.method == 'POST':
-            u = get_object_or_404(User, pk=request.user.id)
-            p = get_object_or_404(Profile, user=u)
+            if str(request.POST['username']) is None:
+                return errMsg('username cannot be empty')
 
-            # profile
-            p.bio = request.POST.get('bio', None)
-            p.birthdate = request.POST.get('birthdate', None)
-            p.phone_number = request.POST.get('phone_number', None)
-            p.save()
+            if str(request.POST['first_name']) is None:
+                return errMsg('first name cannot be empty')
+
+            if str(request.POST['last_name']) is None:
+                return errMsg('last name cannot be empty')
+
+            if str(request.POST['email']) is None:
+                return errMsg('email cannot be empty')
 
             # user
-            u.first_name = request.POST['first_name']
-            u.last_name = request.POST['last_name']
-            u.email = request.POST['email']
-
-            if str(request.POST['username']) is None:
-                raise ValueError('username cannot be empty')
-            else:
-                u.username = request.POST['username']
-                u.save()
+            user.objects.filter(id=request.user_id).update(
+                email=request.POST['email'],
+                phone=request.POST['phone'],
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                username=request.POST['username'],
+                birthdate=request.POST['birthdate'],
+                bio=request.POST['bio'],
+            )
 
             return JsonResponse({
                 'status': "OK"
             }, status=200)
             # return redirect('desk:index')
         else:
-            profile = Profile.objects.get(user=request.user)
-            return render(request, 'accounts/profile.html', {'data': profile})
+            u = get_object_or_404(wUser, pk=request.user.pk)
+            return render(request, 'account/profile.html', {'data': u})
 
     except ValueError as e:
         log_error(
@@ -151,3 +166,21 @@ def profile(request, user):
         }, status=400)
         return render(request, 'error.html')
         # return e
+
+
+@login_required
+@require_POST
+def upload_profile_pic(request):
+    frm = ProfilePicForm(request.POST, request.FILES)
+
+    if frm.is_valid():
+        usr = wUser.objects.get(pk=request.user.id)
+        usr.profile_pic = request.FILES['profilepic']
+        usr.save()
+        return JsonResponse({
+            'msg': 'OK'
+        }, status=200)
+    else:
+        return JsonResponse({
+            'msg': 'validation error'
+        }, status=400)

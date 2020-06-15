@@ -1,12 +1,14 @@
+# django
 from django.shortcuts import render
+from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+
+# local django
 from .models import Contact
 from .forms import ContactForm
-from django.http import JsonResponse
 
 
-# Create your views here.
-
-
+@require_http_methods(['GET', 'POST'])
 def contact(request):
     try:
         if request.method == 'POST':

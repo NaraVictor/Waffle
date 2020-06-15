@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 
 
 {% block content %}
@@ -44,7 +44,6 @@
 
 
 <script>
-
 	var $chatlog = $( '.js-chat-log' );
 	var $input = $( '.js-text' );
 	var $sayButton = $( '.js-say' );
@@ -52,17 +51,14 @@
 	var chatterbotUrl = '{% url "kirabot:kirabotapi" %}';
 	var csrftoken = Cookies.get( 'csrftoken' );
 
-	function csrfSafeMethod( method )
-	{
+	function csrfSafeMethod( method ) {
 		// these HTTP methods do not require CSRF protection
 		return ( /^(GET|HEAD|OPTIONS|TRACE)$/.test( method ) );
 	}
 
 	$.ajaxSetup( {
-		beforeSend: function ( xhr, settings )
-		{
-			if ( !csrfSafeMethod( settings.type ) && !this.crossDomain )
-			{
+		beforeSend: function ( xhr, settings ) {
+			if ( !csrfSafeMethod( settings.type ) && !this.crossDomain ) {
 				xhr.setRequestHeader( "X-CSRFToken", csrftoken );
 			}
 		}
@@ -72,39 +68,41 @@
 	var $input = $( '.js-text' );
 	var $sayButton = $( '.js-say' );
 
-	function kiramsg( msg )
-	{
-		let cur_time = new Date().toLocaleTimeString( navigator.language, { hour: '2-digit', minute: '2-digit' } );
+	function kiramsg( msg ) {
+		let cur_time = new Date().toLocaleTimeString( navigator.language, {
+			hour: '2-digit',
+			minute: '2-digit'
+		} );
 
 		return $( '<div class="d-flex mb-4 justify-content-start">' +
 			'<div class="img_cont_msg" >' +
 			"<img src='{% static '/img/kira2.png' %}' class='rounded-circle user_img_msg' ></div >" +
-			'<div class= "msg_container" > '
-			+ msg +
+			'<div class= "msg_container" > ' +
+			msg +
 			'<span class="msg_time">' + cur_time + ' </span></div ></div >'
 		);
 	}
 
-	function usermsg( msg )
-	{
-		let cur_time = new Date().toLocaleTimeString( navigator.language, { hour: '2-digit', minute: '2-digit' } );
+	function usermsg( msg ) {
+		let cur_time = new Date().toLocaleTimeString( navigator.language, {
+			hour: '2-digit',
+			minute: '2-digit'
+		} );
 
 		return $( '<div class="d-flex mb-4 justify-content-end">' +
-			'<div class="msg_container_send">'
-			+ msg +
+			'<div class="msg_container_send">' +
+			msg +
 			'<span class="msg_time_send">' + cur_time + '</span></div ><div class="img_cont_msg" >' +
 			"<img src= '{% static '/img/Victor.jpg' %}' class='rounded-circle user_img_msg'></div></div>"
 		);
 	}
 
 
-	function createRow( text )
-	{
+	function createRow( text ) {
 		$chatlog.append( text );
 	}
 
-	function submitInput()
-	{
+	function submitInput() {
 		var inputData = {
 			'text': $input.val()
 		}
@@ -119,8 +117,7 @@
 			contentType: 'application/json'
 		} );
 
-		$submit.done( function ( statement )
-		{
+		$submit.done( function ( statement ) {
 
 			createRow( kiramsg( statement.text ) );
 
@@ -131,26 +128,21 @@
 			$chatlog[ 0 ].scrollTop = $chatlog[ 0 ].scrollHeight;
 		} );
 
-		$submit.fail( function ()
-		{
+		$submit.fail( function () {
 			createRow( 'sorry, something happened and I could not reach my source :)' );
 		} );
 	}
 
-	$sayButton.click( function ()
-	{
+	$sayButton.click( function () {
 		submitInput();
 	} );
 
-	$input.keydown( function ( event )
-	{
+	$input.keydown( function ( event ) {
 		// Submit the input when the enter button is pressed
-		if ( event.keyCode == 13 )
-		{
+		if ( event.keyCode == 13 ) {
 			submitInput();
 		}
 	} );
-
 
 </script>
 

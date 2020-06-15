@@ -1,5 +1,10 @@
+
+
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
+user = get_user_model()
 
 
 class profilePic():
@@ -14,10 +19,13 @@ def errMsg(msg):
 
 
 def usernameExists(userName):
-    if User.objects.filter(username=userName).exists():
+    if user.objects.filter(username=userName).exists():
         return True
 
 
 def emailExists(emailId):
-    if User.objects.filter(email=emailId).exists():
+    if user.objects.filter(email=emailId).exists():
         return True
+
+
+

@@ -1,13 +1,24 @@
+{% url 'library:index' as vid_url %}
+{% url 'library:books' as bks_url %}
 
-<nav class="p-1 mb-2 navbar navbar-expand-lg waf-washed">
-    <a class="nav-item nav-link text-dark p-1" href="{% url 'library:index' %}">
-        <i class="fas fa-film"></i> Videos
-    </a>
-    <a class="text-dark nav-item nav-link p-1" href="{% url 'library:books' %}">
-        <i class="fas fa-book"></i> Books
-    </a>
 
-    <!-- <a class="text-dark nav-item nav-link p-1" href="{% url 'library:books' %}">
-        <i class="fas fa-vial"></i> Test Ground
-    </a> -->
-</nav>
+<div class="flex-row ml-auto justify-content-between row my-4">
+    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <!-- <div class="btn-group btn-group-sm" role="group" aria-label="First group">
+            <a class="nav-item nav-link btn btn-outline-primary" href="{% url 'library:index' %}"><i
+                    class="fas fa-film"></i> Videos</a>
+
+            <a class="nav-item nav-link btn btn-outline-primary" href="{% url 'library:books' %}"><i
+                    class="fas fa-book"></i> Files</a>
+        </div> -->
+    </div>
+    <div class="btn-toolbar mr-3" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group btn-group-sm" role="group" aria-label="upload buttons">
+            <a class="nav-item nav-link btn btn-outline-secondary" href="{% url 'library:upload_video' %}">
+                <span class="fas fa-plus"></span> New Video
+            </a>
+            <!-- <a class="nav-item nav-link btn btn-outline-secondary" href="{% url 'library:index' %}">
+                New File</a> -->
+        </div>
+    </div>
+</div>

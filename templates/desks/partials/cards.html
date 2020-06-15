@@ -38,28 +38,27 @@
 <div class="media m-0 deskcard py-3">
     <input type="hidden" id="{{card.id}}vote" value="{{vote}}">
 
-    <img src="{% static '../static/img/Victor.jpg' %}" class="ml-2 rounded-circle z-depth-0 mt-1" alt="avatar image"
+    <img src="{{ card.user.profile_pic.url }}" class="ml-2 rounded-circle z-depth-0 mt-1 profilepic" alt="profile pic"
         height="30">
+
     <div class="media-body">
 
         <div class="pl-3 pr-2">
             <div class="py-2">
-                <span class="username">{{card.user.first_name}}</span>
-                <div>
-                    <span class="text-muted">@{{card.user.username}} ~ </span>
-                    <small class="text-muted"> {{ card.card_date|date:'D d, M' }}</small>
-                </div>
+                <span class="username">{{card.user.fullname}}</span>
+                <span class="text-muted">@{{card.user.username}}</span>
             </div>
 
             <div class="card-menu" data-magic="{{card.id}}">
-                <p class="py-2 card-text">{{card.text}}</p>
+                <p class="py-0 pb-1 card-text">{{card.text}}</p>
             </div>
+            <small class="text-muted"> {{ card.card_date|date:'d, M' }}</small>
 
             <footer>
                 <hr>
                 <div class="reactions" data-magic="{{card.id}}">
-                    <span class="pr-5 mr-2 text-muted"><i class="reply-count fa fa-reply"></i>
-                        <span class="pl-1 cards-count" id="{{card.id}}count">{{replycount}}</span>
+                    <span class="pr-5 mr-2 text-muted"><i class="reply-count far fa-comment-alt"></i>
+                        <span class="pl-1 cards-count" id="{{card.id}}count">{{card.replies}} replies</span>
                     </span>
                     <!-- <span class="pr-5 mr-3 text-muted"><i class="upvotes fas fa-arrow-up"></i>
                         <span class="pl-1 cards-upvote" id="{{card.id}}upvote">

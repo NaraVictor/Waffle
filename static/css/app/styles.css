@@ -1,0 +1,421 @@
+.waf-btn-prim {
+  background-color: #2076F5;
+  color: white;
+  -webkit-box-shadow: 0px 3px 5px #b9b9b9;
+          box-shadow: 0px 3px 5px #b9b9b9;
+}
+
+.waf-btn-prim:hover {
+  background-color: #1b64d1;
+  color: white;
+  -webkit-box-shadow: 0px 5px 6px #b9b9b9;
+          box-shadow: 0px 5px 6px #b9b9b9;
+}
+
+.waf-text-primary {
+  color: #2076F5;
+}
+
+.card-text {
+  font-size: 20px;
+}
+
+#wraptext > h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2.8rem;
+}
+
+.waf-washed {
+  color: white;
+}
+
+#login-img {
+  max-width: 300px;
+  max-height: 270px;
+}
+
+@media (max-width: 414px) {
+  #login-img {
+    max-width: 200px;
+    max-height: 180px;
+  }
+}
+
+#profilepic:hover {
+  cursor: pointer;
+  border: 3px solid #2076F5;
+}
+
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  margin-left: 40%;
+  width: 80px;
+  height: 80px;
+}
+
+.lds-ring div {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid #cef;
+  border-radius: 50%;
+  -webkit-animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: #305161 transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+  -webkit-animation-delay: -0.45s;
+          animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+  -webkit-animation-delay: -0.3s;
+          animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+  -webkit-animation-delay: -0.15s;
+          animation-delay: -0.15s;
+}
+
+@-webkit-keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes lds-ring {
+  0% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+.about-text {
+  font-size: 1.3rem;
+  font-weight: 200;
+}
+
+.about-row img {
+  max-width: 400px;
+  max-height: 400px;
+}
+
+.about-row h1 {
+  color: #2076F5;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+@media (max-width: 414px) {
+  .about-row img {
+    max-width: 350px;
+    max-height: 350px;
+  }
+}
+
+#profilepic {
+  max-width: 250px;
+  max-height: 250px;
+}
+
+.waf-btn-prim {
+  background-color: #2076F5;
+  color: white;
+  -webkit-box-shadow: 0px 3px 5px #b9b9b9;
+          box-shadow: 0px 3px 5px #b9b9b9;
+}
+
+.waf-btn-prim:hover {
+  background-color: #1b64d1;
+  color: white;
+  -webkit-box-shadow: 0px 5px 6px #b9b9b9;
+          box-shadow: 0px 5px 6px #b9b9b9;
+}
+
+.waf-text-primary {
+  color: #2076F5;
+}
+
+.card-text {
+  font-size: 20px;
+}
+
+#wraptext > h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2.8rem;
+}
+
+.waf-washed {
+  color: white;
+}
+
+#videoplayer {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 420px) {
+  #videoplayer {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.related_video:hover {
+  text-decoration: none;
+}
+
+.deskcard {
+  border-radius: 0px;
+  border: 0.05px solid #eceaea;
+  border-bottom: 0px;
+}
+
+.deskcard:hover {
+  background-color: #f8f8f8;
+}
+
+.card-text, .reply-text {
+  overflow-wrap: break-word;
+  overflow-x: auto;
+  max-width: 450px;
+}
+
+.card-text {
+  font-size: 13px;
+  color: #333;
+}
+
+.card-text:hover {
+  color: black;
+}
+
+.reply-text {
+  background-color: #e9e8e8;
+  color: black;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+@media (max-width: 400px) {
+  .card-text,
+  .reply-text {
+    max-width: 250px !important;
+  }
+}
+
+@media (max-width: 320px) {
+  .card-text,
+  .reply-text {
+    max-width: 200px !important;
+  }
+}
+
+@media (min-width: 400px) {
+  .card-text,
+  .reply-text {
+    max-width: 300px !important;
+  }
+}
+
+@media (min-width: 440px) {
+  .reply-text {
+    max-width: 350px !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .card-text,
+  .reply-text {
+    max-width: 270px !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .card-text,
+  .reply-text {
+    max-width: 380px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .card-text,
+  .reply-text {
+    max-width: 450px !important;
+  }
+}
+
+.card-user-pic {
+  border: 1px solid #2076F5;
+}
+
+.card-menu:hover {
+  color: #2076F5;
+  cursor: pointer;
+}
+
+#replybtn, #reply {
+  border-radius: 20px;
+  background-color: #F5F9FC;
+}
+
+#reply {
+  display: block;
+  overflow: hidden;
+  resize: none;
+}
+
+#reply-form {
+  width: 85%;
+}
+
+.summary {
+  background-color: #eeeeee;
+}
+
+#desk-card-detail {
+  border: 0.05px solid #eceaea;
+}
+
+#detail-back :hover {
+  cursor: pointer;
+}
+
+.reply-count:hover {
+  cursor: pointer;
+  color: #231a9c;
+}
+
+.upvotes:hover {
+  cursor: pointer;
+  color: rgba(60, 129, 21, 0.897);
+}
+
+.downvotes:hover {
+  cursor: pointer;
+  color: #a01919;
+}
+
+.upvote-cast {
+  color: rgba(60, 129, 21, 0.897);
+}
+
+.downvote-cast {
+  color: #a01919;
+}
+
+.waf-btn-prim {
+  background-color: #2076F5;
+  color: white;
+  -webkit-box-shadow: 0px 3px 5px #b9b9b9;
+          box-shadow: 0px 3px 5px #b9b9b9;
+}
+
+.waf-btn-prim:hover {
+  background-color: #1b64d1;
+  color: white;
+  -webkit-box-shadow: 0px 5px 6px #b9b9b9;
+          box-shadow: 0px 5px 6px #b9b9b9;
+}
+
+.waf-text-primary {
+  color: #2076F5;
+}
+
+.card-text {
+  font-size: 20px;
+}
+
+#wraptext > h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2.8rem;
+}
+
+.waf-washed {
+  color: white;
+}
+
+.videotitle {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: large;
+  font-weight: 350;
+}
+
+.cardsize {
+  width: 12px;
+}
+
+.videocard:hover {
+  text-decoration: none;
+}
+
+#vid_detail {
+  border-top: 2px grey dashed;
+  border-bottom: 2px grey dashed;
+}
+
+body {
+  background-color: #F5F9FC;
+}
+
+#mainnav {
+  background-color: #F5F9FC;
+}
+
+.avatar:hover {
+  cursor: pointer;
+}
+
+.authbtn {
+  border-radius: 0px;
+  border: 0px;
+}
+
+.keypoints {
+  /* background-color: var(--washed); */
+  padding-top: 5px;
+  border-radius: 5px;
+  border: 0px;
+  /* color:white; */
+}
+
+#dreamworld {
+  max-width: 80%;
+  max-height: 90%;
+  position: fixed;
+  padding-right: 20px;
+}
+
+.username {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  min-width: 15px !important;
+  border: none;
+}
+
+/* and this styles the dropdwon trigger link, when open */
+/*# sourceMappingURL=styles.css.map */

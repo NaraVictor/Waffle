@@ -1,0 +1,99 @@
+{% extends "_base.html" %}
+{% load static %}
+
+
+{% load i18n %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block css %}
+<style>
+  .errorlist {
+    color: red;
+    font-size: small;
+  }
+
+</style>
+{% endblock %}
+
+{% block javascript %}
+<script src="{% static 'js/app/allauth_fix.js' %}"></script>
+{% endblock %}
+
+
+
+{% block head_title %}{% trans "Login" %} {% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-2 col-sm-0">
+  </div>
+  <div class="col-md-8 col-sm-12">
+    <div class="text-center mt-md-5 mt-sm-1">
+      <div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-md-6 py-0 my-0">
+              <img src="{% static 'img/login-img.png' %}" alt="login image" id="login-img" class="img-responsive">
+            </div>
+
+
+            <div class="col-md-6 col-sm-12">
+              <div class="waf-text-primary">
+                <h4>{% trans "Login" %}</h4>
+              </div>
+
+              <div class="mt-md-3">
+
+                <form class="container-fluid text-center" id="login_form" method="POST"
+                  action="{% url 'account_login' %}">
+                  {% csrf_token %}
+
+                  <div class="form-row" id="frm">
+                    <div class="text-left form-group col-12 mb-0">
+                      {{form.as_p}}
+                    </div>
+                  </div>
+
+                  <button class="btn btn-block waf-btn-prim" type="submit">{% trans "LogIn" %}</button>
+                  <div class="d-flex justify-content-center pt-2">
+                    <a href="{% url 'account_signup' %}" class="ml-2 pr-3">Sign Up</a>
+                    &VerticalSeparator;
+                    <a href="{% url 'account_reset_password' %}" class="pl-3">{% trans "Forgot Password ?" %}</a>
+                  </div>
+                  <hr>
+
+
+                  {% if redirect_field_value %}
+                  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                  {% endif %}
+                </form>
+
+
+                {% load account socialaccount %}
+
+                {% get_providers as socialaccount_providers %}
+                <ul class="social_providers_list">
+                  {% for provider in socialaccount_providers %}
+                  <a title="{{provider.name}}" class="btn btn-outline-dark"
+                    href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}"><i
+                      class="fa fa-{{provider.name}}" id="social_icon"></i>{{provider.name}}</a>
+                  {% endfor %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-2 col-sm-0">
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,89 @@
+{% load static %}
+
+{% url 'library:index' as lib_url %}
+{% url 'landing' as landing_url %}
+{% url 'about:index' as about_url %}
+{% url 'desks:index' as desk_url %}
+{% url 'account_logout' as logout_url %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'contact' as contact_url %}
+
+
+<!--Navbar -->
+<header class="navbar navbar-expand-lg fixed-top navbar-toggleable-md navbar-light text-light p-1" id="mainnav">
+    <div class="container">
+        <div class="d-flex">
+            <a href="{{ landing_url }}">
+                <img src="{% static '/img/waffle-new-logo.png' %}" class="d-inline-block align-top" width="40"
+                    height="40" alt="Waffle Logo" />
+                <span class="navbar-brand text-primary">
+                    waffle
+                </span>
+            </a>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#wafnav"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="collapse navbar-collapse" id="wafnav">
+
+            <ul class="navbar-nav flex-row ml-auto justify-content-between">
+                <li class="nav-item mr-1">
+                    <a class="nav-link {% if request.path == lib_url %}text-primary{% endif %}"
+                        href="{{ lib_url }}">library</a>
+                </li>
+
+                <!-- <li class="nav-item mr-1">
+                    <a class="nav-link {% if request.path == about_url %}text-primary{% endif %}"
+                        href="{{ about_url }}">about</a>
+                </li> -->
+
+                <li class="nav-item mr-1">
+                    <a class="nav-link {% if request.path == contact_url %}text-primary{% endif %}"
+                        href="{{ contact_url }}">contact</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                <li class="nav-item mr-1">
+                    <a class="nav-link {% if request.path == desk_url %}text-primary{% endif %}"
+                        href="{{ desk_url }}">desk</a>
+                </li>
+
+                <li class="nav-item avatar">
+                    <img src="{{ user.profilepic_url }}" class="rounded-circle z-depth-0 mt-1" alt="user profile pic"
+                        id="nav_profile_pic" height="30">
+                </li>
+
+                <div class="dropdown">
+                    <a class="nav-link dropdown-toggle pl-0" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="pl-2">{{ user.first_name }}</span>
+                    </a>
+
+                    <div class="dropdown-menu shadow-sm" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'profile' user.username %}">profile</a>
+
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="{{ logout_url }}">logout</a>
+                    </div>
+                </div>
+
+
+                {% else %}
+
+                <li class="nav-item mr-1">
+                    <a class="authbtn nav-link" href="{{ login_url }}">login</a>
+                </li>
+                <li class="nav-item mr-3">
+                    <a class="authbtn nav-link" href="{{ signup_url }}">signup</a>
+                </li>
+
+                {% endif %}
+
+            </ul>
+
+
+        </nav>
+    </div>
+</header>

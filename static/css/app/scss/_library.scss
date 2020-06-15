@@ -1,0 +1,25 @@
+@import 'commons/components';
+
+.videotitle {
+    @include commonTitle;
+    font-size: large;
+    font-weight: 350;
+}
+
+
+// video cards
+@import 'commons/colors';
+
+.cardsize {
+    width: 12px;
+}
+
+.videocard {
+    // transition: box-shadow 3s;
+
+    &:hover {
+        text-decoration: none;
+        // box-shadow: 5px 5px 10px #888888 !important;
+        ;
+    }
+}

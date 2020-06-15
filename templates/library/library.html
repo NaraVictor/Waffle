@@ -1,8 +1,8 @@
-{% extends '../base.html' %}
+{% extends '../_base.html' %}
 {% load static %}
 
 {% block title %}
-- library
+Library
 {% endblock %}
 
 {% block content %}
@@ -14,29 +14,23 @@
     <!-- main section -->
 
     <div class="row">
-
-        <div class="col-md-9 col-12">
-            <div class="row">
-
-                <div class="col-md-3">
-                    <a href="{% url 'library:video' 103248 %}" class="videocard">
-                        <div class="card shadow-sm mb-3 cardsize">
-                            <img src="{% static '/img/img2.jpg' %}" class="card-img-top card-img" alt="...">
-                            <div class="card-body pt-2 pl-2">
-                                <h5 class="videotitle">Tamed Dagaari</h5>
-                                <p class="videotext text-secondary">simtech inc <span class="small pl-4">35mins</span>
-                                </p>
-                            </div>
+        {% for v in vid %}
+        <div class="col-md-3 col-10 offset-md-0 offset-1">
+            <a href="{% url 'library:watch' v.pk %}" class="videocard cardsize" title="{{v.title}}">
+                <div class="shadow-sm mb-3">
+                    <img src="{% static '/img/img2.jpg' %}" class="card-img-top " alt="...">
+                    <div class="card-body py-1">
+                        <p class="videotitle text-secondary mb-2">{{ v.title }}</p>
+                        <div>
+                            <span class="videotext text-primary">{{ v.user.first_name }}
+                                {{v.user.last_name}}</span>
+                            <span class="small d-block text-secondary">{{ v.video_date|date:'M, d'}}</span>
                         </div>
-                    </a>
+                    </div>
                 </div>
-
-            </div>
-
+            </a>
         </div>
-
-
+        {% endfor %}
     </div>
-
-
-    {% endblock content %}
+</div>
+{% endblock content %}

@@ -103,3 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 static/vids/presentation.mp4
+waffle/settings.py
+waffle/keys/
+waffle/settings1.py
+waffle/settings-Production.py
+uploads/video

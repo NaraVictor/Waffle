@@ -1,13 +1,23 @@
-{% extends '../base.html' %}
+{% extends '../_base.html' %}
 {% load static %}
 {% block title %}
-Waffle
+Desk
 {% endblock %}
+
+{% block css %}
+<!-- summernote css -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
+{% endblock css %}
 
 
 {% block javascript %}
-<script src="{% static 'js/desk.js' %}">
+<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script> -->
+<script src="{% static 'js/app/desk.js' %}">
 </script>
+
+<!-- <script>
+    $( '#waf_text' ).summernote();
+</script> -->
 {% endblock %}
 
 
@@ -43,6 +53,7 @@ Waffle
             </div>
         </div>
 
+        <h2>REMEMBER TO LEAVE ABOUT PAGE ON DESK</h2>
 
         <div id="deskcards" class="pb-3">
             {% include 'desks/partials/cards.html' %}

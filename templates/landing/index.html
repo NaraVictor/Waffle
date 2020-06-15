@@ -1,6 +1,9 @@
-{% extends 'base.html' %}
+{% extends '_base.html' %}
 {% load static %}
 
+{% block title %}
+Home
+{% endblock %}
 
 {% block content %}
 <!-- <style>
@@ -27,15 +30,24 @@
         </p>
       </div>
 
+      <h2>REMEMBER TO LEAVE ABOUT PAGE ON DESK</h2>
 
+      <div class="alert-info">
+        <p class="p-3">
+          This is a public test version up till <strong>January 25, 2020</strong>
+          We encourage you to leave your feedbacks using our contact <a href="{% url 'contact' %}">form.</a>
+          <br> This would enable us build you a better product.
+          All data would be erased after the above date (unless you guys say otherwise 😊)
+        </p>
+      </div>
       <!-- <a href="{% url 'library:index' %}" class="btn waf-btn-prim">explore library</a> -->
 
       {% if user.is_authenticated %}
       <a href="{% url 'desks:index' %}" class="btn btn-success">desk</a>
 
       {% else %}
-      <a href="{% url 'login' %}" class="btn waf-btn-prim">signin</a>
-      <p>Don't have an account? <a href="{% url 'signup' %}">Signup</a> </p>
+      <a href="{% url 'account_login' %}" class="btn waf-btn-prim">Login</a>
+      <p>Don't have an account? <a href="{% url 'account_signup' %}">Signup</a> </p>
 
       <!-- 
       <p class="text-secondary pt-5">these were handpicked just for you...</p>

@@ -1,0 +1,207 @@
+{% extends '_base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Signup
+{% endblock title %}
+
+
+
+{% block javascript %}
+<!-- script added below -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js">
+</script> -->
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script>
+    $( "#submitbtn" ).click( function ( e ) {
+        e.preventDefault();
+        var err = false;
+        $( ".errorlist" ).text( '' );
+
+        $( "input" ).each( function () {
+            if ( $( this ).val() == "" ) {
+                $name = $( this ).attr( 'placeholder' );
+                // $( ".errorlist" ).text( '<li>' + $name + ' is required!' + '</li>' );
+                err = true;
+            }
+        } );
+
+        if ( err ) {
+            $( ".errorlist" ).text( 'all fields are required!' );
+        } else {
+            submitInput();
+        }
+
+    } );
+
+
+    function submitInput() {
+        $.ajax( {
+            url: "{% url 'signup' %}",
+            data: {
+                first_name: $( 'input[name="first_name"]' ).val(),
+                last_name: $( 'input[name="last_name"]' ).val(),
+                email: $( 'input[name="email"]' ).val(),
+                username: $( 'input[name="username"]' ).val(),
+                password1: $( 'input[name="password1"]' ).val(),
+                csrfmiddlewaretoken: $( 'input[name=csrfmiddlewaretoken]' ).val()
+            },
+            method: 'post',
+            dataType: 'json',
+            beforeSend: function () {
+                $( "#submitbtn" ).text( 'Processing...' );
+                $( ".errorlist" ).text( '' );
+
+            },
+            success: function ( data ) {
+                window.location.href = "{% url 'desks:index' %}";
+                // $( "#signup-form" )[ 0 ].reset();
+            }
+
+        } ).fail( function ( $xhr ) {
+            $( ".errorlist" ).text( $xhr.responseJSON.err );
+            $( "#submitbtn" ).text( 'signup' );
+
+        } );
+    }
+
+</script>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-3 col-sm-0">
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+        <div class="bg-white text-center shadow mt-5 rounded">
+            <div>
+                <div class="card-body">
+
+
+                    <div class="waf-text-primary">
+                        <h4>sign up</h4>
+
+                        <div class="my-1 errorlist text-danger">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mt-md-2">
+
+                        <form method="POST" id="signup-form" action="">
+                            {% csrf_token %}
+
+                            <div class="form-row px-3">
+                                <div class="text-left form-group col-md-6">
+                                    <small class="form-text text-muted">First Name</small>
+                                    <input class="form-control" maxlength="30" type="text" placeholder="first name"
+                                        name="first_name" required autofocus>
+
+                                </div>
+                                <div class="text-left form-group col-md-6">
+                                    <small class="form-text text-muted">Last Name</small>
+                                    <input class="form-control" maxlength="130" type="text" placeholder="last name"
+                                        name="last_name" required>
+
+                                </div>
+                            </div>
+
+                            <div class="text-left form-row col-md-12">
+                                <div class="form-group col-md-6 order-0">
+                                    <small class="form-text text-muted">Username</small>
+                                    <input id="username" name="username" placeholder="username" class="form-control"
+                                        maxlength="140" type="text" required>
+                                </div>
+                                <div class="form-group col-md-6 order-2">
+                                    <small class="form-text text-muted">Password</small>
+                                    <input type="password" name="password1" class="form-control" maxlength="120"
+                                        id="pass" placeholder="password" required>
+                                </div>
+                            </div>
+                            <div class="text-left form-group col-md-12">
+                                <small class="form-text text-muted">Email</small>
+                                <input id="email" name="email" placeholder="email" class="form-control" maxlength="250"
+                                    type="email" required>
+                            </div>
+
+                            <button type="submit" id="submitbtn" class="px-4 btn waf-btn-prim">
+                                signup
+                            </button>
+                            <div class="form-group">
+                                <div class="d-flex justify-content-center">
+                                    already registered? <a href="{% url 'account_login' %}" class="ml-2">Login</a>
+                                </div>
+                            </div>
+                            <hr>
+                            <div>
+                                <span>Or signup with: </span>
+                                <span class="fab fa-facebook"></span>
+                                <span class="fab fa-google"></span>
+                                <span class="fab fa-microsoft"></span>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-0">
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+<!-- <div class="form-row">
+          <div class="text-left form-group col-md-6">
+            <input class="form-control" maxlength="30" type="text" placeholder="first name" name="first_name" required
+              autofocus>
+            <span class="small text-danger">
+              {{ form.first_name.errors }}
+            </span>
+          </div>
+          <div class="text-left form-group col-md-6">
+            <input class="form-control" maxlength="130" type="text" placeholder="last name" name="last_name" required>
+            <span class="small text-danger">
+              {{ form.last_name.errors }}
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="text-left form-group col-md-12">
+            <input name="email" placeholder="E-mail address" id="id_email" class="form-control" maxlength="250"
+              type="email" required autofocus>
+            <span class="small text-danger">
+              {{ form.email.errors }}
+            </span>
+          </div>
+        </div>
+
+        <div class="text-left form-row">
+          <div class="form-group col-md-6">
+            <input name="username" placeholder="username" class="form-control" minlength="1" maxlength="150" required
+              id="id_username">
+            <span class="small text-danger">
+              {{ form.username.errors }}
+            </span>
+          </div>
+
+          <div class="form-group col-md-6">
+            <input type="password" name="password1" placeholder="Password" required id="id_password1"
+              class="form-control" maxlength="120">
+          </div>
+          <span class="small text-danger">
+            {{ form.password1.errors }}
+          </span>
+        </div> -->

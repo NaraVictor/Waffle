@@ -1,0 +1,22 @@
+{% extends '../_base.html' %}
+
+{% load static %}
+
+{% block fluid %}
+
+<div class="row pt-3 bg-dark text-white-50">
+    <div class="container">
+        <div class="row">
+            <section class="col-12 p-5 mb-5">
+                <h3 class="text-danger">
+                    Watch is broken!
+                </h3>
+                <a href="{% url 'library:index'%}" class="btn btn-danger">
+                    Get me out of here!
+                </a>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock fluid %}
