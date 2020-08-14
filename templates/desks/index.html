@@ -1,69 +1,58 @@
-{% extends '../_base.html' %}
-{% load static %}
-{% block title %}
-Desk
-{% endblock %}
-
-{% block css %}
+{% extends '../_base.html' %} {% load static %} {% block title %} Desk {%
+endblock %} {% block css %}
 <!-- summernote css -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css" rel="stylesheet">
-{% endblock css %}
-
-
-{% block javascript %}
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.css"
+	rel="stylesheet"
+/>
+{% endblock css %} {% block javascript %}
 <!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script> -->
-<script src="{% static 'js/app/desk.js' %}">
-</script>
+<script src="{% static 'js/app/desk.js' %}"></script>
 
 <!-- <script>
     $( '#waf_text' ).summernote();
 </script> -->
-{% endblock %}
-
-
-{% block content %}
-
+{% endblock %} {% block content %}
 
 <div class="row pt-2">
-    <section class="col-md-3 col-12">
-    </section>
+	<section class="col-md-3 col-12"></section>
 
-    <!-- feeds & question -->
-    <section class="col-md-6 col-12">
-        <div data-toggle="modal" data-target="#wafpost" class="text-secondary  bg-white p-4 rounded">
-            <span>educate the world, ask her a question or promote a talent</span>
-            <button class="btn btn-primary  ml-2">waf...</button>
-        </div>
+	<!-- feeds & question -->
+	<section class="col-md-6 col-12">
+		<div
+			data-toggle="modal"
+			data-target="#wafpost"
+			class="text-secondary bg-white p-4 rounded"
+		>
+			<span>educate the world, ask her a question or promote a talent</span>
+			<button class="btn btn-primary ml-2">waf...</button>
+		</div>
 
-        <div id="errors"></div>
+		<div id="errors"></div>
 
-        {% include 'desks/partials/waf.html' %}
+		{% include 'desks/partials/waf.html' %}
 
-        <!-- <div id="banner"></div> -->
-        <hr>
+		<!-- <div id="banner"></div> -->
+		<hr />
 
-        <div id="detailswap">
-            <div class="lds-ring d-none">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <div id="desk-detail">
-            </div>
-        </div>
+		<div id="detailswap">
+			<div class="lds-ring d-none">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+			<div id="desk-detail"></div>
+		</div>
 
-        <h2>REMEMBER TO LEAVE ABOUT PAGE ON DESK</h2>
+		<!-- <h2>REMEMBER TO LEAVE ABOUT PAGE ON DESK</h2> -->
 
-        <div id="deskcards" class="pb-3">
-            {% include 'desks/partials/cards.html' %}
-        </div>
+		<div id="deskcards" class="pb-3">
+			{% include 'desks/partials/cards.html' %}
+		</div>
+	</section>
 
-    </section>
-
-    <section class="col-md-3 col-12 wings">
-    </section>
-
+	<section class="col-md-3 col-12 wings"></section>
 </div>
 
 {% endblock content %}
